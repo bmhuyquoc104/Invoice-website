@@ -1,10 +1,11 @@
-import { imageResource } from "./public/imageResources";
-
+import GlobalStyled from "./components/GlobalStyled";
 function App() {
-  return <div className="App">
-    <img src={imageResource.Plus} alt="Plus" />
-    <h3>Test deploy</h3>
-  </div>;
+  return (
+    <div>
+      <GlobalStyled/>
+      <h3>Hello World</h3>
+    </div>
+  );
 }
 
 export default App;
