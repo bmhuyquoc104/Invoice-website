@@ -1,5 +1,5 @@
 // Light theme
-const LightTheme = {
+const lightTheme = {
   header: {
     backgroundColor: "var(--clr_header)",
   },
@@ -35,7 +35,7 @@ const LightTheme = {
 };
 
 // Dark theme
-const DarkTheme = {
+const darkTheme = {
   header: {
     backgroundColor: "var(--clr_header)",
   },
@@ -43,7 +43,7 @@ const DarkTheme = {
     backgroundColor: "var(--clr_logo)",
   },
   body: {
-    backgroundColor: "var(--lr_main_dark_bg)",
+    backgroundColor: "var(--clr_main_dark_bg)",
   },
   card: {
     backgroundColor: "var(--clr_card_dark_background)",
@@ -69,4 +69,4 @@ const DarkTheme = {
     color: "var(--clr_body_dark_subtext)",
   },
 };
-export { LightTheme, DarkTheme };
+export { lightTheme, darkTheme };
