@@ -32,6 +32,9 @@ const lightTheme = {
   subText: {
     color: "var(--clr_body_light_subtext)",
   },
+  border: {
+    color: "var(--clr_border)",
+  },
 };
 
 // Dark theme
@@ -67,6 +70,9 @@ const darkTheme = {
   },
   subText: {
     color: "var(--clr_body_dark_subtext)",
+  },
+  border: {
+    color: "var(--clr_border)",
   },
 };
 export { lightTheme, darkTheme };

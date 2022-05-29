@@ -7,7 +7,9 @@ const GlobalStyled = createGlobalStyle`
   }
   :root{
     --clr_header:rgb(55, 59, 83);
-    --clr_logo:rgb(124, 93, 250);
+    --clr_logo:#7c5dfa;
+    --clr_logo2:#b5a6f8;
+    --clr_border:#494e70;
     
     /* Light mode */
     --clr_main_light_bg:rgb(248, 248, 251);

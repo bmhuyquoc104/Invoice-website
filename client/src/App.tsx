@@ -10,7 +10,7 @@ function App() {
   return (
     <ThemeProvider theme={themeMode}>
       <GlobalStyled />
-      <Header themeToggler={ThemeToggler} />
+      <Header theme = {theme} themeToggler={ThemeToggler} />
     </ThemeProvider>
   );
 }

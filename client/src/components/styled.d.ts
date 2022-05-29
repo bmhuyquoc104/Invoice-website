@@ -35,5 +35,8 @@ declare module "styled-components" {
     subText: {
       color: string;
     };
+    border:{
+      color: string;
+    }
   }
 }
