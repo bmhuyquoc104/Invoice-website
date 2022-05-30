@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const HeaderStyled = styled.header`
   display: flex;
-  align-items: center;
+  align-items: stretch;
   background-color: ${({ theme }) => theme.header.backgroundColor};
   flex-direction: column;
   border-radius: 0 20px 20px 0;
@@ -14,6 +14,7 @@ const HeaderStyled = styled.header`
   }
   .logo img {
     width: 100%;
+    object-fit:contain;
     height: 40px;
   }
   .theme-container {
@@ -33,8 +34,8 @@ const HeaderStyled = styled.header`
   .avatar img {
     width: 100%;
     aspect-ratio: 1/1;
-    object-fit: cover;
-    height: 35px;
+    object-fit: contain;
+    height: 40px;
   }
 
   @media (max-width: 900px) {
@@ -42,7 +43,9 @@ const HeaderStyled = styled.header`
     border-radius: 0 0px 0px 0;
 
     .logo {
-      padding: 1.2em 1.5em;
+      padding: 0 1.75em;
+      display: flex;
+      align-items: center;
     }
     .logo img {
       width: 100%;
@@ -50,7 +53,19 @@ const HeaderStyled = styled.header`
     }
     .theme-container {
       margin-top: revert;
-      padding: 1.2em 1.5em;
+      align-items: revert;
+      justify-content: flex-end;
+      /* padding: 1.2em 1.5em; */
+      border-bottom: none;
+      border-right: 1px solid ${({ theme }) => theme.border.color};
+    }
+    .avatar {
+      display: flex;
+      padding: 0 1.75em;
+      align-items: center;
+    }
+    .avatar img{
+      width: 100%;
     }
   }
 `;
