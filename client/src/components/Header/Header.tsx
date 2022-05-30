@@ -10,15 +10,7 @@ type HeaderProps = {
 
 function Header({ themeToggler, theme }: HeaderProps) {
   const [isToggle, setIsToggle] = useState(false);
-  const btnRef = useRef<HTMLImageElement>(null);
-  useEffect(() => {
-    const closeModal = (e: any) => {
-      console.log(e);
-      if (e.path[0] !== btnRef.current) setIsToggle(false);
-    };
-    document.body.addEventListener("click", closeModal);
-    return () => document.body.removeEventListener("click", closeModal);
-  }, []);
+
   return (
     <HeaderStyled>
       <div className="logo">
@@ -36,13 +28,15 @@ function Header({ themeToggler, theme }: HeaderProps) {
 
       <div className="avatar">
         <img
-          ref={btnRef}
           onClick={() => setIsToggle(!isToggle)}
           src={imageResource.Avatar}
           alt="Avatar"
         />
       </div>
-      {isToggle ? <UserProfile /> : null}
+      {isToggle ? (
+        <UserProfile 
+        show={isToggle} onClickOutside={() => setIsToggle(false)} />
+      ) : null}
     </HeaderStyled>
   );
 }
