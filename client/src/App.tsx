@@ -2,6 +2,7 @@ import { ThemeProvider } from "styled-components";
 import useTheme from "./hooks/useTheme";
 import { lightTheme, darkTheme } from "./components/theme";
 import Header from "./components/Header/Header";
+import Main from "./components/Main/Main";
 import GlobalStyled from "./components/GlobalStyled";
 
 function App() {
@@ -10,7 +11,8 @@ function App() {
   return (
     <ThemeProvider theme={themeMode}>
       <GlobalStyled />
-      <Header theme = {theme} themeToggler={ThemeToggler} />
+      <Header theme={theme} themeToggler={ThemeToggler} />
+      <Main />
     </ThemeProvider>
   );
 }

@@ -40,13 +40,13 @@ export type Invoice = {
   items: Item[];
 };
 // Function to get all invoices
-const getAllInvoices = () => api.get("/invoices");
+const getAllInvoices = () => api.get("/invoice");
 
 // Function to get one invoice
-const getInvoice = (id: string) => api.get(`/invoices/${id}`);
+const getInvoice = (id: string) => api.get(`/invoice/${id}`);
 
 // Function to add new invoice
-const addInvoice = (newInvoice: Invoice) => api.post(`/invoices`, newInvoice);
+const addInvoice = (newInvoice: Invoice) => api.post(`/invoice`, newInvoice);
 
 // Function to edit invoice
 const editInvoice = (id: string, newInvoice: Invoice) =>
