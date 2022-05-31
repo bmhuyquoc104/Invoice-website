@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { HydratedDocument, Model, Query, Schema, model } from "mongoose";
 
 type SenderAddress = {
   street: string;
@@ -37,8 +37,29 @@ interface IInvoice {
   total: number;
 }
 
-// 2. Create a schema corresponding to the document interface
-const invoiceSchema = new Schema<IInvoice>({
+type InvoiceModelType = Model<IInvoice, InvoiceQueryHelpers>;
+
+// Query helpers should return `Query<any, Document<DocType>> & ProjectQueryHelpers`
+// to enable chaining.
+type InvoiceModelQuery = Query<
+  any,
+  HydratedDocument<IInvoice>,
+  InvoiceQueryHelpers
+> &
+  InvoiceQueryHelpers;
+
+// interface to declare query for model
+interface InvoiceQueryHelpers {
+  byId(this: InvoiceModelQuery, id: string): InvoiceModelQuery;
+}
+
+// Declare schema for invoice
+const invoiceSchema = new Schema<
+  IInvoice,
+  InvoiceModelType,
+  {},
+  InvoiceQueryHelpers
+>({
   id: String,
   createdAt: {
     type: String,
@@ -120,6 +141,12 @@ const invoiceSchema = new Schema<IInvoice>({
   ],
 });
 
-const Invoice = model<IInvoice>("invoices", invoiceSchema);
+// Query helper function by Id
+invoiceSchema.query.byId = function (id: string) {
+  return this.find({ id: `${id}` });
+};
+
+// Export schema
+const Invoice = model<IInvoice, InvoiceModelType>("invoices", invoiceSchema);
 
 export { Invoice };
