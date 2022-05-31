@@ -28,9 +28,21 @@ const getInvoice = async (req: Request, res: Response) => {
 // Function to delete invoice by id
 const deleteInvoice = async (req: Request, res: Response) => {
   try {
-    const id = res.invoice[0].id;
-    await Invoice.deleteOne({ id: id });
+    const id = res.invoice._id;
+    await Invoice.deleteOne({ _id: id });
     res.status(204).send("Successfully deleted");
+  } catch (error) {
+    res.status(500).send("Internal server");
+  }
+};
+
+// Function update invoice
+const updateInvoice = async (req: Request, res: Response) => {
+  try {
+    const invoice = await Invoice.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    res.status(200).send(invoice);
   } catch (error) {
     res.status(500).send("Internal server");
   }
@@ -63,4 +75,4 @@ const addInvoice = async (req: Request, res: Response) => {
     res.status(500).send("Internal server");
   }
 };
-export { getAllInvoices, getInvoice, deleteInvoice, addInvoice };
+export { getAllInvoices, getInvoice, deleteInvoice, addInvoice, updateInvoice };

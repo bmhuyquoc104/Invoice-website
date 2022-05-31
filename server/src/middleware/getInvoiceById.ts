@@ -15,8 +15,8 @@ const getInvoiceByID = async (
   let invoice;
   try {
     console.log(invoice);
-    invoice = await Invoice.find().byId(req.params.id);
-    if (invoice == "") {
+    invoice = await Invoice.findById(req.params.id);
+    if (invoice == null) {
       return res.status(404).send("Can not find this invoice");
     }
   } catch (error: any) {

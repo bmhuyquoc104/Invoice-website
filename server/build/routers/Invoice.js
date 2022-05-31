@@ -11,5 +11,6 @@ router.route("/").get(Invoice_1.getAllInvoices).post(Invoice_1.addInvoice);
 router
     .route("/:id")
     .get(getInvoiceById_1.getInvoiceByID, Invoice_1.getInvoice)
-    .delete(getInvoiceById_1.getInvoiceByID, Invoice_1.deleteInvoice);
+    .delete(getInvoiceById_1.getInvoiceByID, Invoice_1.deleteInvoice)
+    .put(getInvoiceById_1.getInvoiceByID, Invoice_1.updateInvoice);
 exports.default = router;

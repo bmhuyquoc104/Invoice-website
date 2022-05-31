@@ -21,8 +21,8 @@ const getInvoiceByID = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
     let invoice;
     try {
         console.log(invoice);
-        invoice = yield Invoice_1.Invoice.find().byId(req.params.id);
-        if (invoice == "") {
+        invoice = yield Invoice_1.Invoice.findById(req.params.id);
+        if (invoice == null) {
             return res.status(404).send("Can not find this invoice");
         }
     }

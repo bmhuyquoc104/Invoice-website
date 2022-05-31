@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addInvoice = exports.deleteInvoice = exports.getInvoice = exports.getAllInvoices = void 0;
+exports.updateInvoice = exports.addInvoice = exports.deleteInvoice = exports.getInvoice = exports.getAllInvoices = void 0;
 const Invoice_1 = require("../models/Invoice");
 // import {IInvoiceResponse} from "../middleware/getInvoiceById"
 // Function to get all invoices
@@ -41,8 +41,8 @@ exports.getInvoice = getInvoice;
 // Function to delete invoice by id
 const deleteInvoice = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const id = res.invoice[0].id;
-        yield Invoice_1.Invoice.deleteOne({ id: id });
+        const id = res.invoice._id;
+        yield Invoice_1.Invoice.deleteOne({ _id: id });
         res.status(204).send("Successfully deleted");
     }
     catch (error) {
@@ -50,6 +50,19 @@ const deleteInvoice = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.deleteInvoice = deleteInvoice;
+// Function update invoice
+const updateInvoice = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const invoice = yield Invoice_1.Invoice.findByIdAndUpdate(req.params.id, req.body, {
+            new: true,
+        });
+        res.status(200).send(invoice);
+    }
+    catch (error) {
+        res.status(500).send("Internal server");
+    }
+});
+exports.updateInvoice = updateInvoice;
 //Function add invoice
 const addInvoice = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {

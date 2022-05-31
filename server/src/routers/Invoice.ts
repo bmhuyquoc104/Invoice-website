@@ -3,6 +3,7 @@ import {
   getAllInvoices,
   getInvoice,
   deleteInvoice,
+  updateInvoice,
   addInvoice,
 } from "../controllers/Invoice";
 import { getInvoiceByID } from "../middleware/getInvoiceById";
@@ -11,5 +12,6 @@ router.route("/").get(getAllInvoices).post(addInvoice);
 router
   .route("/:id")
   .get(getInvoiceByID, getInvoice)
-  .delete(getInvoiceByID, deleteInvoice);
+  .delete(getInvoiceByID, deleteInvoice)
+  .put(getInvoiceByID, updateInvoice);
 export default router;
