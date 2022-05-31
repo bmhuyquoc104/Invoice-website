@@ -120,6 +120,6 @@ const invoiceSchema = new Schema<IInvoice>({
   ],
 });
 
-const Invoice = model<IInvoice>("Invoice", invoiceSchema);
+const Invoice = model<IInvoice>("invoices", invoiceSchema);
 
 export { Invoice };
