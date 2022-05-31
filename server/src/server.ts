@@ -7,7 +7,7 @@ import cors from "cors";
 const app: Express = express();
 const PORT =  process.env.PORT || 8080;
 const HOSTNAME = process.env.HOSTNAME || "localhost";
-const MONGO_URI = process.env.MONGO_URI || "";
+const MONGO_URI = process.env.MONGO_URI !;
 
 //Connect to mongodb
 mongoose.connect(
