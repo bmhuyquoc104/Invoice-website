@@ -62,7 +62,7 @@ const MainStyled = styled.main`
     background-color: ${({ theme }) => theme.button.color};
   }
 
-  /* @media (max-width: 900px) {
+  @media (max-width: 900px) {
     width: 100%;
     padding: 4em;
     .header-control {
@@ -75,12 +75,23 @@ const MainStyled = styled.main`
   @media (max-width: 480px) {
     .header-title h1 {
       letter-spacing: 1px;
-      font-size: 1.4rem;
+      font-size: 1.6rem;
     }
-    .filter {
-      gap: 0.2em;
+    .header-title h2{
+      width:18ch;
     }
-  } */
+    .filter p{
+      gap:0.1em;
+      width:6ch;
+      height:15px;
+      overflow: hidden;
+    }
+    .add p{
+      width:6ch;
+      height:15px;
+      overflow: hidden;
+    }
+  }
 `;
 
 export default MainStyled;

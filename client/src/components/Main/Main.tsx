@@ -25,12 +25,12 @@ function Main() {
         </div>
         <div className="header-control">
           <button className="filter">
-            Filter by status
+            <p>Filter by status</p>
             <img src={imageResource.ArrowDown} alt="Arrow down" />
           </button>
           <button className="add">
             <img src={imageResource.Plus} alt="Plus" />
-            New invoice
+            <p>New invoice</p>
           </button>
         </div>
       </div>
