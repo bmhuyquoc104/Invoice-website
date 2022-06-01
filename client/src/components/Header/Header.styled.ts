@@ -6,6 +6,8 @@ const HeaderStyled = styled.header`
   background-color: ${({ theme }) => theme.header.backgroundColor};
   flex-direction: column;
   border-radius: 0 20px 20px 0;
+  height: 100vh;
+  position:fixed;
 
   .logo {
     padding: 1.8em;
@@ -40,6 +42,9 @@ const HeaderStyled = styled.header`
 
   @media (max-width: 900px) {
     flex-direction: row;
+    height:revert;
+    width: 100%;
+    position:revert;
     border-radius: 0 0px 0px 0;
 
     .logo {
