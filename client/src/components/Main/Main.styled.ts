@@ -1,0 +1,86 @@
+import styled from "styled-components";
+
+const MainStyled = styled.main`
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  padding: 6em;
+  gap: 2em;
+  .main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .header-title {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+  }
+  .header-title h1 {
+    color: ${({ theme }) => theme.text.color};
+    font-size: 2rem;
+    letter-spacing: 2px;
+  }
+  .header-title h2 {
+    color: ${({ theme }) => theme.subText.color};
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    font-weight: 300;
+  }
+  .header-control {
+    display: flex;
+    flex-direction: row;
+    gap: 3em;
+  }
+  .filter {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    color: ${({ theme }) => theme.text.color};
+    font-size: 0.75rem;
+    background-color: transparent;
+    font-weight: bold;
+    border: none;
+    letter-spacing: 0.5px;
+  }
+  .add {
+    display: flex;
+    padding: 0.75em 1em;
+    flex-direction: row;
+    align-items: center;
+    font-weight: 700;
+    font-size: 0.75rem;
+    border: none;
+    gap: 0.5em;
+    color: ${({ theme }) => theme.button.color};
+    border-radius: 25px;
+    background-color: ${({ theme }) => theme.button.backgroundColor};
+  }
+  .add img {
+    padding: 0.75em;
+    border-radius: 50%;
+    background-color: ${({ theme }) => theme.button.color};
+  }
+
+  /* @media (max-width: 900px) {
+    width: 100%;
+    padding: 4em;
+    .header-control {
+      gap: 1em;
+    }
+  }
+  @media (max-width: 626px) {
+    padding: 1.5em;
+  }
+  @media (max-width: 480px) {
+    .header-title h1 {
+      letter-spacing: 1px;
+      font-size: 1.4rem;
+    }
+    .filter {
+      gap: 0.2em;
+    }
+  } */
+`;
+
+export default MainStyled;

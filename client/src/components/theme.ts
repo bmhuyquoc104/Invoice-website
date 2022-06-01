@@ -29,12 +29,17 @@ const lightTheme = {
   text: {
     color: "var(--clr_body_light_text)",
   },
+  button: {
+    color: "var(--clr_button_text)",
+    backgroundColor: "var(--clr_button_light_backgroundColor)",
+  },
   subText: {
     color: "var(--clr_body_light_subtext)",
   },
   border: {
     color: "var(--clr_border)",
   },
+  backgroundColor: "var(--clr_button_light_backgroundColor)",
 };
 
 // Dark theme
@@ -70,6 +75,10 @@ const darkTheme = {
   },
   subText: {
     color: "var(--clr_body_dark_subtext)",
+  },
+  button: {
+    color: "var(--clr_button_text)",
+    backgroundColor: "var(--clr_button_dark_backgroundColor)",
   },
   border: {
     color: "var(--clr_border)",

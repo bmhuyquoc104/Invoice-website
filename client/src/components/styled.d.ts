@@ -32,6 +32,10 @@ declare module "styled-components" {
     text: {
       color: string;
     };
+    button: {
+      color: string;
+      backgroundColor: string;
+    }
     subText: {
       color: string;
     };
