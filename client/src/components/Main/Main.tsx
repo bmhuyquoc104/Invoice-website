@@ -18,37 +18,37 @@ function Main() {
 
   console.log(invoices?.data);
 
-  return (
-    <MainStyled>
-      <div className="main-header">
-        <div className="header-title">
-          <h1>Invoices</h1>
-          <h2>{`There are ${invoices?.data.length} total invoices`}</h2>
+    return (
+      <MainStyled>
+        <div className="main-header">
+          <div className="header-title">
+            <h1>Invoices</h1>
+            <h2>{`There are ${invoices?.data.length} total invoices`}</h2>
+          </div>
+          <div className="header-control">
+            <button className="filter">
+              <p>Filter by status</p>
+              <img src={imageResource.ArrowDown} alt="Arrow down" />
+            </button>
+            <button className="add">
+              <img src={imageResource.Plus} alt="Plus" />
+              <p>New invoice</p>
+            </button>
+          </div>
         </div>
-        <div className="header-control">
-          <button className="filter">
-            <p>Filter by status</p>
-            <img src={imageResource.ArrowDown} alt="Arrow down" />
-          </button>
-          <button className="add">
-            <img src={imageResource.Plus} alt="Plus" />
-            <p>New invoice</p>
-          </button>
+        <div className="main-body">
+          {invoices?.data.map((invoice: InvoiceType) => (
+            <Invoice
+              id={invoice.id}
+              status={invoice.status}
+              paymentDue={invoice.paymentDue}
+              total={invoice.total}
+              clientName={invoice.clientName}
+            ></Invoice>
+          ))}
         </div>
-      </div>
-      <div className="main-body">
-        {invoices?.data.map((invoice: InvoiceType) => (
-          <Invoice
-            id={invoice.id}
-            status={invoice.status}
-            paymentDue={invoice.paymentDue}
-            total={invoice.total}
-            clientName = {invoice.clientName}
-          ></Invoice>
-        ))}
-      </div>
-    </MainStyled>
-  );
+      </MainStyled>
+    );
 }
 
 export default Main;

@@ -2,7 +2,7 @@ import { InvoiceStyled } from "./Invoice.styled";
 import { imageResource } from "../../../public/imageResources";
 import format from "date-fns/format";
 
-type InvoiceProps = {
+export type InvoiceProps = {
   id: string;
   status: string;
   paymentDue: string;
@@ -10,10 +10,16 @@ type InvoiceProps = {
   total: number;
 };
 
-function Invoice({ id, status, paymentDue, clientName, total }: InvoiceProps) {
+function Invoice({
+  id,
+  status,
+  paymentDue,
+  clientName,
+  total,
+}: InvoiceProps) {
   let dateFormat: string | undefined;
 
-  // Convert date to correct format 
+  // Convert date to correct format
   const formatDate = () => {
     let date: number[] = paymentDue
       .split("-")
@@ -28,11 +34,15 @@ function Invoice({ id, status, paymentDue, clientName, total }: InvoiceProps) {
   };
   formatDate();
   // Convert string to currency format
-  const currency = function(number:any){
-      return new Intl.NumberFormat('en-GB', {style: 'currency',currency: 'GBP', minimumFractionDigits: 2}).format(number);
+  const currency = function (number: any) {
+    return new Intl.NumberFormat("en-GB", {
+      style: "currency",
+      currency: "GBP",
+      minimumFractionDigits: 2,
+    }).format(number);
   };
   return (
-    <InvoiceStyled>
+    <InvoiceStyled >
       <h2 className="id">
         <span>#</span>
         {id}
@@ -40,7 +50,10 @@ function Invoice({ id, status, paymentDue, clientName, total }: InvoiceProps) {
       <h2 className="paymentDue">{`Due ${dateFormat}`}</h2>
       <h2 className="clientName">{clientName}</h2>
       <h2 className="total">{currency(total)}</h2>
-      <h2 className="status">{status}</h2>
+      {status === "paid" && <h2 className="status paid">{status}</h2>}
+      {status === "pending" && <h2 className="status pending">{status}</h2>}
+      {status === "draft" && <h2 className="status draft">{status}</h2>}
+
       <img src={imageResource.ArrowRight} alt="Arrow Right" />
     </InvoiceStyled>
   );

@@ -3,9 +3,11 @@ import styled from "styled-components";
 const MainStyled = styled.main`
   display: flex;
   flex-direction: column;
-  width: 90%;
-  padding: 6em;
-  gap: 2em;
+  margin-left:auto;
+  margin-right:auto;
+  width: 70%;
+  padding: 4em 10em;
+  gap: 4em;
   .main-header {
     display: flex;
     justify-content: space-between;
@@ -19,7 +21,7 @@ const MainStyled = styled.main`
   .header-title h1 {
     color: ${({ theme }) => theme.text.color};
     font-size: 2rem;
-    letter-spacing: 2px;
+    letter-spacing: 0.2px;
   }
   .header-title h2 {
     color: ${({ theme }) => theme.subText.color};
@@ -61,6 +63,11 @@ const MainStyled = styled.main`
     border-radius: 50%;
     background-color: ${({ theme }) => theme.button.color};
   }
+  .main-body{
+    display: flex;
+    gap: 1em;
+    flex-direction:column;
+  }
 
   @media (max-width: 900px) {
     width: 100%;
@@ -74,7 +81,7 @@ const MainStyled = styled.main`
   }
   @media (max-width: 480px) {
     .header-title h1 {
-      letter-spacing: 1px;
+      letter-spacing: 0.2px;
       font-size: 1.6rem;
     }
     .header-title h2{

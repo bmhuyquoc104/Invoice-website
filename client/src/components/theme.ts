@@ -1,25 +1,28 @@
 // Light theme
 const lightTheme = {
   header: {
-    backgroundColor: "var(--clr_header)",
+    backgroundColor: "var(--clr_header_light_bg)",
   },
   logo: {
     backgroundColor: "var(--clr_logo)",
   },
   body: {
-    backgroundColor: "var(--lr_main_light_bg)",
+    backgroundColor: "var(--clr_main_light_bg)",
   },
   card: {
     backgroundColor: "var(--clr_card_light_background)",
     text: {
       paid: {
         color: "var(--clr_text_light_paid)",
+        backgroundColor: "var(--clr_text_light_paid_bg)"
       },
       pending: {
         color: "var(--clr_text_light_pending)",
+        backgroundColor: "var(--clr_text_light_paid_bg)"
       },
       draft: {
         color: "var(--clr_text_light_draft)",
+        backgroundColor: "var(--clr_text_light_paid_bg)"
       },
       customer: {
         color: "var(--clr_text_light_customer)",
@@ -45,7 +48,7 @@ const lightTheme = {
 // Dark theme
 const darkTheme = {
   header: {
-    backgroundColor: "var(--clr_header)",
+    backgroundColor: "var(--clr_header_dark_bg)",
   },
   logo: {
     backgroundColor: "var(--clr_logo)",
@@ -58,12 +61,15 @@ const darkTheme = {
     text: {
       paid: {
         color: "var(--clr_text_dark_paid)",
+        backgroundColor: "var(--clr_text_dark_paid_bg)"
       },
       pending: {
         color: "var(--clr_text_dark_pending)",
+        backgroundColor: "var(--clr_text_dark_pending_bg)"
       },
       draft: {
         color: "var(--clr_text_dark_draft)",
+        backgroundColor: "var(--clr_text_dark_draft_bg)"
       },
       customer: {
         color: "var(--clr_text_dark_customer)",

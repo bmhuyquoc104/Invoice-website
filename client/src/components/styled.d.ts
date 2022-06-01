@@ -1,4 +1,5 @@
 import "styled-components";
+import { string } from "yup";
 
 declare module "styled-components" {
   //  Declare interface of default theme
@@ -17,12 +18,15 @@ declare module "styled-components" {
       text: {
         paid: {
           color: string;
+          backgroundColor:string;
         };
         pending: {
           color: string;
+          backgroundColor:string;
         };
         draft: {
           color: string;
+          backgroundColor:string;
         };
         customer: {
           color: string;
