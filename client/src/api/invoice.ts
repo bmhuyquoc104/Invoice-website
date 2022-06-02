@@ -18,7 +18,7 @@ type ClientAddress = {
   country?: string;
 };
 
-type Item = {
+export type Item = {
   name: string;
   quantity: number;
   price: number;

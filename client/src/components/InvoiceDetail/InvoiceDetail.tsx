@@ -1,5 +1,10 @@
 import React from "react";
 import { useGetInvoiceById } from "../../hooks/useInvoice";
+import { imageResource } from "../../public/imageResources";
+import { Item } from "../../api/invoice";
+import { formatDate } from "../../helper/FormatDate";
+import {currency } from "../../helper/FormatCurrency";
+import InvoiceDetailStyled from "./InvoiceDetail.styled";
 import { useParams } from "react-router-dom";
 
 function InvoiceDetail() {
@@ -11,10 +16,77 @@ function InvoiceDetail() {
   if (isError) {
     return <div>{`Error: ${error}`}</div>;
   }
-
   console.log(invoice?.data);
-  console.log(id);
-  return <div>InvoiceDetail</div>;
+  return (
+    <InvoiceDetailStyled>
+      <button>
+        <img src={imageResource.ArrowLeft} alt="Arrow Left" />
+        Go back
+      </button>
+      <div className="sub-detail">
+        <h2>Status</h2>
+        <p>{invoice?.data.status}</p>
+        <div className="controller">
+          <button className="edit">Edit</button>
+          <button className="delete">Delete</button>
+        </div>
+      </div>
+      <div className="main-detail">
+        <div className="id">
+          <h2>{invoice?.data.id}</h2>
+          <h2>{invoice?.data.description}</h2>
+        </div>
+        <div className="senderAddress">
+          <h2>{invoice?.data.senderAddress.street}</h2>
+          <h2>{invoice?.data.senderAddress.city}</h2>
+          <h2>{invoice?.data.senderAddress.postCode}</h2>
+          <h2>{invoice?.data.senderAddress.country}</h2>
+        </div>
+        <div className="createdAt">
+          <h2>
+            Invoice Date: <span>{formatDate(invoice?.data.createdAt)}</span>
+          </h2>
+        </div>
+        <div className="clientAddress">
+          <p>Bill To</p>
+          <h2 className="clientName">{invoice?.data.clientName}</h2>
+          <h2>{invoice?.data.clientAddress.street}</h2>
+          <h2>{invoice?.data.clientAddress.city}</h2>
+          <h2>{invoice?.data.clientAddress.postCode}</h2>
+          <h2>{invoice?.data.clientAddress.country}</h2>
+        </div>
+        <div className="clientEmail">
+          <h2>{invoice?.data.clientEmail}</h2>
+        </div>
+        <div className="paymentDue">
+          <h2>
+            Payment Due: <span>{formatDate(invoice?.data.paymentDue)}</span>
+          </h2>
+        </div>
+        <div className="items">
+          {invoice?.data.items.map((item: Item, index: any) => (
+            <div key={index} className="item">
+              <div className="item-itemName">
+                Item Name: <span> {item.name}</span>
+              </div>
+              <div className="item-quantity">
+                QTY: <span> {item.quantity}</span>
+              </div>
+              <div className="item-price">
+                Price: <span> {currency(item.price)}</span>
+              </div>
+              <div className="item-total">
+                Total: <span> {currency(item.total)}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="total">
+          Amount Due <span>{currency(invoice?.data.total)}</span>
+        </div>
+      </div>
+    </InvoiceDetailStyled>
+  );
 }
 
 export default InvoiceDetail;

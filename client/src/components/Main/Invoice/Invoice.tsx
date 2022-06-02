@@ -1,48 +1,34 @@
 import { InvoiceStyled } from "./Invoice.styled";
 import { imageResource } from "../../../public/imageResources";
-import format from "date-fns/format";
+import { formatDate } from "../../../helper/FormatDate";
+import { currency } from "../../../helper/FormatCurrency";
 
 export type InvoiceProps = {
   id: string;
   status: string;
   paymentDue: string;
   clientName: string;
-  liVariant:any;
+  liVariant: any;
   total: number;
-  handleClick: (event:React.MouseEvent<HTMLDivElement>) => void;
+  handleClick: (event: React.MouseEvent<HTMLDivElement>) => void;
 };
 
-function Invoice({ id, status, paymentDue, clientName, total, liVariant,handleClick }: InvoiceProps) {
-  let dateFormat: string | undefined;
-  // Convert date to correct format
-  const formatDate = () => {
-    let date: number[] = paymentDue
-      .split("-")
-      .reverse()
-      .map((element, index) =>
-        index == 1 ? parseInt(element) - 1 : parseInt(element)
-      );
-    let day = date[0];
-    let month = date[1];
-    let year = date[2];
-    dateFormat = format(new Date(year, month, day), "dd MMM yyyy");
-  };
-  formatDate();
-  // Convert string to currency format
-  const currency = function (number: any) {
-    return new Intl.NumberFormat("en-GB", {
-      style: "currency",
-      currency: "GBP",
-      minimumFractionDigits: 2,
-    }).format(number);
-  };
+function Invoice({
+  id,
+  status,
+  paymentDue,
+  clientName,
+  total,
+  liVariant,
+  handleClick,
+}: InvoiceProps) {
   return (
-    <InvoiceStyled variants = {liVariant} onClick = {handleClick}>
+    <InvoiceStyled variants={liVariant} onClick={handleClick}>
       <h2 className="id">
         <span>#</span>
         {id}
       </h2>
-      <h2 className="paymentDue">{`Due ${dateFormat}`}</h2>
+      <h2 className="paymentDue">{`Due ${formatDate(paymentDue)}`}</h2>
       <h2 className="clientName">{clientName}</h2>
       <h2 className="total">{currency(total)}</h2>
       {status === "paid" && <h2 className="status paid">{status}</h2>}
