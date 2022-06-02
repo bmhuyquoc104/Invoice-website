@@ -2,17 +2,19 @@ import styled from "styled-components";
 
 const InvoiceStyled = styled.div`
   display: grid;
-  align-items:center;
+  align-items: center;
+  gap: 0.5em;
   background-color: ${({ theme }) => theme.card.backgroundColor};
-  grid-template-columns:5em 9em 1fr min-content min-content min-content;
-  grid-template-rows:min-content;
+  grid-template-columns: 4em 7em 1fr 6em 6em min-content;
+  grid-template-areas: "id paymentDue clientName total status img";
   padding: 1em 1.5em;
   border-radius: 7px;
   :hover {
     border: 1px solid ${({ theme }) => theme.logo.backgroundColor};
   }
   .id {
-    grid-column: 1/2;
+    /* grid-column: 1/2; */
+    grid-area: id;
     font-weight: bold;
     font-size: 0.85rem;
     line-height: 1.1;
@@ -20,28 +22,35 @@ const InvoiceStyled = styled.div`
     color: ${({ theme }) => theme.text.color};
   }
   .paymentDue {
-    grid-column: 2/3;
+    /* grid-column: 2/3; */
+    grid-area: paymentDue;
     font-size: 0.75rem;
     color: ${({ theme }) => theme.subText.color};
     font-weight: 300;
   }
   .clientName {
-    grid-column: 3/4;
+    /* grid-column: 3/4; */
+    grid-area: clientName;
     font-size: 0.75rem;
     color: ${({ theme }) => theme.card.text.customer.color};
     font-weight: 300;
   }
   .total {
-    grid-column: 4/5;
+    /* grid-column: 4/5; */
+    grid-area: total;
     font-size: 1rem;
     font-weight: bold;
     color: ${({ theme }) => theme.text.color};
+    justify-self: end;
+    margin-right: 1em;
   }
 
   .status {
-    grid-column: 5/6;
+    /* grid-column: 5/6; */
+    grid-area: status;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5em;
     font-size: 0.75rem;
     font-weight: bold;
@@ -82,6 +91,25 @@ const InvoiceStyled = styled.div`
   }
   span {
     color: rgb(126, 136, 195);
+  }
+  @media (max-width: 700px) {
+    grid-template-columns: 1fr 6em;
+    grid-template-areas:
+      "id clientName"
+      "paymentDue status"
+      "total status";
+    img{
+      display:none;
+    } 
+    .total{
+      justify-self:revert;
+    } 
+    .id{
+      margin-bottom:0.75em;
+    }
+    .clientName{
+      justify-self:end;
+    }
   }
 `;
 

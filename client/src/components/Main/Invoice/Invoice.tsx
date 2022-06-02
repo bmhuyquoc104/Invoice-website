@@ -54,7 +54,7 @@ function Invoice({
       {status === "pending" && <h2 className="status pending">{status}</h2>}
       {status === "draft" && <h2 className="status draft">{status}</h2>}
 
-      <img src={imageResource.ArrowRight} alt="Arrow Right" />
+      <img className="img" src={imageResource.ArrowRight} alt="Arrow Right" />
     </InvoiceStyled>
   );
 }

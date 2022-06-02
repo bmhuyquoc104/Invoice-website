@@ -5,8 +5,8 @@ const MainStyled = styled.main`
   flex-direction: column;
   margin-left:auto;
   margin-right:auto;
-  width: 70%;
-  padding: 4em 10em;
+  width: 60%;
+  padding: 4em 0;
   gap: 4em;
   .main-header {
     display: flex;
