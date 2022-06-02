@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
-const InvoiceStyled = styled.div`
+const InvoiceStyled = styled(motion.div)`
   display: grid;
   align-items: center;
   gap: 0.5em;
@@ -98,17 +99,17 @@ const InvoiceStyled = styled.div`
       "id clientName"
       "paymentDue status"
       "total status";
-    img{
-      display:none;
-    } 
-    .total{
-      justify-self:revert;
-    } 
-    .id{
-      margin-bottom:0.75em;
+    img {
+      display: none;
     }
-    .clientName{
-      justify-self:end;
+    .total {
+      justify-self: revert;
+    }
+    .id {
+      margin-bottom: 0.75em;
+    }
+    .clientName {
+      justify-self: end;
     }
   }
 `;

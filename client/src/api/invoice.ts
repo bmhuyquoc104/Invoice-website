@@ -27,6 +27,7 @@ type Item = {
 
 export type Invoice = {
   id: string;
+  _id:string;
   createdAt: string;
   paymentDue: string;
   description: string;

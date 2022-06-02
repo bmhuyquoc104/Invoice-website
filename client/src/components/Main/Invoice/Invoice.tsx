@@ -7,18 +7,12 @@ export type InvoiceProps = {
   status: string;
   paymentDue: string;
   clientName: string;
+  liVariant:any;
   total: number;
 };
 
-function Invoice({
-  id,
-  status,
-  paymentDue,
-  clientName,
-  total,
-}: InvoiceProps) {
+function Invoice({ id, status, paymentDue, clientName, total, liVariant }: InvoiceProps) {
   let dateFormat: string | undefined;
-
   // Convert date to correct format
   const formatDate = () => {
     let date: number[] = paymentDue
@@ -42,7 +36,7 @@ function Invoice({
     }).format(number);
   };
   return (
-    <InvoiceStyled >
+    <InvoiceStyled variants = {liVariant}>
       <h2 className="id">
         <span>#</span>
         {id}
