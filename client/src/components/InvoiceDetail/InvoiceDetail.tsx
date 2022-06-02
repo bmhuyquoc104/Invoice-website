@@ -49,9 +49,12 @@ function InvoiceDetail() {
         </div>
       </div>
       <div className="main-detail">
-        <div className="id">
-          <h2>{invoice?.data.id}</h2>
-          <h2>{invoice?.data.description}</h2>
+        <div className="id-description">
+          <h2 className = "id">
+            <span>#</span>
+            {invoice?.data.id}
+          </h2>
+          <h2 className="description">{invoice?.data.description}</h2>
         </div>
         <div className="senderAddress">
           <h2>{invoice?.data.senderAddress.street}</h2>
@@ -73,7 +76,7 @@ function InvoiceDetail() {
           <h2>{invoice?.data.clientAddress.country}</h2>
         </div>
         <div className="clientEmail">
-          <h2>{invoice?.data.clientEmail}</h2>
+          <h2>Sent to <span>{invoice?.data.clientEmail}</span></h2>
         </div>
         <div className="paymentDue">
           <h2>

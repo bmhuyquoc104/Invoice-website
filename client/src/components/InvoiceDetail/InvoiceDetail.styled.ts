@@ -126,28 +126,68 @@ const InvoiceDetailStyled = styled.div`
     background-color: ${({ theme }) => theme.card.backgroundColor};
     display: grid;
     padding: 1.5em;
-    gap: 0.5em;
-    grid-template-columns: 10em 10em 1fr;
+    gap: 1em;
+    grid-template-columns: 10em 15em 1fr;
     grid-template-areas:
-      "id . senderAddress"
+      "id-description . senderAddress"
       "createdAt clientAddress clientEmail"
       "paymentDue clientAddress ."
       "items items items"
       "total total total";
   }
 
-  .id {
-    grid-area: id;
+  .id-description {
+    grid-area: id-description;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
   }
+  .id {
+    font-size: 1rem;
+    color: ${({ theme }) => theme.text.color};
+    display: flex;
+    font-weight: bold;
+  }
+
+  .id > span {
+    color: rgb(126, 136, 195);
+  }
+
   .senderAddress {
     grid-area: senderAddress;
+    justify-self: end;
+    display: flex;
+    gap:0.5em;
+    flex-direction:column;
+    letter-spacing:0.23px;
   }
-  .createAt {
-    grid-area: createAt;
+  .senderAddress h2 {
+    font-size: 0.6875rem;
+    color: ${({ theme }) => theme.subText.color};
+    font-weight: 300;
+    text-align: right;
   }
-  .clientAddress {
+  .createdAt {
+    grid-area: createdAt;
+  }
+  .createdAt h2 {
+    font-size: 0.75rem;
+    flex-direction: column;
+    color: ${({ theme }) => theme.subText.color};
+  }
+
+  .clientAddress,
+  .clientAddress h2 {
     grid-area: clientAddress;
+    display: flex;
+    font-size: 0.6875rem;
+    justify-self:center;
+    gap:0.75em;
+    flex-direction: column;
+    color: ${({ theme }) => theme.subText.color};
+    font-weight: 300;
   }
+
   .clientEmail {
     grid-area: clientEmail;
   }
@@ -159,6 +199,29 @@ const InvoiceDetailStyled = styled.div`
   }
   .paymentDue {
     grid-area: paymentDue;
+    display: flex;
+    font-size: 0.75rem;
+    flex-direction: column;
+    color: ${({ theme }) => theme.subText.color};
+  }
+  .description,
+  .createdAt h2,
+  .paymentDue h2,
+  .clientEmail h2 {
+    color: ${({ theme }) => theme.subText.color};
+    font-size: 0.75rem;
+    font-weight: 300;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+  }
+  .createdAt h2 span,
+  .paymentDue h2 span,
+  .clientEmail h2 span,
+  .clientName {
+    color: ${({ theme }) => theme.text.color} !important;
+    font-size: 0.9375rem !important;
+    font-weight: bold !important;
   }
   @media (max-width: 1170px) {
     width: 70%;
