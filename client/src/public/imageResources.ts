@@ -12,6 +12,7 @@ import ArrowLeft from "./images/icon-arrow-left.svg";
 import ArrowDown from "./images/icon-arrow-down.svg";
 import ExternalLink from "./images/icon-external-link.svg";
 import Avatar from "./images/avatar.png";
+import Oops from "./images/oops.gif"
 
 export const imageResource = {
   Logo,
@@ -26,5 +27,6 @@ export const imageResource = {
   ArrowRight,
   ArrowLeft,
   Avatar,
+  Oops,
   ArrowDown,
 };

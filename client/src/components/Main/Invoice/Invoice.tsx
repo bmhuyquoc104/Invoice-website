@@ -9,9 +9,10 @@ export type InvoiceProps = {
   clientName: string;
   liVariant:any;
   total: number;
+  handleClick: (event:React.MouseEvent<HTMLDivElement>) => void;
 };
 
-function Invoice({ id, status, paymentDue, clientName, total, liVariant }: InvoiceProps) {
+function Invoice({ id, status, paymentDue, clientName, total, liVariant,handleClick }: InvoiceProps) {
   let dateFormat: string | undefined;
   // Convert date to correct format
   const formatDate = () => {
@@ -36,7 +37,7 @@ function Invoice({ id, status, paymentDue, clientName, total, liVariant }: Invoi
     }).format(number);
   };
   return (
-    <InvoiceStyled variants = {liVariant}>
+    <InvoiceStyled variants = {liVariant} onClick = {handleClick}>
       <h2 className="id">
         <span>#</span>
         {id}

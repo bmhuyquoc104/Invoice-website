@@ -10,14 +10,13 @@ function Main() {
   const { data: invoices, isLoading, error, isError } = useGetAllInvoices();
 
   if (isLoading) {
-    return `Loading ...`;
+    return <div>loading</div>;
   }
 
   if (isError) {
     return <h1>{`Error: ${error}`}</h1>;
   }
 
-  console.log(invoices?.data);
 
   const ulVariant = {
     hidden: {
@@ -81,6 +80,7 @@ function Main() {
             total={invoice.total}
             clientName={invoice.clientName}
             liVariant={liVariant}
+            handleClick = {() => console.log("Hello")}
           ></Invoice>
         ))}
       </motion.div>
