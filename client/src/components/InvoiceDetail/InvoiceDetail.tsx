@@ -3,12 +3,13 @@ import { useGetInvoiceById } from "../../hooks/useInvoice";
 import { imageResource } from "../../public/imageResources";
 import { Item } from "../../api/invoice";
 import { formatDate } from "../../helper/FormatDate";
-import {currency } from "../../helper/FormatCurrency";
+import { currency } from "../../helper/FormatCurrency";
 import InvoiceDetailStyled from "./InvoiceDetail.styled";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 function InvoiceDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { data: invoice, isLoading, isError, error } = useGetInvoiceById(id!);
   if (isLoading) {
     return <div>Loading...</div>;
@@ -19,16 +20,32 @@ function InvoiceDetail() {
   console.log(invoice?.data);
   return (
     <InvoiceDetailStyled>
-      <button>
+      <button className="goBack" onClick={() => navigate(-1)}>
         <img src={imageResource.ArrowLeft} alt="Arrow Left" />
         Go back
       </button>
       <div className="sub-detail">
-        <h2>Status</h2>
-        <p>{invoice?.data.status}</p>
+        <div className="status-detail">
+          <h2>Status</h2>
+          {invoice?.data.status === "paid" && (
+            <p className="status paid">{invoice?.data.status}</p>
+          )}
+          {invoice?.data.status === "pending" && (
+            <p className="status pending">{invoice?.data.status}</p>
+          )}
+          {invoice?.data.status === "draft" && (
+            <p className="status draft">{invoice?.data.status}</p>
+          )}
+        </div>
         <div className="controller">
           <button className="edit">Edit</button>
           <button className="delete">Delete</button>
+          {invoice?.data.status === "pending" ||
+          invoice?.data.status === "draft" ? (
+            <button className="mark-as-paid">Mark As Paid</button>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
       <div className="main-detail">

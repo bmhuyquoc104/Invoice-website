@@ -14,15 +14,15 @@ const lightTheme = {
     text: {
       paid: {
         color: "var(--clr_text_light_paid)",
-        backgroundColor: "var(--clr_text_light_paid_bg)"
+        backgroundColor: "var(--clr_text_light_paid_bg)",
       },
       pending: {
         color: "var(--clr_text_light_pending)",
-        backgroundColor: "var(--clr_text_light_paid_bg)"
+        backgroundColor: "var(--clr_text_light_paid_bg)",
       },
       draft: {
         color: "var(--clr_text_light_draft)",
-        backgroundColor: "var(--clr_text_light_paid_bg)"
+        backgroundColor: "var(--clr_text_light_paid_bg)",
       },
       customer: {
         color: "var(--clr_text_light_customer)",
@@ -35,6 +35,9 @@ const lightTheme = {
   button: {
     color: "var(--clr_button_text)",
     backgroundColor: "var(--clr_button_light_backgroundColor)",
+    edit: {
+      backgroundColor: "var( --clr_button_edit_light_bg)",
+    },
   },
   subText: {
     color: "var(--clr_body_light_subtext)",
@@ -61,15 +64,15 @@ const darkTheme = {
     text: {
       paid: {
         color: "var(--clr_text_dark_paid)",
-        backgroundColor: "var(--clr_text_dark_paid_bg)"
+        backgroundColor: "var(--clr_text_dark_paid_bg)",
       },
       pending: {
         color: "var(--clr_text_dark_pending)",
-        backgroundColor: "var(--clr_text_dark_pending_bg)"
+        backgroundColor: "var(--clr_text_dark_pending_bg)",
       },
       draft: {
         color: "var(--clr_text_dark_draft)",
-        backgroundColor: "var(--clr_text_dark_draft_bg)"
+        backgroundColor: "var(--clr_text_dark_draft_bg)",
       },
       customer: {
         color: "var(--clr_text_dark_customer)",
@@ -85,6 +88,9 @@ const darkTheme = {
   button: {
     color: "var(--clr_button_text)",
     backgroundColor: "var(--clr_button_dark_backgroundColor)",
+    edit: {
+      backgroundColor: "var( --clr_button_edit_dark_bg)",
+    },
   },
   border: {
     color: "var(--clr_border)",

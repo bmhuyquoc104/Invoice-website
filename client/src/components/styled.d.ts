@@ -39,6 +39,9 @@ declare module "styled-components" {
     button: {
       color: string;
       backgroundColor: string;
+      edit:{
+        backgroundColor: string;
+      }
     }
     subText: {
       color: string;

@@ -24,7 +24,7 @@ const GlobalStyled = createGlobalStyle`
     --clr_text_light_draft_bg:rgba(55, 59, 83, 0.06);
     --clr_text_light_customer:rgb(133, 139, 178);
     --clr_button_light_backgroundColor:#7c5dfa;
-
+    --clr_button_edit_light_bg:rgb(249, 250, 254);
     /* Dark mode */
     --clr_main_dark_bg:rgb(20, 22, 37);
     --clr_header_dark_bg:rgb(30, 33, 57);
@@ -39,6 +39,7 @@ const GlobalStyled = createGlobalStyle`
     --clr_text_dark_draft_bg:rgba(223, 227, 250, 0.06);
     --clr_text_dark_customer:#ffffff;
     --clr_button_dark_backgroundColor:#7c5dfa;
+    --clr_button_edit_dark_bg:rgb(37, 41, 69);
 
   }
 
