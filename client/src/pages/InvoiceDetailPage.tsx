@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import InvoiceDetail from "../components/InvoiceDetail/InvoiceDetail";
 
 function InvoiceDetailPage() {
   return (
-    <div>InvoiceDetailPage</div>
-  )
+    <>
+      <InvoiceDetail />
+    </>
+  );
 }
 
-export default InvoiceDetailPage
+export default InvoiceDetailPage;

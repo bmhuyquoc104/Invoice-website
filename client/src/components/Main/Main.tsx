@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { useGetAllInvoices } from "../../hooks/useInvoice";
 import { imageResource } from "../../public/imageResources";
 import MainStyled from "./Main.styled";
@@ -7,6 +8,7 @@ import { Invoice as InvoiceType } from "../../api/invoice";
 import Invoice from "./Invoice/Invoice";
 
 function Main() {
+  const navigate = useNavigate();
   const { data: invoices, isLoading, error, isError } = useGetAllInvoices();
 
   if (isLoading) {
@@ -16,7 +18,6 @@ function Main() {
   if (isError) {
     return <h1>{`Error: ${error}`}</h1>;
   }
-
 
   const ulVariant = {
     hidden: {
@@ -80,7 +81,7 @@ function Main() {
             total={invoice.total}
             clientName={invoice.clientName}
             liVariant={liVariant}
-            handleClick = {() => console.log("Hello")}
+            handleClick={() => navigate(`/${invoice._id}`)}
           ></Invoice>
         ))}
       </motion.div>

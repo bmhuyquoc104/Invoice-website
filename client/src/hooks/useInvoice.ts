@@ -9,7 +9,14 @@ import {
 import { useQuery, useMutation } from "react-query";
 
 const useGetAllInvoices = () => {
-  return useQuery(["invoice"], getAllInvoices);
+  return useQuery(["invoices"], getAllInvoices);
 };
 
-export { useGetAllInvoices };
+const useGetInvoiceById = (id: string) => {
+  return useQuery(["invoice", id], () => getInvoice(id), {
+    enabled: Boolean(id),
+  });
+};
+
+
+export { useGetAllInvoices, useGetInvoiceById };
