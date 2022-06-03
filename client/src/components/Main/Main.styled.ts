@@ -71,13 +71,13 @@ const MainStyled = styled.main`
 
   @media (max-width: 900px) {
     width: 100%;
-    padding: 4em;
+    padding: 8em 4em;
     .header-control {
       gap: 1em;
     }
   }
   @media (max-width: 626px) {
-    padding: 1.5em;
+    padding: 7em 1.5em;
   }
   @media (max-width: 480px) {
     .header-title h1 {

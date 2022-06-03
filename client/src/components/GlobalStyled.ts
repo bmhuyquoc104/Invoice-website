@@ -48,11 +48,8 @@ const GlobalStyled = createGlobalStyle`
     min-height:100vh;
     font-family: 'Spartan', sans-serif;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     background-color:${({ theme }) => theme.body.backgroundColor};
-    @media (max-width: 900px){
-      flex-direction: column;
-    }
   }
   
 `;

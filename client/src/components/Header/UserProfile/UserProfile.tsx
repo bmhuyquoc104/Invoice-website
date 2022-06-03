@@ -28,7 +28,11 @@ function UserProfile(props: UserProfileProps) {
 
   return (
     <AbsoluteFlexContainer>
-      <UserProfileStyled ref={ref}>
+      <UserProfileStyled
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, transition: { duration: 1 } }}
+        ref={ref}
+      >
         <img src={imageResource.Avatar} alt="Daredevil" />
         <div className="user-info">
           <h2 className="name">Huy Vo</h2>
@@ -45,22 +49,26 @@ function UserProfile(props: UserProfileProps) {
           </h2>
         </div>
         <div className="contact">
-          <a href="https://www.linkedin.com/in/qu%E1%BB%91c-huy-v%C3%B5-5a2630234/" target="_blank">
+          <a
+            href="https://www.linkedin.com/in/qu%E1%BB%91c-huy-v%C3%B5-5a2630234/"
+            target="_blank"
+          >
             <h2>Connect me on LinkedIn</h2>
             <span>
               <BiLinkExternal style={{ color: "#ff5858" }} />
             </span>
           </a>
           <a href="https://github.com/bmhuyquoc104" target="_blank">
-            <h2>Visit my github{" "}</h2>
+            <h2>Visit my github </h2>
             <span>
-              <BiLinkExternal
-                style={{ color: "#ff5858" }}
-              />
+              <BiLinkExternal style={{ color: "#ff5858" }} />
             </span>
           </a>
-          <a href="https://www.frontendmentor.io/profile/bmhuyquoc104" target="_blank">
-            <h2>See my frontend mentor profile{" "}</h2>
+          <a
+            href="https://www.frontendmentor.io/profile/bmhuyquoc104"
+            target="_blank"
+          >
+            <h2>See my frontend mentor profile </h2>
             <span>
               <BiLinkExternal style={{ color: "#ff5858" }} />
             </span>

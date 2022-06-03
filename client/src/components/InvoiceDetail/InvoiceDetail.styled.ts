@@ -23,6 +23,7 @@ const InvoiceDetailStyled = styled.div`
     font-size: 0.75rem;
     :hover {
       cursor: pointer;
+      color: var(--clr_logo2);
     }
   }
 
@@ -191,6 +192,9 @@ const InvoiceDetailStyled = styled.div`
   }
   .items {
     grid-area: items;
+    display: flex;
+    flex-direction: column;
+    gap:1.75em;
     margin-top: 3em;
     border-radius: 10px 10px 0 0px;
     padding: 2.5em 2em;
@@ -206,7 +210,7 @@ const InvoiceDetailStyled = styled.div`
   .item.total {
     display: flex;
     flex-direction: column;
-    gap: 3em;
+    gap: 2em;
   }
 
   .itemName,
@@ -292,12 +296,12 @@ const InvoiceDetailStyled = styled.div`
 
   @media (max-width: 900px) {
     width: 80%;
-    padding: 4em 0;
+    padding: 8em 0;
   }
 
   @media (max-width: 620px) {
     width: 100%;
-    padding: 3em 0 0 0;
+    padding: 7em 0 0 0;
     & > * {
       width: 90%;
       margin-left: auto;
@@ -356,7 +360,7 @@ const InvoiceDetailStyled = styled.div`
         grid-area: items;
         display: flex;
         flex-direction: column;
-        gap:1em;
+        gap: 1em;
         margin-top: 3em;
         border-radius: 10px 10px 0 0px;
         padding: 2.5em 2em;
@@ -380,7 +384,7 @@ const InvoiceDetailStyled = styled.div`
         font-weight: bold;
         font-size: 0.75rem;
       }
-      .item-mobile.total{
+      .item-mobile.total {
         font-size: 1.15rem;
       }
       .item-left-side > :nth-child(2) {

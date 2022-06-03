@@ -29,7 +29,7 @@ function Main() {
         type: "tween",
         duration: 0.7,
         when: "beforeChildren",
-        staggerChildren: 0.5,
+        staggerChildren: 0.3,
       },
     },
   };

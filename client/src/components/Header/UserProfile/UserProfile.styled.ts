@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
-const UserProfileStyled = styled.section`
+const UserProfileStyled = styled(motion.section)`
   display: flex;
   flex-direction: column;
   gap: 1em;
@@ -16,7 +17,8 @@ const UserProfileStyled = styled.section`
     flex-direction: column;
     gap: 0.5em;
   }
-  h2, .contact h2  {
+  h2,
+  .contact h2 {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -52,8 +54,8 @@ const UserProfileStyled = styled.section`
     transition: transform 0.5s ease;
   }
   .contact h2:hover::before {
-  transform: scaleX(1);
-}
+    transform: scaleX(1);
+  }
   .name {
     font-size: 1.75rem;
     font-weight: 700;

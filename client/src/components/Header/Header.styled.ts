@@ -44,7 +44,6 @@ const HeaderStyled = styled.header`
     flex-direction: row;
     height:revert;
     width: 100%;
-    position:revert;
     border-radius: 0 0px 0px 0;
 
     .logo {
