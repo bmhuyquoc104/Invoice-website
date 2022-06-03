@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const InvoiceDetailStyled = styled.div`
   display: flex;
-  width: 70%;
+  width: 75%;
   padding: 4em 10em;
   margin-left: auto;
   margin-right: auto;
@@ -27,7 +27,6 @@ const InvoiceDetailStyled = styled.div`
   }
 
   .status {
-    /* grid-column: 5/6; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -126,14 +125,13 @@ const InvoiceDetailStyled = styled.div`
     background-color: ${({ theme }) => theme.card.backgroundColor};
     display: grid;
     padding: 1.5em;
-    gap: 1em;
-    grid-template-columns: 10em 15em 1fr;
+    /* grid-template-columns: 10em 14em 1fr; */
     grid-template-areas:
       "id-description . senderAddress"
       "createdAt clientAddress clientEmail"
       "paymentDue clientAddress ."
       "items items items"
-      "total total total";
+      "amount-total amount-total amount-total";
   }
 
   .id-description {
@@ -157,9 +155,9 @@ const InvoiceDetailStyled = styled.div`
     grid-area: senderAddress;
     justify-self: end;
     display: flex;
-    gap:0.5em;
-    flex-direction:column;
-    letter-spacing:0.23px;
+    gap: 0.5em;
+    flex-direction: column;
+    letter-spacing: 0.23px;
   }
   .senderAddress h2 {
     font-size: 0.6875rem;
@@ -181,8 +179,8 @@ const InvoiceDetailStyled = styled.div`
     grid-area: clientAddress;
     display: flex;
     font-size: 0.6875rem;
-    justify-self:center;
-    gap:0.75em;
+    justify-self: center;
+    gap: 0.75em;
     flex-direction: column;
     color: ${({ theme }) => theme.subText.color};
     font-weight: 300;
@@ -193,14 +191,71 @@ const InvoiceDetailStyled = styled.div`
   }
   .items {
     grid-area: items;
+    margin-top: 3em;
+    border-radius: 10px 10px 0 0px;
+    padding: 2.5em 2em;
+    background-color: ${({ theme }) => theme.button.edit.backgroundColor};
   }
-  .total {
-    grid-area: total;
+  .item {
+    display: flex;
+    justify-content: space-between;
+  }
+  .item.itemName,
+  .item.quantity,
+  .item.price,
+  .item.total {
+    display: flex;
+    flex-direction: column;
+    gap: 3em;
+  }
+
+  .itemName,
+  .quantity,
+  .price,
+  .item.total {
+    color: ${({ theme }) => theme.subText.color};
+    font-size: 0.6875rem;
+  }
+
+  .itemName span,
+  .quantity span,
+  .price span,
+  .item.total span {
+    color: ${({ theme }) => theme.text.color};
+    font-weight: bold;
+    font-size: 0.75rem;
+  }
+  .item.quantity {
+    text-align: center;
+    margin-left: auto;
+    margin-right: 4em;
+  }
+  .item.price {
+    margin-right: auto;
+  }
+  .item.price,
+  .item.total {
+    text-align: right;
+  }
+
+  .amount-total {
+    grid-area: amount-total;
+    display: flex;
+    justify-content: space-between;
+    background-color: ${({ theme }) => theme.total.backgroundColor};
+    padding: 2em 2em;
+    align-items: center;
+    color: #ffffff;
+    border-radius: 0 0 10px 10px;
+  }
+  .amount-total span {
+    font-size: 1.5rem;
   }
   .paymentDue {
     grid-area: paymentDue;
     display: flex;
     font-size: 0.75rem;
+    align-self: end;
     flex-direction: column;
     color: ${({ theme }) => theme.subText.color};
   }
@@ -221,7 +276,11 @@ const InvoiceDetailStyled = styled.div`
   .clientName {
     color: ${({ theme }) => theme.text.color} !important;
     font-size: 0.9375rem !important;
+    margin-top: 0.25em;
     font-weight: bold !important;
+  }
+  .bottom-controller {
+    display: none;
   }
   @media (max-width: 1170px) {
     width: 70%;
@@ -234,12 +293,57 @@ const InvoiceDetailStyled = styled.div`
   }
 
   @media (max-width: 620px) {
+    width: 100%;
+    padding: 3em 0 0 0;
+    & > * {
+      width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+    }
     .controller {
       display: none;
     }
     .status-detail {
       width: 100%;
       justify-content: space-between;
+    }
+    .bottom-controller {
+      display: flex;
+      width: 100%;
+      border-radius: 0;
+      gap: 0.5em;
+      padding: 1.5em;
+      background-color: ${({ theme }) => theme.header.backgroundColor};
+      align-items: center;
+    }
+    .bottom-controller > .edit {
+      margin-left: auto;
+    }
+    .main-detail {
+      grid-template-columns: 6.5em 1fr;
+      gap: 1em;
+      /* "id-description . senderAddress"
+      "createdAt clientAddress clientEmail"
+      "paymentDue clientAddress ."
+      "items items items"
+      "amount-total amount-total amount-total"; */
+      grid-template-areas:
+        "id-description ."
+        "senderAddress ."
+        "createdAt clientAddress"
+        "paymentDue clientAddress"
+        "clientEmail ."
+        "items items"
+        "amount-total amount-total";
+      .senderAddress {
+        justify-self: start;
+      }
+      .senderAddress h2 {
+        text-align:left;
+      }
+      .amount-total{
+        margin-top:-1em;
+      }
     }
   }
 `;

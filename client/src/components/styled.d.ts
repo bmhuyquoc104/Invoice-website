@@ -48,6 +48,9 @@ declare module "styled-components" {
     };
     border:{
       color: string;
+    };
+    total:{
+      backgroundColor: string;
     }
   }
 }

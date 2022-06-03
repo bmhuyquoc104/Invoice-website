@@ -20,10 +20,12 @@ function InvoiceDetail() {
   console.log(invoice?.data);
   return (
     <InvoiceDetailStyled>
-      <button className="goBack" onClick={() => navigate(-1)}>
-        <img src={imageResource.ArrowLeft} alt="Arrow Left" />
-        Go back
-      </button>
+      <div>
+        <button className="goBack" onClick={() => navigate(-1)}>
+          <img src={imageResource.ArrowLeft} alt="Arrow Left" />
+          Go back
+        </button>
+      </div>
       <div className="sub-detail">
         <div className="status-detail">
           <h2>Status</h2>
@@ -50,7 +52,7 @@ function InvoiceDetail() {
       </div>
       <div className="main-detail">
         <div className="id-description">
-          <h2 className = "id">
+          <h2 className="id">
             <span>#</span>
             {invoice?.data.id}
           </h2>
@@ -76,7 +78,9 @@ function InvoiceDetail() {
           <h2>{invoice?.data.clientAddress.country}</h2>
         </div>
         <div className="clientEmail">
-          <h2>Sent to <span>{invoice?.data.clientEmail}</span></h2>
+          <h2>
+            Sent to <span>{invoice?.data.clientEmail}</span>
+          </h2>
         </div>
         <div className="paymentDue">
           <h2>
@@ -86,24 +90,34 @@ function InvoiceDetail() {
         <div className="items">
           {invoice?.data.items.map((item: Item, index: any) => (
             <div key={index} className="item">
-              <div className="item-itemName">
-                Item Name: <span> {item.name}</span>
+              <div className="item itemName">
+                Item Name <span> {item.name}</span>
               </div>
-              <div className="item-quantity">
-                QTY: <span> {item.quantity}</span>
+              <div className="item quantity">
+                QTY. <span> {item.quantity}</span>
               </div>
-              <div className="item-price">
-                Price: <span> {currency(item.price)}</span>
+              <div className="item price">
+                Price <span> {currency(item.price)}</span>
               </div>
-              <div className="item-total">
-                Total: <span> {currency(item.total)}</span>
+              <div className="item total">
+                Total <span> {currency(item.total)}</span>
               </div>
             </div>
           ))}
         </div>
-        <div className="total">
+        <div className="amount-total">
           Amount Due <span>{currency(invoice?.data.total)}</span>
         </div>
+      </div>
+      <div className="bottom-controller">
+        <button className="edit">Edit</button>
+        <button className="delete">Delete</button>
+        {invoice?.data.status === "pending" ||
+        invoice?.data.status === "draft" ? (
+          <button className="mark-as-paid">Mark As Paid</button>
+        ) : (
+          <></>
+        )}
       </div>
     </InvoiceDetailStyled>
   );

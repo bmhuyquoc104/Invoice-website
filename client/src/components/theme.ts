@@ -46,6 +46,9 @@ const lightTheme = {
     color: "var(--clr_border)",
   },
   backgroundColor: "var(--clr_button_light_backgroundColor)",
+  total: {
+    backgroundColor: "var(--clr_total_light_bg)",
+  },
 };
 
 // Dark theme
@@ -94,6 +97,9 @@ const darkTheme = {
   },
   border: {
     color: "var(--clr_border)",
+  },
+  total: {
+    backgroundColor: "var(--clr_total_dark_bg)",
   },
 };
 export { lightTheme, darkTheme };
