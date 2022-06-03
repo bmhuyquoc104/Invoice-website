@@ -105,6 +105,21 @@ function InvoiceDetail() {
             </div>
           ))}
         </div>
+        <div className="items-mobile">
+          {invoice?.data.items.map((item: Item, index: any) => (
+            <div key={index} className="item">
+              <div className="item-left-side">
+                <div className="item-mobile itemName">{item.name}</div>
+                <div>
+                  <h3>{item.quantity}</h3>
+                  <p>x</p>
+                  <h3>{currency(item.price)}</h3>
+                </div>
+              </div>
+              <div className="item-mobile total">{currency(item.total)}</div>
+            </div>
+          ))}
+        </div>
         <div className="amount-total">
           Amount Due <span>{currency(invoice?.data.total)}</span>
         </div>

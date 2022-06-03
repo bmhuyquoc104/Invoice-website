@@ -282,6 +282,9 @@ const InvoiceDetailStyled = styled.div`
   .bottom-controller {
     display: none;
   }
+  .items-mobile {
+    display: none;
+  }
   @media (max-width: 1170px) {
     width: 70%;
     padding: 4em;
@@ -313,7 +316,7 @@ const InvoiceDetailStyled = styled.div`
       border-radius: 0;
       gap: 0.5em;
       padding: 1.5em;
-      background-color: ${({ theme }) => theme.header.backgroundColor};
+      background-color: ${({ theme }) => theme.card.backgroundColor};
       align-items: center;
     }
     .bottom-controller > .edit {
@@ -339,10 +342,52 @@ const InvoiceDetailStyled = styled.div`
         justify-self: start;
       }
       .senderAddress h2 {
-        text-align:left;
+        text-align: left;
       }
-      .amount-total{
-        margin-top:-1em;
+      .amount-total {
+        margin-top: -1em;
+      }
+    }
+    @media (max-width: 520px) {
+      .items {
+        display: none;
+      }
+      .items-mobile {
+        grid-area: items;
+        display: flex;
+        flex-direction: column;
+        gap:1em;
+        margin-top: 3em;
+        border-radius: 10px 10px 0 0px;
+        padding: 2.5em 2em;
+        background-color: ${({ theme }) => theme.button.edit.backgroundColor};
+      }
+      .items-mobile .item {
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      }
+      .item-left-side {
+        display: flex;
+        gap: 0.25em;
+        flex-direction: column;
+        color: ${({ theme }) => theme.subText.color};
+        font-weight: 300;
+      }
+      .item-mobile.itemName,
+      .item-mobile.total {
+        color: ${({ theme }) => theme.text.color};
+        font-weight: bold;
+        font-size: 0.75rem;
+      }
+      .item-mobile.total{
+        font-size: 1.15rem;
+      }
+      .item-left-side > :nth-child(2) {
+        display: flex;
+        align-items: center;
+        font-size: 0.6875rem;
+        gap: 0.25em;
       }
     }
   }
