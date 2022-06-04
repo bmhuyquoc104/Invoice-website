@@ -2,13 +2,18 @@ import { IoMdTrash } from "react-icons/io";
 import React, { useId, useState } from "react";
 import FormStyled from "./Form.styled";
 import { AbsoluteFormContainer } from "../AbsoluteFlexModel/AbsoluteFlexModel";
+
+type FormProps = {
+  handleCloseForm: (event: React.MouseEvent<HTMLButtonElement>) => void;
+};
+
 type Item = {
   itemName: string;
   itemQuantity: string;
   itemPrice: string;
   itemTotal: string;
 };
-function Form() {
+function Form({ handleCloseForm }: FormProps) {
   const [itemListFields, setItemListFields] = useState<Item[]>([]);
   console.log(itemListFields.length);
 
@@ -150,7 +155,7 @@ function Form() {
           <button onClick={addItemInList}>+ Add New Item</button>
         </div>
         <div className="bill-controller">
-          <button className="discard">Discard</button>
+          <button className="discard" onClick = {handleCloseForm}>Discard</button>
           <button className="draft" type="submit">
             Save as Draft
           </button>

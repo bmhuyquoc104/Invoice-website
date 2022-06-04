@@ -17,6 +17,9 @@ const AbsoluteFormContainer = styled.div`
   z-index: 5;
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
   display: flex;
+  top:0;
+  left:10;
+  bottom:0;
   width: 100%;
   height: 100vh;
 `;

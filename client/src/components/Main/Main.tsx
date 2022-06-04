@@ -86,7 +86,7 @@ function Main() {
           ></Invoice>
         ))}
       </motion.div>
-      {isToggleForm ? <Form/> : null}
+      {isToggleForm ? <Form handleCloseForm = {() => setIsToggleForm(false)}/> : null}
     </MainStyled>
   );
 }
