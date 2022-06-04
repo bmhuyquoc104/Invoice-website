@@ -10,7 +10,6 @@ type HeaderProps = {
 
 function Header({ themeToggler, theme }: HeaderProps) {
   const [isToggle, setIsToggle] = useState(false);
-
   return (
     <HeaderStyled>
       <div className="logo">
@@ -34,8 +33,10 @@ function Header({ themeToggler, theme }: HeaderProps) {
         />
       </div>
       {isToggle ? (
-        <UserProfile 
-        show={isToggle} onClickOutside={() => setIsToggle(false)} />
+        <UserProfile
+          show={isToggle}
+          onClickOutside={() => setIsToggle(false)}
+        />
       ) : null}
     </HeaderStyled>
   );

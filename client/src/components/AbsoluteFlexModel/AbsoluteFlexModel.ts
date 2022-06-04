@@ -12,4 +12,13 @@ const AbsoluteFlexContainer = styled.div`
   height: 100%;
 `;
 
-export { AbsoluteFlexContainer };
+const AbsoluteFormContainer = styled.div`
+  position: fixed;
+  z-index: 5;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+  display: flex;
+  width: 100%;
+  height: 100vh;
+`;
+
+export { AbsoluteFlexContainer, AbsoluteFormContainer };

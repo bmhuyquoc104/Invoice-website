@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useGetAllInvoices } from "../../hooks/useInvoice";
@@ -6,11 +6,12 @@ import { imageResource } from "../../public/imageResources";
 import MainStyled from "./Main.styled";
 import { Invoice as InvoiceType } from "../../api/invoice";
 import Invoice from "./Invoice/Invoice";
+import Form from "../Form/Form";
 
 function Main() {
   const navigate = useNavigate();
   const { data: invoices, isLoading, error, isError } = useGetAllInvoices();
-
+  const [isToggleForm, setIsToggleForm] = useState(false);
   if (isLoading) {
     return <div>loading</div>;
   }
@@ -60,7 +61,7 @@ function Main() {
             <p>Filter by status</p>
             <img src={imageResource.ArrowDown} alt="Arrow down" />
           </button>
-          <button className="add">
+          <button onClick={() => setIsToggleForm(true)} className="add">
             <img src={imageResource.Plus} alt="Plus" />
             <p>New invoice</p>
           </button>
@@ -85,6 +86,7 @@ function Main() {
           ></Invoice>
         ))}
       </motion.div>
+      {isToggleForm ? <Form/> : null}
     </MainStyled>
   );
 }
