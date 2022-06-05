@@ -31,6 +31,9 @@ const GlobalStyled = createGlobalStyle`
     --clr_total_light_bg:rgb(55, 59, 83);
     --clr_label_light:rgb(126, 136, 195);
     --clr_input_light_border:rgb(223, 227, 250);
+    --clr_form_light_bg:rgb(255, 255, 255);
+    --clr_discard_hover_light_bg:rgb(223, 227, 250);
+
     /* Dark mode */
     --clr_main_dark_bg:rgb(20, 22, 37);
     --clr_header_dark_bg:rgb(30, 33, 57);
@@ -49,8 +52,8 @@ const GlobalStyled = createGlobalStyle`
     --clr_total_dark_bg:rgb(12, 14, 22);
     --clr_label_dark:rgb(223, 227, 250);
     --clr_input_dark_border:rgb(37, 41, 69);
-
-
+    --clr_form_dark_bg:rgb(20, 22, 37);
+    --clr_discard_hover_dark_bg:rgb(12, 14, 22);
   }
 
   #root{

@@ -8,6 +8,7 @@ const HeaderStyled = styled.header`
   border-radius: 0 20px 20px 0;
   height: 100vh;
   position:fixed;
+  z-index:100;
 
   .logo {
     padding: 1.8em;

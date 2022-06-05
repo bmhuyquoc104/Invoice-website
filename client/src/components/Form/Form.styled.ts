@@ -2,11 +2,10 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { imageResource } from "../../public/imageResources";
 const FormStyled = styled(motion.form)`
-  background-color: ${({ theme }) => theme.card.backgroundColor};
+  background-color: ${({ theme }) => theme.form.backgroundColor};
   width: max(40%, 600px);
-  border-radius: 0 25px 25px 0;
-  padding: 3em 3em 1em 3em;
-  position: relative;
+  border-radius: 0 20px 20px 0;
+  padding: 3em 4em 1em 4em;
   display: flex;
   flex-direction: column;
   gap: 2em;
@@ -30,7 +29,7 @@ const FormStyled = styled(motion.form)`
     border: 1px solid ${({ theme }) => theme.input.border};
     padding: 1.35em 1em;
     font-weight: bold;
-    width:100%;
+    width: 100%;
     font-size: 0.75rem;
     line-height: 1.125;
   }
@@ -170,22 +169,31 @@ const FormStyled = styled(motion.form)`
     border: none;
     font-size: 0.75rem;
     padding: 1.5em;
+    :hover{
+      cursor: pointer;
+      background-color: ${({theme}) => theme.hover.discard.backgroundColor};
+
+    }
     font-weight: bold;
   }
   .bill-controller {
     display: flex;
+    padding: 2em 0;
     align-items: center;
     justify-content: space-between;
- 
   }
   .discard {
     border-radius: 25px;
     background-color: ${({ theme }) => theme.button.edit.backgroundColor};
     color: ${({ theme }) => theme.label.color};
     font-size: 0.75rem;
-    padding: 1.5em 2.25em;
+    padding: 1.4em 2.15em;
     font-weight: bold;
     border: none;
+    :hover{
+      background-color: ${({theme}) => theme.hover.discard.backgroundColor};
+      cursor: pointer;
+    }
   }
   .right-side {
     display: flex;
@@ -194,7 +202,7 @@ const FormStyled = styled(motion.form)`
   }
   .right-side button {
     font-size: 0.75rem;
-    padding: 1.5em 2em;
+    padding: 1.4em 1.9em;
     font-weight: bold;
     border: none;
     border-radius: 25px;
@@ -202,17 +210,60 @@ const FormStyled = styled(motion.form)`
   .draft {
     background-color: var(--clr_button_draft_bg);
     color: ${({ theme }) => theme.subText.color};
+    :hover{
+      background-color: rgb(12, 14, 22);
+      cursor: pointer;
+    }
   }
   .save {
     background-color: var(--clr_logo);
     color: #ffffff;
+    :hover{
+      background-color: var(--clr_logo2);
+      cursor: pointer;
+    }
   }
   .bill-body {
     gap: 2em;
     display: flex;
     flex-direction: column;
-    height: calc(90%-10vh);
     overflow-y: scroll;
+  }
+  @media (max-width: 900px) {
+    padding: 3em 3em 5em 3em;
+  }
+  @media (max-width: 600px) {
+    border-radius: 0;
+    .bill-form,
+    .bill-to {
+      gap: 1em;
+      grid-template-columns: 1fr 1fr;
+    }
+    .bill-form {
+      grid-template-areas:
+        "h3 h3"
+        "street street"
+        "city postcode"
+        "country country";
+    }
+    .bill-to {
+      grid-template-areas:
+        "h3 h3"
+        "clientName clientName"
+        "clientEmail clientEmail"
+        "street street"
+        "city postcode"
+        "country country";
+    }
+  }
+  @media (max-width: 480px) {
+    padding: 2em 1em 5em 1em;
+  }
+  @media (max-width: 400px) {
+    padding: 2em 0.75em 5em 0.75em;
+    .right-side {
+      gap: 0.25em;
+    }
   }
 `;
 

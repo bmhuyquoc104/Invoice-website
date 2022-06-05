@@ -54,6 +54,14 @@ const lightTheme = {
   },
   input: {
     border: "var(--clr_input_light_border)"
+  },
+  form: {
+    backgroundColor: "var(--clr_form_light_bg)"
+  },
+  hover:{
+    discard:{
+      backgroundColor: "var(--clr_discard_hover_light_bg)"
+    }
   }
 };
 
@@ -112,6 +120,14 @@ const darkTheme = {
   },
   input: {
     border: "var(--clr_input_dark_border)"
+  },
+  form: {
+    backgroundColor: "var(--clr_form_dark_bg)"
+  },
+  hover:{
+    discard:{
+      backgroundColor: "var(--clr_discard_hover_dark_bg)"
+    }
   }
 };
 export { lightTheme, darkTheme };

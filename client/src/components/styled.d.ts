@@ -57,6 +57,14 @@ declare module "styled-components" {
     };
     input:{
       border: string;
+    };
+    form:{
+      backgroundColor: string;
+    };
+    hover:{
+      discard:{
+        backgroundColor: string;
+      }
     }
   }
 }

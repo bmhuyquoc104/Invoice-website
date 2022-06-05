@@ -2,10 +2,9 @@ import styled from "styled-components";
 
 const AbsoluteFlexContainer = styled.div`
   position: fixed;
-  z-index: 2;
-  top: 0;
-  left: 0;
-  bottom: 0;
+  z-index: 100;
+  top: 0px;
+  left: 0px;
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
   backdrop-filter: blur(5px);
   display: flex;
@@ -17,17 +16,16 @@ const AbsoluteFlexContainer = styled.div`
 
 const AbsoluteFormContainer = styled.div`
   position: fixed;
-  z-index: 1;
+  z-index: 5;
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
   display: flex;
-  top:0;
-  bottom:0;
-  left:5.3rem;
+  top:0px;
+  left:5rem;
   width: 100%;
   height: 100vh;
   @media (max-width:900px){
-    top:5.3rem;
-    left:0;
+    top:5rem;
+    left:0px;
   }
 `;
 
