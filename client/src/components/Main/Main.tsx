@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useGetAllInvoices } from "../../hooks/useInvoice";
@@ -16,7 +16,7 @@ function Main() {
   const paidRef = useRef<any>(null);
   const draftRef = useRef<any>(null);
   const pendingRef = useRef<any>(null);
-
+  const dropDownRef = useRef<any>(null);
   // State to manage which filter option is selected
   const [isSelected, setIsSelected] = useState<string[]>([]);
 
@@ -38,6 +38,16 @@ function Main() {
   // State to manage the open or close of model or dropdown
   const [isToggleForm, setIsToggleForm] = useState(false);
   const [isToggleDropDown, setIsToggleDropDown] = useState(false);
+
+  useEffect(() => {
+    const handleClose = (e: any) => {
+      if (dropDownRef.current && !dropDownRef.current.contains(e.target)) {
+        setIsToggleDropDown(false);
+      }
+    };
+    document.addEventListener("click", handleClose, true);
+    return () => document.removeEventListener("click", handleClose, true);
+  }, [setIsToggleDropDown]);
 
   // Get all the data
   const { data: invoices, isLoading, error, isError } = useGetAllInvoices();
@@ -91,21 +101,22 @@ function Main() {
         </div>
         <div className="header-control">
           {!isToggleDropDown ? (
-            <button className="filter">
+            <button
+              onClick={() => setIsToggleDropDown(!isToggleDropDown)}
+              className="filter"
+            >
               <p>Filter by status</p>
-              <img
-                onClick={() => setIsToggleDropDown(!isToggleDropDown)}
-                src={imageResource.ArrowDown}
-                alt="Arrow down"
-              />
+              <img src={imageResource.ArrowDown} alt="Arrow down" />
             </button>
           ) : (
-            <button className="filter drop-down">
-              <div className="filter-top">
+            <button ref={dropDownRef} className="filter drop-down">
+              <div
+                onClick={() => setIsToggleDropDown(!isToggleDropDown)}
+                className="filter-top"
+              >
                 <p>Filter by status</p>
                 <img
                   className={isToggleDropDown ? "up" : ""}
-                  onClick={() => setIsToggleDropDown(!isToggleDropDown)}
                   src={imageResource.ArrowDown}
                   alt="Arrow down"
                 />
@@ -114,15 +125,12 @@ function Main() {
                 <p
                   className={isSelected[0] === "Paid" ? "paid-selected" : ""}
                   ref={paidRef}
+                  onClick={() => {
+                    handleSelected(paidRef.current.innerText);
+                  }}
                 >
                   <span>
-                    <img
-                      onClick={() => {
-                        handleSelected(paidRef.current.innerText);
-                      }}
-                      src={imageResource.Check}
-                      alt="check"
-                    />
+                    <img src={imageResource.Check} alt="check" />
                   </span>
                   Paid
                 </p>
@@ -131,30 +139,24 @@ function Main() {
                     isSelected[0] === "Pending" ? "pending-selected" : ""
                   }
                   ref={pendingRef}
+                  onClick={() => {
+                    handleSelected(pendingRef.current.innerText);
+                  }}
                 >
                   <span>
-                    <img
-                      onClick={() => {
-                        handleSelected(pendingRef.current.innerText);
-                      }}
-                      src={imageResource.Check}
-                      alt="check"
-                    />
+                    <img src={imageResource.Check} alt="check" />
                   </span>
                   Pending
                 </p>
                 <p
                   className={isSelected[0] === "Draft" ? "draft-selected" : ""}
                   ref={draftRef}
+                  onClick={() => {
+                    handleSelected(draftRef.current.innerText);
+                  }}
                 >
                   <span>
-                    <img
-                      onClick={() => {
-                        handleSelected(draftRef.current.innerText);
-                      }}
-                      src={imageResource.Check}
-                      alt="check"
-                    />
+                    <img src={imageResource.Check} alt="check" />
                   </span>
                   Draft
                 </p>
