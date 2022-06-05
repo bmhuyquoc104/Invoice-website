@@ -34,7 +34,8 @@ const MainStyled = styled.main`
     flex-direction: row;
     gap: 3em;
   }
-  .filter {
+  .filter,
+  .filter-top {
     display: flex;
     align-items: center;
     gap: 1em;
@@ -44,6 +45,64 @@ const MainStyled = styled.main`
     font-weight: bold;
     border: none;
     letter-spacing: 0.5px;
+  }
+  .drop-down {
+    /* display: flex;
+    flex-direction: column; */
+    position: relative;
+  }
+  .filter img {
+    transform: rotate(0deg);
+  }
+  .filter-top img {
+    transform: rotate(180deg);
+  }
+
+  .filter-options {
+    position: absolute;
+    bottom: 0;
+    top: 7vh;
+    left: -4.5vh;
+    background-color: ${({ theme }) => theme.dropdown.backgroundColor};
+    border-radius: 8px;
+    height: 16vh;
+    box-shadow: 0px 10px 20px ${({ theme }) => theme.boxShadow.color};
+    width: 12rem;
+    display: flex;
+    padding: 1.5rem;
+    gap: 1.2em;
+    text-align: left;
+    flex-direction: column;
+  }
+  .filter-options p {
+    display: flex;
+    align-items: center;
+    gap: 1.25em;
+  }
+  .filter-options span {
+    background-color: ${({ theme }) => theme.dropdown.span.backgroundColor};
+    border-radius: 2px;
+    padding: 0.3em;
+    border: 1px solid transparent;
+    :hover {
+      cursor: pointer;
+      border: 1px solid var(--clr_logo);
+    }
+    display: flex;
+    align-items: center;
+  }
+  .filter-options img {
+    opacity: 0;
+  }
+  .paid-selected span img,
+  .pending-selected span img,
+  .draft-selected span img {
+    opacity: 1;
+  }
+  .paid-selected span,
+  .pending-selected span,
+  .draft-selected span {
+    background-color: var(--clr_logo);
   }
   .add {
     display: flex;
@@ -91,12 +150,14 @@ const MainStyled = styled.main`
     .header-title h2 {
       width: 18ch;
     }
-    .filter p {
+    .filter-top > p,
+    .filter > p {
       gap: 0.1em;
       width: 6ch;
       height: 15px;
       overflow: hidden;
     }
+
     .add p {
       width: 6ch;
       height: 15px;

@@ -12,7 +12,6 @@ const GlobalStyled = createGlobalStyle`
     --clr_button_text: #ffffff;
     --clr_label2_color:rgb(119, 127, 152);
     --clr_button_draft_bg:rgb(54, 59, 83);
-
     /* Light mode */
     --clr_main_light_bg:rgb(248, 248, 251);
     --clr_header_light_bg:rgb(55, 59, 83);
@@ -33,6 +32,9 @@ const GlobalStyled = createGlobalStyle`
     --clr_input_light_border:rgb(223, 227, 250);
     --clr_form_light_bg:rgb(255, 255, 255);
     --clr_discard_hover_light_bg:rgb(223, 227, 250);
+    --clr_dropdown_light_boxShadow:rgb(72 84 159 / 25%);
+    --clr_dropdown_light_bg:rgb(255, 255, 255);
+    --clr_dropdown_light_span_bg:rgb(223, 227, 250);
 
     /* Dark mode */
     --clr_main_dark_bg:rgb(20, 22, 37);
@@ -54,6 +56,10 @@ const GlobalStyled = createGlobalStyle`
     --clr_input_dark_border:rgb(37, 41, 69);
     --clr_form_dark_bg:rgb(20, 22, 37);
     --clr_discard_hover_dark_bg:rgb(12, 14, 22);
+    --clr_dropdown_dark_boxShadow:rgb(0 0 0 / 25%);
+    --clr_dropdown_dark_bg:rgb(37, 41, 69);
+    --clr_dropdown_dark_span_bg:rgb(30, 33, 57);
+
   }
 
   #root{

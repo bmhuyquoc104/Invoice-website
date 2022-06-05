@@ -18,15 +18,15 @@ declare module "styled-components" {
       text: {
         paid: {
           color: string;
-          backgroundColor:string;
+          backgroundColor: string;
         };
         pending: {
           color: string;
-          backgroundColor:string;
+          backgroundColor: string;
         };
         draft: {
           color: string;
-          backgroundColor:string;
+          backgroundColor: string;
         };
         customer: {
           color: string;
@@ -39,32 +39,41 @@ declare module "styled-components" {
     button: {
       color: string;
       backgroundColor: string;
-      edit:{
+      edit: {
         backgroundColor: string;
-      }
-    }
+      };
+    };
     subText: {
       color: string;
     };
-    border:{
+    border: {
       color: string;
     };
-    total:{
+    total: {
       backgroundColor: string;
     };
-    label:{
-      color:string;
+    label: {
+      color: string;
     };
-    input:{
+    input: {
       border: string;
     };
-    form:{
+    form: {
       backgroundColor: string;
     };
-    hover:{
-      discard:{
+    hover: {
+      discard: {
         backgroundColor: string;
-      }
-    }
+      };
+    };
+    boxShadow: {
+      color: string;
+    };
+    dropdown: {
+      backgroundColor: string;
+      span: {
+        backgroundColor: string;
+      };
+    };
   }
 }

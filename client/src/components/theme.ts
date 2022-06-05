@@ -49,20 +49,29 @@ const lightTheme = {
   total: {
     backgroundColor: "var(--clr_total_light_bg)",
   },
-  label:{
-    color: "var(--clr_label_light)"
+  label: {
+    color: "var(--clr_label_light)",
   },
   input: {
-    border: "var(--clr_input_light_border)"
+    border: "var(--clr_input_light_border)",
   },
   form: {
-    backgroundColor: "var(--clr_form_light_bg)"
+    backgroundColor: "var(--clr_form_light_bg)",
   },
-  hover:{
-    discard:{
-      backgroundColor: "var(--clr_discard_hover_light_bg)"
+  hover: {
+    discard: {
+      backgroundColor: "var(--clr_discard_hover_light_bg)",
+    },
+  },
+  boxShadow: {
+    color: "var(--clr_dropdown_light_boxShadow)",
+  },
+  dropdown:{
+    backgroundColor: "var(--clr_dropdown_light_bg)",
+    span:{
+      backgroundColor: "var(--clr_dropdown_light_span_bg)"
     }
-  }
+  },
 };
 
 // Dark theme
@@ -115,19 +124,28 @@ const darkTheme = {
   total: {
     backgroundColor: "var(--clr_total_dark_bg)",
   },
-  label:{
-    color: "var(--clr_label_dark)"
+  label: {
+    color: "var(--clr_label_dark)",
   },
   input: {
-    border: "var(--clr_input_dark_border)"
+    border: "var(--clr_input_dark_border)",
   },
   form: {
-    backgroundColor: "var(--clr_form_dark_bg)"
+    backgroundColor: "var(--clr_form_dark_bg)",
   },
-  hover:{
-    discard:{
-      backgroundColor: "var(--clr_discard_hover_dark_bg)"
+  hover: {
+    discard: {
+      backgroundColor: "var(--clr_discard_hover_dark_bg)",
+    },
+  },
+  dropdown:{
+    backgroundColor: "var(--clr_dropdown_dark_bg)",
+    span:{
+      backgroundColor: "var(--clr_dropdown_dark_span_bg)"
     }
-  }
+  },
+  boxShadow: {
+    color: "var(--clr_dropdown_dark_boxShadow)",
+  },
 };
 export { lightTheme, darkTheme };

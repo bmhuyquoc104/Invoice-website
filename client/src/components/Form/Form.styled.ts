@@ -4,7 +4,7 @@ import { imageResource } from "../../public/imageResources";
 const FormStyled = styled(motion.form)`
   background-color: ${({ theme }) => theme.form.backgroundColor};
   width: max(50%, 600px);
-  border-radius: 0 20px 20px 0;
+  border-radius: 0 50px 50px 0;
   padding: 3em 4em 1em 4em;
   display: flex;
   flex-direction: column;
@@ -275,6 +275,7 @@ const FormStyled = styled(motion.form)`
   }
   @media (max-width: 900px) {
     padding: 3em 3em 5em 3em;
+    border-radius: 0px 25px 25px 0px;
   }
   @media (max-width: 600px) {
     border-radius: 0;
