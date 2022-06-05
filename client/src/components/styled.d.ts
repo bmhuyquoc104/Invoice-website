@@ -51,6 +51,12 @@ declare module "styled-components" {
     };
     total:{
       backgroundColor: string;
+    };
+    label:{
+      color:string;
+    };
+    input:{
+      border: string;
     }
   }
 }

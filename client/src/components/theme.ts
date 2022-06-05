@@ -49,6 +49,12 @@ const lightTheme = {
   total: {
     backgroundColor: "var(--clr_total_light_bg)",
   },
+  label:{
+    color: "var(--clr_label_light)"
+  },
+  input: {
+    border: "var(--clr_input_light_border)"
+  }
 };
 
 // Dark theme
@@ -101,5 +107,11 @@ const darkTheme = {
   total: {
     backgroundColor: "var(--clr_total_dark_bg)",
   },
+  label:{
+    color: "var(--clr_label_dark)"
+  },
+  input: {
+    border: "var(--clr_input_dark_border)"
+  }
 };
 export { lightTheme, darkTheme };
