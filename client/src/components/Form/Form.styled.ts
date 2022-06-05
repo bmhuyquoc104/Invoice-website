@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { imageResource } from "../../public/imageResources";
 const FormStyled = styled(motion.form)`
   background-color: ${({ theme }) => theme.form.backgroundColor};
-  width: max(40%, 600px);
+  width: max(50%, 600px);
   border-radius: 0 20px 20px 0;
   padding: 3em 4em 1em 4em;
   display: flex;
@@ -154,14 +154,59 @@ const FormStyled = styled(motion.form)`
   .bill-items {
     display: flex;
     flex-direction: column;
-    gap: 0.5em;
+    gap: 1.5em;
   }
-  .bill-items label {
+  .bill-items > label {
     color: var(--clr_label2_color);
     font-size: 1.125rem;
     font-weight: bold;
     letter-spacing: 0.25px;
   }
+  .item {
+    display: grid;
+    grid-template-columns: 1fr 4em 7em 5em min-content;
+    grid-template-areas: "item-name item-quantity item-price item-total item-remove";
+    align-items: center;
+    gap: 1em;
+  }
+  .item > * {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625em;
+  }
+
+  .item-name {
+    grid-area: item-name;
+  }
+  .item-quantity {
+    grid-area: item-quantity;
+  }
+  .item-price {
+    grid-area: item-price;
+  }
+  .item-total {
+    grid-area: item-total;
+  }
+  .item-total input {
+    color: rgb(136, 142, 176);
+    background: transparent;
+    border: none;
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: -0.25px;
+  }
+  .item-remove {
+    grid-area: item-remove;
+    width: 25px;
+    color: #878eaf;
+    height: 3rem;
+    align-self: end;
+    :hover {
+      cursor: pointer;
+      color: var(--clr_logo);
+    }
+  }
+
   .bill-items button {
     border-radius: 25px;
     background-color: ${({ theme }) => theme.button.edit.backgroundColor};
@@ -169,10 +214,9 @@ const FormStyled = styled(motion.form)`
     border: none;
     font-size: 0.75rem;
     padding: 1.5em;
-    :hover{
+    :hover {
       cursor: pointer;
-      background-color: ${({theme}) => theme.hover.discard.backgroundColor};
-
+      background-color: ${({ theme }) => theme.hover.discard.backgroundColor};
     }
     font-weight: bold;
   }
@@ -190,8 +234,8 @@ const FormStyled = styled(motion.form)`
     padding: 1.4em 2.15em;
     font-weight: bold;
     border: none;
-    :hover{
-      background-color: ${({theme}) => theme.hover.discard.backgroundColor};
+    :hover {
+      background-color: ${({ theme }) => theme.hover.discard.backgroundColor};
       cursor: pointer;
     }
   }
@@ -210,7 +254,7 @@ const FormStyled = styled(motion.form)`
   .draft {
     background-color: var(--clr_button_draft_bg);
     color: ${({ theme }) => theme.subText.color};
-    :hover{
+    :hover {
       background-color: rgb(12, 14, 22);
       cursor: pointer;
     }
@@ -218,7 +262,7 @@ const FormStyled = styled(motion.form)`
   .save {
     background-color: var(--clr_logo);
     color: #ffffff;
-    :hover{
+    :hover {
       background-color: var(--clr_logo2);
       cursor: pointer;
     }
@@ -254,6 +298,15 @@ const FormStyled = styled(motion.form)`
         "street street"
         "city postcode"
         "country country";
+    }
+    .item {
+      grid-template-columns: 4em 1fr 1fr 5em;
+      grid-template-areas:
+        "item-name item-name item-name item-name"
+        "item-quantity item-price item-total item-remove";
+    }
+    .item-remove {
+      justify-self: end;
     }
   }
   @media (max-width: 480px) {

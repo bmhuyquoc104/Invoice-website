@@ -179,18 +179,18 @@ function Form({ handleCloseForm, show }: FormProps) {
                   <input name="itemName" id={ilItemName} type="text" />
                 </div>
                 <div className="item-quantity">
-                  <label htmlFor={ilItemQuantity}>Item Quantity</label>
+                  <label htmlFor={ilItemQuantity}>Qty</label>
                   <input name="itemQuantity" id={ilItemQuantity} type="text" />
                 </div>
                 <div className="item-price">
-                  <label htmlFor={ilItemPrice}>Item Price</label>
+                  <label htmlFor={ilItemPrice}>Price</label>
                   <input name="itemPrice" id={ilItemPrice} type="text" />
                 </div>
                 <div className="item-total">
-                  <label htmlFor={ilItemTotal}>Item Total</label>
-                  <input name="itemTotal" id={ilItemTotal} readOnly />
+                  <label htmlFor={ilItemTotal}>Total</label>
+                  <input name="itemTotal" id={ilItemTotal} value="0" readOnly />
                 </div>
-                <IoMdTrash onClick={removeItemInList} />
+                <IoMdTrash className="item-remove" onClick={removeItemInList} />
               </div>
             ))}
             <button onClick={addItemInList}>+ Add New Item</button>
