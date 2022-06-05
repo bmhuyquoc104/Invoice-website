@@ -89,6 +89,7 @@ function Main() {
       <AnimatePresence>
         {isToggleForm && (
           <Form
+            show={isToggleForm}
             handleCloseForm={(e) => {
               e.preventDefault();
               setIsToggleForm(false);
