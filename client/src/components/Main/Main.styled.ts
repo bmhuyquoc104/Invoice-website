@@ -3,8 +3,8 @@ import styled from "styled-components";
 const MainStyled = styled.main`
   display: flex;
   flex-direction: column;
-  margin-left:auto;
-  margin-right:auto;
+  margin-left: auto;
+  margin-right: auto;
   width: 60%;
   padding: 4em 0;
   gap: 4em;
@@ -57,16 +57,20 @@ const MainStyled = styled.main`
     color: ${({ theme }) => theme.button.color};
     border-radius: 25px;
     background-color: ${({ theme }) => theme.button.backgroundColor};
+    :hover {
+      background-color: var(--clr_logo2);
+      cursor: pointer;
+    }
   }
   .add img {
     padding: 0.75em;
     border-radius: 50%;
     background-color: ${({ theme }) => theme.button.color};
   }
-  .main-body{
+  .main-body {
     display: flex;
     gap: 1em;
-    flex-direction:column;
+    flex-direction: column;
   }
 
   @media (max-width: 900px) {
@@ -84,18 +88,18 @@ const MainStyled = styled.main`
       letter-spacing: 0.2px;
       font-size: 1.6rem;
     }
-    .header-title h2{
-      width:18ch;
+    .header-title h2 {
+      width: 18ch;
     }
-    .filter p{
-      gap:0.1em;
-      width:6ch;
-      height:15px;
+    .filter p {
+      gap: 0.1em;
+      width: 6ch;
+      height: 15px;
       overflow: hidden;
     }
-    .add p{
-      width:6ch;
-      height:15px;
+    .add p {
+      width: 6ch;
+      height: 15px;
       overflow: hidden;
     }
   }

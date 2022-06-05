@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { imageResource } from "../../public/imageResources";
 import HeaderStyled from "./Header.styled";
 import UserProfile from "./UserProfile/UserProfile";
-
+import { AnimatePresence } from "framer-motion";
 type HeaderProps = {
   themeToggler: any;
   theme: string | (() => void);
@@ -32,12 +32,14 @@ function Header({ themeToggler, theme }: HeaderProps) {
           alt="Avatar"
         />
       </div>
-      {isToggle ? (
-        <UserProfile
-          show={isToggle}
-          onClickOutside={() => setIsToggle(false)}
-        />
-      ) : null}
+      <AnimatePresence>
+        {isToggle && (
+          <UserProfile
+            show={isToggle}
+            onClickOutside={() => setIsToggle(false)}
+          />
+        )}
+      </AnimatePresence>
     </HeaderStyled>
   );
 }

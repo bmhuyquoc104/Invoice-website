@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useGetAllInvoices } from "../../hooks/useInvoice";
 import { imageResource } from "../../public/imageResources";
@@ -86,7 +86,16 @@ function Main() {
           ></Invoice>
         ))}
       </motion.div>
-      {isToggleForm ? <Form handleCloseForm = {() => setIsToggleForm(false)}/> : null}
+      <AnimatePresence>
+        {isToggleForm && (
+          <Form
+            handleCloseForm={(e) => {
+              e.preventDefault();
+              setIsToggleForm(false);
+            }}
+          />
+        )}
+      </AnimatePresence>
     </MainStyled>
   );
 }

@@ -20,7 +20,7 @@ const AbsoluteFormContainer = styled.div`
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
   display: flex;
   top:0px;
-  left:5rem;
+  left:4rem;
   width: 100%;
   height: 100vh;
   @media (max-width:900px){
