@@ -16,6 +16,22 @@ const getAllInvoices = async (req: Request, res: Response) => {
   }
 };
 
+// Function to get Invoice by status
+const getInvoiceByStatus = async (req: Request, res: Response) => {
+  try {
+    const { status } = req.params;
+    const invoices = await Invoice.find().byStatus(status);
+
+    if (invoices != null) {
+      res.status(200).send(invoices);
+    } else {
+      res.status(404).send("There are no current invoices for this option");
+    }
+  } catch (error) {
+    res.status(500).send("Internal server");
+  }
+};
+
 // Function to get one invoice
 const getInvoice = async (req: Request, res: Response) => {
   try {
@@ -75,4 +91,11 @@ const addInvoice = async (req: Request, res: Response) => {
     res.status(500).send("Internal server");
   }
 };
-export { getAllInvoices, getInvoice, deleteInvoice, addInvoice, updateInvoice };
+export {
+  getAllInvoices,
+  getInvoice,
+  deleteInvoice,
+  addInvoice,
+  updateInvoice,
+  getInvoiceByStatus,
+};

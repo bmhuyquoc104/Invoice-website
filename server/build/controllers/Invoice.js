@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateInvoice = exports.addInvoice = exports.deleteInvoice = exports.getInvoice = exports.getAllInvoices = void 0;
+exports.getInvoiceByStatus = exports.updateInvoice = exports.addInvoice = exports.deleteInvoice = exports.getInvoice = exports.getAllInvoices = void 0;
 const Invoice_1 = require("../models/Invoice");
 // import {IInvoiceResponse} from "../middleware/getInvoiceById"
 // Function to get all invoices
@@ -28,6 +28,23 @@ const getAllInvoices = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.getAllInvoices = getAllInvoices;
+// Function to get Invoice by status
+const getInvoiceByStatus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { status } = req.params;
+        const invoices = yield Invoice_1.Invoice.find().byStatus(status);
+        if (invoices != null) {
+            res.status(200).send(invoices);
+        }
+        else {
+            res.status(404).send("There are no current invoices for this option");
+        }
+    }
+    catch (error) {
+        res.status(500).send("Internal server");
+    }
+});
+exports.getInvoiceByStatus = getInvoiceByStatus;
 // Function to get one invoice
 const getInvoice = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {

@@ -51,6 +51,7 @@ type InvoiceModelQuery = Query<
 // interface to declare query for model
 interface InvoiceQueryHelpers {
   byId(this: InvoiceModelQuery, id: string): InvoiceModelQuery;
+  byStatus(this: InvoiceModelQuery, status: string): InvoiceModelQuery;
 }
 
 // Declare schema for invoice
@@ -144,6 +145,11 @@ const invoiceSchema = new Schema<
 // Query helper function by Id
 invoiceSchema.query.byId = function (id: string) {
   return this.find({ id: `${id}` });
+};
+
+//Query helper function by status
+invoiceSchema.query.byStatus = function (status: any) {
+  return this.where({ status: `${status}` });
 };
 
 // Export schema

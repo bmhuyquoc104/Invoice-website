@@ -88,6 +88,10 @@ const invoiceSchema = new mongoose_1.Schema({
 invoiceSchema.query.byId = function (id) {
     return this.find({ id: `${id}` });
 };
+//Query helper function by status
+invoiceSchema.query.byStatus = function (status) {
+    return this.where({ status: `${status}` });
+};
 // Export schema
 const Invoice = (0, mongoose_1.model)("invoices", invoiceSchema);
 exports.Invoice = Invoice;

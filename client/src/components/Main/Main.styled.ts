@@ -65,7 +65,8 @@ const MainStyled = styled.main`
     left: -4.5vh;
     background-color: ${({ theme }) => theme.dropdown.backgroundColor};
     border-radius: 8px;
-    height: 16vh;
+    bottom: 0;
+    min-height:125px;
     box-shadow: 0px 10px 20px ${({ theme }) => theme.boxShadow.color};
     width: 12rem;
     display: flex;
