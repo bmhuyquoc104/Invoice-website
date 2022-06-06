@@ -4,14 +4,14 @@ const api = axios.create({
   baseURL: "https://bmhuyquoc104-invoice-app.herokuapp.com/",
 });
 
-type SenderAddress = {
+export type SenderAddress = {
   street: string;
   city: string;
   postCode: string;
   country: string;
 };
 
-type ClientAddress = {
+export type ClientAddress = {
   street?: string;
   city?: string;
   postCode?: string;
@@ -35,6 +35,18 @@ export type Invoice = {
   clientName: string;
   clientEmail: string;
   status: string;
+  clientAddress: ClientAddress;
+  senderAddress: SenderAddress;
+  total: number;
+  items: Item[];
+};
+
+export type InvoiceWithoutInvoiceDate = {
+  id: string;
+  description: string;
+  paymentTerms: number;
+  clientName: string;
+  clientEmail: string;
   clientAddress: ClientAddress;
   senderAddress: SenderAddress;
   total: number;

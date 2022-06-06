@@ -19,7 +19,6 @@ function Main() {
   const dropDownRef = useRef<any>(null);
   // State to manage which filter option is selected
   const [isSelected, setIsSelected] = useState<string[]>(["all"]);
-  console.log(isSelected);
 
   // State to manage the open or close of model or dropdown
   const [isToggleForm, setIsToggleForm] = useState(false);
@@ -36,7 +35,6 @@ function Main() {
   }, [setIsToggleDropDown]);
 
   // Get all the data
-  console.log(isSelected[0]);
   const {
     data: invoicesByStatus,
     isLoading: isStatusLoading,
@@ -70,7 +68,6 @@ function Main() {
       setIsSelected(temp);
     }
   };
-  console.log(invoicesByStatus?.data);
 
   // Parent animation
   const ulVariant = {

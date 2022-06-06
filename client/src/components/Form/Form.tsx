@@ -1,38 +1,62 @@
 import { IoMdTrash } from "react-icons/io";
-import React, { useId, useState, useRef, useEffect, useContext } from "react";
-import { useForm, useFieldArray } from "react-hook-form";
+import { format } from "date-fns";
+import DatePicker from "react-datepicker";
+import { v4 as uuidv4 } from 'uuid';
+
+import "react-datepicker/dist/react-datepicker.css";
+import { useForm, useFieldArray, useWatch, Control } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import React, { useId, useState, useRef, useEffect, useContext } from "react";
+import { InvoiceWithoutInvoiceDate } from "../../api/invoice";
 import FormStyled from "./Form.styled";
 import { RefContext } from "../../hooks/useRefContext";
 import { AbsoluteFormContainer } from "../AbsoluteFlexModel/AbsoluteFlexModel";
-import { format } from "date-fns";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 
 type FormProps = {
   handleCloseForm: (event: React.MouseEvent<HTMLButtonElement>) => void;
   show: boolean;
 };
-
-type Item = {
-  itemName: string;
-  itemQuantity: string;
-  itemPrice: string;
-  itemTotal: string;
+type SenderAddress = {
+  billFromStreet?: string;
+  billFromCity?: string;
+  billFromPostCode?: string;
+  billFromCountry?: string;
 };
+
+type ClientAddress = {
+  billToStreet?: string;
+  billToCity?: string;
+  billToPostCode?: string;
+  billToCountry?: string;
+};
+type Item = {
+  itemName?: string;
+  itemQuantity?: string;
+  itemPrice?: string;
+  itemTotal?: string;
+};
+
+type FormValue = {
+  paymentDue?: string;
+  description?: string;
+  paymentTerms?: string;
+  billToClientName?: string;
+  billToClientEmail?: string;
+  clientAddress?: ClientAddress;
+  senderAddress?: SenderAddress;
+  total?: string;
+  items?: Item[];
+};
+
 function Form({ handleCloseForm, show }: FormProps) {
-  const dateRef = useRef<any>(null);
   const [startDate, setStartDate] = useState(new Date());
   const defaultDate = format(startDate, "dd MMM yyyy");
-  console.log(defaultDate);
-  console.log(startDate);
+
   // Get the header ref from header component
   const { headerRef } = useContext(RefContext);
   //Ref the whole contain in side the form
   const containRef = useRef<any>(null);
-  // State to manage fields in item list
-  const [itemListFields, setItemListFields] = useState<Item[]>([]);
 
   // Check if the client click outside or not
   useEffect(() => {
@@ -48,21 +72,7 @@ function Form({ handleCloseForm, show }: FormProps) {
     document.addEventListener("click", handleClose, true);
     return () => document.removeEventListener("click", handleClose, true);
   }, [handleCloseForm]);
-  // Function to add more items in itemList
-  const addItemInList = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setItemListFields([
-      ...itemListFields,
-      { itemName: "", itemQuantity: "", itemPrice: "", itemTotal: "" },
-    ]);
-  };
 
-  // Function to remove item in itemList
-  const removeItemInList = (index: any) => {
-    const newItemList = [...itemListFields];
-    newItemList.splice(index, 1);
-    setItemListFields(newItemList);
-  };
   // Declare list of ids for all fields in the form
   const bfStreet = useId();
   const bfCity = useId();
@@ -86,16 +96,35 @@ function Form({ handleCloseForm, show }: FormProps) {
   const schema = yup
     .object()
     .shape({
-      billFromStreet: yup.string().required("Please do not leave it blank"),
-      billFromCity: yup.string().required("Please do not leave it blank"),
-      billFromCountry: yup.string().required("Please do not leave it blank"),
-      billFromPostcode: yup.string().required("Please do not leave it blank"),
-      billToStreet: yup.string().required("Please do not leave it blank"),
-      billToCity: yup.string().required("Please do not leave it blank"),
-      billToCountry: yup.string().required("Please do not leave it blank"),
-      billToPostcode: yup.string().required("Please do not leave it blank"),
-      billToClientName: yup.string().required("Please do not leave it blank"),
-      billToClientEmail: yup.string().required("Please do not leave it blank"),
+      senderAddress: yup
+        .object()
+        .shape({
+          billFromStreet: yup.string().required("Please do not leave it blank"),
+          billFromCity: yup.string().required("Please do not leave it blank"),
+          billFromCountry: yup
+            .string()
+            .required("Please do not leave it blank"),
+          billFromPostcode: yup
+            .string()
+            .required("Please do not leave it blank"),
+        })
+        .required(),
+      clientAddress: yup
+        .object()
+        .shape({
+          billToStreet: yup.string().required("Please do not leave it blank"),
+          billToCity: yup.string().required("Please do not leave it blank"),
+          billToCountry: yup.string().required("Please do not leave it blank"),
+          billToPostcode: yup.string().required("Please do not leave it blank"),
+          billToClientName: yup
+            .string()
+            .required("Please do not leave it blank"),
+          billToClientEmail: yup
+            .string()
+            .required("Please do not leave it blank"),
+        })
+        .required(),
+
       paymentTerms: yup.string().required("Please select paymentTerms"),
       itemName: yup.string().required("Please do not leave it blank"),
       itemPrice: yup.string().required("Please do not leave it blank"),
@@ -108,22 +137,30 @@ function Form({ handleCloseForm, show }: FormProps) {
 
   // Declare form default values
   const formDefaultValue = {
-    billFromStreet: "",
-    billFromCity: "",
-    billFromPostcode: "",
-    billFromCountry: "",
-    billToCountry: "",
-    billToPostcode: "",
-    billToStreet: "",
-    billToClientName: "",
-    billToCity: "",
-    billToClientEmail: "",
     paymentTerms: "Net 30 days",
-    itemName: "",
-    itemPrice: "",
-    itemQuantity: "",
-    itemTotal: "0",
     description: "",
+    id: `${useId()}`,
+    clientEmail: "",
+    total: 0,
+    clientName: "",
+    clientAddress: {
+      street: "",
+      city: "",
+      postCode: "",
+      country: "",
+    },
+    senderAddress: {
+      street: "",
+      city: "",
+      postCode: "",
+      country: "",
+    },
+    items: {
+      name: "",
+      quantity: 0,
+      price: 0,
+      number: 0,
+    },
   };
 
   //Declare react hook From with its props
@@ -134,21 +171,17 @@ function Form({ handleCloseForm, show }: FormProps) {
     reset,
     formState: { touchedFields, isValid },
     formState,
-  } = useForm({
+  } = useForm<any>({
     defaultValues: formDefaultValue,
-    resolver: yupResolver(schema),
-    mode: "onBlur",
   });
-  // const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
-  //   {
-  //     control, // control props comes from useForm (optional: if you are using FormContext)
-  //     name: "item", // unique name for your Field Array
-  //   }
-  // );
+  const { fields, append, remove } = useFieldArray({
+    control, // control props comes from useForm (optional: if you are using FormContext)
+    name: "items", // unique name for your Field Array
+  });
   const onSubmit = (data: any) => {
+    console.log(data);
     const invoiceDate = format(startDate, "dd MMM yyyy");
     data = { ...data, invoiceDate: invoiceDate };
-    console.log(data);
   };
 
   return (
@@ -179,17 +212,15 @@ function Form({ handleCloseForm, show }: FormProps) {
             <div className="street">
               <label htmlFor={bfStreet}>Street Address</label>
               <input
-                {...register("billFromStreet")}
+                {...register("senderAddress.street")}
                 id={bfStreet}
-                name="billFromStreet"
                 type="text"
               />
             </div>
             <div className="city">
               <label htmlFor={bfCity}>City</label>
               <input
-                {...register("billFromCity")}
-                name="billFromCity"
+                {...register("senderAddress.city")}
                 id={bfCity}
                 type="text"
               />
@@ -197,17 +228,15 @@ function Form({ handleCloseForm, show }: FormProps) {
             <div className="post-code">
               <label htmlFor={bfPostcode}>Post Code</label>
               <input
-                {...register("billFromPostcode")}
+                {...register("senderAddress.postCode")}
                 id={bfPostcode}
-                name="billFromPostcode"
                 type="text"
               />
             </div>
             <div className="country">
               <label htmlFor={bfCountry}>Country</label>
               <input
-                {...register("billFromCountry")}
-                name="billFromCountry"
+                {...register("senderAddress.country")}
                 id={bfCountry}
                 type="text"
               />
@@ -218,26 +247,23 @@ function Form({ handleCloseForm, show }: FormProps) {
             <div className="clientName">
               <label htmlFor={btClientName}>Client's Name</label>
               <input
-                {...register("billToClientName")}
+                {...register("clientName")}
                 id={btClientName}
                 type="text"
-                name="billToClientName"
               />
             </div>
             <div className="clientEmail">
               <label htmlFor={btClientEmail}>Client's Email</label>
               <input
-                {...register("billToClientEmail")}
+                {...register("clientEmail")}
                 id={btClientEmail}
                 type="text"
-                name="billToClientEmail"
               />
             </div>
             <div className="street">
               <label htmlFor={btStreet}>Street Address</label>
               <input
-                {...register("billToStreet")}
-                name="billToStreet"
+                {...register("clientAddress.street")}
                 id={btStreet}
                 type="text"
               />
@@ -245,8 +271,7 @@ function Form({ handleCloseForm, show }: FormProps) {
             <div className="city">
               <label htmlFor={btCity}>City</label>
               <input
-                {...register("billToCity")}
-                name="billToCity"
+                {...register("clientAddress.city")}
                 id={btCity}
                 type="text"
               />
@@ -254,8 +279,7 @@ function Form({ handleCloseForm, show }: FormProps) {
             <div className="post-code">
               <label htmlFor={btPostcode}>Post Code</label>
               <input
-                {...register("billToPostcode")}
-                name="billToPostcode"
+                {...register("clientAddress.postCode")}
                 id={btPostcode}
                 type="text"
               />
@@ -263,8 +287,7 @@ function Form({ handleCloseForm, show }: FormProps) {
             <div className="country">
               <label htmlFor={btCountry}>Country</label>
               <input
-                {...register("billToCountry")}
-                name="billToCountry"
+                {...register("clientAddress.country")}
                 id={btCountry}
                 type="text"
               />
@@ -283,10 +306,8 @@ function Form({ handleCloseForm, show }: FormProps) {
             <div className="payment-terms">
               <label htmlFor={btCountry}>Payment Terms</label>
               <select
-                defaultValue={"Net 30 days"}
                 id={bdPaymentTerms}
                 {...register("paymentTerms")}
-                name="paymentTerms"
               >
                 <option value="Net 1 day">Net 1 day</option>
                 <option value="Net 7 days">Net 7 days</option>
@@ -301,7 +322,6 @@ function Form({ handleCloseForm, show }: FormProps) {
               <input
                 id={bdDescription}
                 {...register("description")}
-                name="description"
                 placeholder="e.g Graphic Design Service"
                 type="text"
               />
@@ -309,31 +329,28 @@ function Form({ handleCloseForm, show }: FormProps) {
           </div>
           <div className="bill-items">
             <label htmlFor="items">ItemList</label>
-            {itemListFields.map((item, index: any) => (
-              <div className="item" key={index}>
+            {fields.map((field, index) => (
+              <div className="item" key={field.id}>
                 <div className="item-name">
                   <label htmlFor={ilItemName}>Item Name</label>
                   <input
-                    {...register("itemName")}
+                    {...register(`items.${index}.name` as const)}
                     id={ilItemName}
-                    name="itemName"
                     type="text"
                   />
                 </div>
                 <div className="item-quantity">
                   <label htmlFor={ilItemQuantity}>Qty</label>
                   <input
-                    {...register("itemQuantity")}
+                    {...register(`items.${index}.quantity` as const)}
                     id={ilItemQuantity}
-                    name="itemQuantity"
                     type="text"
                   />
                 </div>
                 <div className="item-price">
                   <label htmlFor={ilItemPrice}>Price</label>
                   <input
-                    {...register("itemPrice")}
-                    name="itemPrice"
+                    {...register(`items.${index}.price` as const)}
                     id={ilItemPrice}
                     type="text"
                   />
@@ -341,17 +358,28 @@ function Form({ handleCloseForm, show }: FormProps) {
                 <div className="item-total">
                   <label htmlFor={ilItemTotal}>Total</label>
                   <input
-                    {...register("itemTotal")}
-                    name="itemTotal"
+                    {...register(`items.${index}.total` as const)}
                     id={ilItemTotal}
-                    value="0"
                     readOnly
                   />
                 </div>
-                <IoMdTrash className="item-remove" onClick={removeItemInList} />
+                <IoMdTrash
+                  className="item-remove"
+                  onClick={() => remove(index)}
+                />
               </div>
             ))}
-            <button onClick={addItemInList}>+ Add New Item</button>
+            <button
+              type="button"
+              onClick={() =>
+                append({
+                  name: "",
+                  total: 0,
+                })
+              }
+            >
+              + Add New Item
+            </button>
           </div>
         </div>
         <div className="bill-controller">
@@ -359,9 +387,7 @@ function Form({ handleCloseForm, show }: FormProps) {
             Discard
           </button>
           <div className="right-side">
-            <button className="draft" disabled={!isValid}>
-              Save as Draft
-            </button>
+            <button className="draft">Save as Draft</button>
             <button className="save" type="submit">
               Save & Send
             </button>
