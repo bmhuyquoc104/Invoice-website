@@ -27,7 +27,7 @@ export type Item = {
 
 export type Invoice = {
   id: string;
-  _id:string;
+  _id: string;
   createdAt: string;
   paymentDue: string;
   description: string;
@@ -41,7 +41,11 @@ export type Invoice = {
   items: Item[];
 };
 // Function to get all invoices
-const getAllInvoices = () => api.get("/invoice");
+const getAllInvoices = () => api.get("/invoice/status");
+
+// Function to filter invoices by status
+const getInvoicesByStatus = (status: string) =>
+  api.get(`/invoice/status/${status}`);
 
 // Function to get one invoice
 const getInvoice = (id: string) => api.get(`/invoice/${id}`);
@@ -56,5 +60,12 @@ const editInvoice = (id: string, newInvoice: Invoice) =>
 // Function to delete invoice
 const deleteInvoice = (id: string) => api.delete(`/invoice/${id}`);
 
-// Export functions 
-export { getAllInvoices, getInvoice, addInvoice, editInvoice, deleteInvoice };
+// Export functions
+export {
+  getAllInvoices,
+  getInvoice,
+  addInvoice,
+  editInvoice,
+  deleteInvoice,
+  getInvoicesByStatus,
+};

@@ -20,7 +20,12 @@ const getAllInvoices = async (req: Request, res: Response) => {
 const getInvoiceByStatus = async (req: Request, res: Response) => {
   try {
     const { status } = req.params;
-    const invoices = await Invoice.find().byStatus(status);
+    let invoices: any;
+    if (status !== "paid" && status !== "pending" && status !== "draft") {
+      invoices = await Invoice.find();
+    } else {
+      invoices = await Invoice.find().byStatus(status);
+    }
 
     if (invoices != null) {
       res.status(200).send(invoices);

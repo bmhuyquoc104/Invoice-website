@@ -32,7 +32,13 @@ exports.getAllInvoices = getAllInvoices;
 const getInvoiceByStatus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { status } = req.params;
-        const invoices = yield Invoice_1.Invoice.find().byStatus(status);
+        let invoices;
+        if (status !== "paid" && status !== "pending" && status !== "draft") {
+            invoices = yield Invoice_1.Invoice.find();
+        }
+        else {
+            invoices = yield Invoice_1.Invoice.find().byStatus(status);
+        }
         if (invoices != null) {
             res.status(200).send(invoices);
         }

@@ -4,6 +4,7 @@ import {
   addInvoice,
   editInvoice,
   deleteInvoice,
+  getInvoicesByStatus,
 } from "../api/invoice";
 
 import { useQuery, useMutation } from "react-query";
@@ -18,5 +19,10 @@ const useGetInvoiceById = (id: string) => {
   });
 };
 
+const useGetInvoicesByStatus = (status: string) => {
+  return useQuery(["invoice", status], () => getInvoicesByStatus(status), {
+    enabled: Boolean(status),
+  });
+};
 
-export { useGetAllInvoices, useGetInvoiceById };
+export { useGetAllInvoices, useGetInvoiceById, useGetInvoicesByStatus };
