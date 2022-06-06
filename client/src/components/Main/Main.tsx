@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { useGetAllInvoices } from "../../hooks/useInvoice";
+import { useGetInvoicesByStatus } from "../../hooks/useInvoice";
 import { imageResource } from "../../public/imageResources";
 import MainStyled from "./Main.styled";
 import { Invoice as InvoiceType } from "../../api/invoice";
@@ -18,22 +18,8 @@ function Main() {
   const pendingRef = useRef<any>(null);
   const dropDownRef = useRef<any>(null);
   // State to manage which filter option is selected
-  const [isSelected, setIsSelected] = useState<string[]>([]);
-
-  // Handle selected option
-  const handleSelected = (value: string) => {
-    let temp: string[] = [];
-    if (isSelected.length === 0) {
-      temp.push(value);
-      setIsSelected(temp);
-    } else if (isSelected.length > 0 && isSelected.includes(value)) {
-      setIsSelected([]);
-    } else {
-      temp.slice(0, 1);
-      temp.push(value);
-      setIsSelected(temp);
-    }
-  };
+  const [isSelected, setIsSelected] = useState<string[]>(["all"]);
+  console.log(isSelected);
 
   // State to manage the open or close of model or dropdown
   const [isToggleForm, setIsToggleForm] = useState(false);
@@ -50,16 +36,41 @@ function Main() {
   }, [setIsToggleDropDown]);
 
   // Get all the data
-  const { data: invoices, isLoading, error, isError } = useGetAllInvoices();
+  console.log(isSelected[0]);
+  const {
+    data: invoicesByStatus,
+    isLoading: isStatusLoading,
+    error: statusError,
+    isError: isStatusError,
+  } = useGetInvoicesByStatus(isSelected[0]);
 
   // Display when data is loading
-  if (isLoading) {
+  if (isStatusLoading) {
     return <div>loading</div>;
   }
   // Display when data is error
-  if (isError) {
-    return <h1>{`Error: ${error}`}</h1>;
+  if (isStatusError) {
+    return <h1>{`Error: ${statusError}`}</h1>;
   }
+
+  // Handle selected option
+  const handleSelected = (value: string) => {
+    let temp: string[] = [];
+    if (isSelected.length === 0) {
+      temp.push(value.toLowerCase());
+      setIsSelected(temp);
+    } else if (
+      isSelected.length > 0 &&
+      isSelected.includes(value.toLowerCase())
+    ) {
+      setIsSelected(["all"]);
+    } else {
+      temp.slice(0, 1);
+      temp.push(value.toLowerCase());
+      setIsSelected(temp);
+    }
+  };
+  console.log(invoicesByStatus?.data);
 
   // Parent animation
   const ulVariant = {
@@ -97,7 +108,7 @@ function Main() {
       >
         <div className="header-title">
           <h1>Invoices</h1>
-          <h2>{`There are ${invoices?.data.length} total invoices`}</h2>
+          <h2>{`There are ${invoicesByStatus?.data.length} total invoices`}</h2>
         </div>
         <div className="header-control">
           {!isToggleDropDown ? (
@@ -123,7 +134,7 @@ function Main() {
               </div>
               <div className="filter-options">
                 <p
-                  className={isSelected[0] === "Paid" ? "paid-selected" : ""}
+                  className={isSelected[0] === "paid" ? "paid-selected" : ""}
                   ref={paidRef}
                   onClick={() => {
                     handleSelected(paidRef.current.innerText);
@@ -136,7 +147,7 @@ function Main() {
                 </p>
                 <p
                   className={
-                    isSelected[0] === "Pending" ? "pending-selected" : ""
+                    isSelected[0] === "pending" ? "pending-selected" : ""
                   }
                   ref={pendingRef}
                   onClick={() => {
@@ -149,7 +160,7 @@ function Main() {
                   Pending
                 </p>
                 <p
-                  className={isSelected[0] === "Draft" ? "draft-selected" : ""}
+                  className={isSelected[0] === "draft" ? "draft-selected" : ""}
                   ref={draftRef}
                   onClick={() => {
                     handleSelected(draftRef.current.innerText);
@@ -175,7 +186,7 @@ function Main() {
         animate="visible"
         initial="hidden"
       >
-        {invoices?.data.map((invoice: InvoiceType) => (
+        {invoicesByStatus?.data.map((invoice: InvoiceType) => (
           <Invoice
             key={invoice._id}
             id={invoice.id}

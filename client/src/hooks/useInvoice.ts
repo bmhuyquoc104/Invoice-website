@@ -20,9 +20,13 @@ const useGetInvoiceById = (id: string) => {
 };
 
 const useGetInvoicesByStatus = (status: string) => {
-  return useQuery(["invoice", status], () => getInvoicesByStatus(status), {
-    enabled: Boolean(status),
-  });
+  return useQuery(
+    ["invoice", status],
+    () => getInvoicesByStatus(status),
+    {
+      keepPreviousData: true,
+    }
+  );
 };
 
 export { useGetAllInvoices, useGetInvoiceById, useGetInvoicesByStatus };
