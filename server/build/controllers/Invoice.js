@@ -33,6 +33,7 @@ const getInvoiceByStatus = (req, res) => __awaiter(void 0, void 0, void 0, funct
     try {
         const { status } = req.params;
         let invoices;
+        // If the status is not paid & pending & draft => get all
         if (status !== "paid" && status !== "pending" && status !== "draft") {
             invoices = yield Invoice_1.Invoice.find();
         }
