@@ -1,6 +1,8 @@
 import { useWatch, Control } from "react-hook-form";
 import { useEffect } from "react";
-import { FormValue } from "./Form";
+import { currency } from "../../../helper/FormatCurrency";
+import { FormValue } from "../Form";
+import TotalStyled from "./Total.styled";
 
 type TotalProps = {
   setTotal: React.Dispatch<React.SetStateAction<number>>;
@@ -19,7 +21,7 @@ const Total = ({ control, setTotal }: TotalProps) => {
       acc + (current.price || 0) * (current.quantity || 0),
     0
   );
-  return <h3>{total}</h3>;
+  return <TotalStyled>Total: {currency(total)}</TotalStyled>;
 };
 
 export default Total;

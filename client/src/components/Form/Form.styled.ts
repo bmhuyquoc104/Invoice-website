@@ -166,13 +166,13 @@ const FormStyled = styled(motion.form)`
     display: grid;
     grid-template-columns: 1fr 4em 7em 5em min-content;
     grid-template-areas: "item-name item-quantity item-price item-total item-remove";
-    align-items: center;
+    align-items: stretch;
     gap: 1em;
   }
   .item > * {
     display: flex;
     flex-direction: column;
-    gap: 0.625em;
+    gap: 0.5em;
   }
 
   .item-name {
@@ -199,11 +199,11 @@ const FormStyled = styled(motion.form)`
     grid-area: item-remove;
     width: 25px;
     color: #878eaf;
-    height: 3rem;
-    align-self: end;
+    height: 4rem;
+    align-self: center;
     :hover {
       cursor: pointer;
-      color: var(--clr_logo);
+      color: rgb(236, 87, 87);
     }
   }
 
@@ -266,6 +266,13 @@ const FormStyled = styled(motion.form)`
       background-color: var(--clr_logo2);
       cursor: pointer;
     }
+    :disabled {
+      opacity: 0.3;
+    }
+    :disabled:hover {
+      cursor: default;
+      background-color: var(--clr_logo);
+    }
   }
   .bill-body {
     gap: 2em;
@@ -273,6 +280,19 @@ const FormStyled = styled(motion.form)`
     flex-direction: column;
     overflow-y: scroll;
   }
+  .error input {
+    border: 1px solid rgb(236, 87, 87);
+  }
+  .message {
+    font-size: 0.685rem;
+    color: rgb(236, 87, 87);
+    outline: none;
+  }
+  .success input {
+    outline: none;
+    border: 1px solid ${({ theme }) => theme.input.border};
+  }
+
   @media (max-width: 900px) {
     padding: 3em 3em 5em 3em;
     border-radius: 0px 25px 25px 0px;

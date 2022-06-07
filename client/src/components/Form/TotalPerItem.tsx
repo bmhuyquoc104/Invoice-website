@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useWatch, Control } from "react-hook-form";
 import { FormValue } from "./Form";
+import { currency } from "../../helper/FormatCurrency";
 
 type TotalPerItemProps = {
   control: Control<FormValue>;
@@ -14,12 +15,13 @@ const TotalPerItem = ({ control, index, register }: TotalPerItemProps) => {
     control,
   });
 
-  const total = (formValues[index].quantity || 0) * (formValues[index].price || 0);
+  const total =
+    (formValues[index].quantity || 0) * (formValues[index].price || 0);
 
   formValues[index].total = total;
 
   return (
-    <input {...register(`items[${index}].total`)} readOnly value={total} />
+    <input {...register(`items[${index}].total`)} readOnly value={currency(total)} />
   );
 };
 
