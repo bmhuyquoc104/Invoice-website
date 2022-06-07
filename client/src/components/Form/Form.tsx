@@ -1,8 +1,6 @@
 import { IoMdTrash } from "react-icons/io";
-import { format } from "date-fns";
+import { format, addDays } from "date-fns";
 import DatePicker from "react-datepicker";
-import { v4 as uuidv4 } from 'uuid';
-
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm, useFieldArray, useWatch, Control } from "react-hook-form";
 import * as yup from "yup";
@@ -51,7 +49,6 @@ type FormValue = {
 
 function Form({ handleCloseForm, show }: FormProps) {
   const [startDate, setStartDate] = useState(new Date());
-  const defaultDate = format(startDate, "dd MMM yyyy");
 
   // Get the header ref from header component
   const { headerRef } = useContext(RefContext);
@@ -179,9 +176,19 @@ function Form({ handleCloseForm, show }: FormProps) {
     name: "items", // unique name for your Field Array
   });
   const onSubmit = (data: any) => {
+    const invoiceDate = format(startDate, "yyyy-MM-dd");
+    const paymentTerms = parseInt(data.paymentTerms.split(" ")[1]);
+    const paymentDue = format(
+      addDays(new Date(startDate), paymentTerms),
+      "yyyy-MM-dd"
+    );
+    data = {
+      ...data,
+      createdAt: invoiceDate,
+      paymentDue: paymentDue,
+      paymentTerms: paymentTerms,
+    };
     console.log(data);
-    const invoiceDate = format(startDate, "dd MMM yyyy");
-    data = { ...data, invoiceDate: invoiceDate };
   };
 
   return (
@@ -305,10 +312,7 @@ function Form({ handleCloseForm, show }: FormProps) {
             </div>
             <div className="payment-terms">
               <label htmlFor={btCountry}>Payment Terms</label>
-              <select
-                id={bdPaymentTerms}
-                {...register("paymentTerms")}
-              >
+              <select id={bdPaymentTerms} {...register("paymentTerms")}>
                 <option value="Net 1 day">Net 1 day</option>
                 <option value="Net 7 days">Net 7 days</option>
                 <option value="Net 14 days">Net 14 days</option>
