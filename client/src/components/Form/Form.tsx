@@ -2,59 +2,61 @@ import { IoMdTrash } from "react-icons/io";
 import { format, addDays } from "date-fns";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useForm, useFieldArray, useWatch, Control } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useId, useState, useRef, useEffect, useContext } from "react";
-import { InvoiceWithoutInvoiceDate } from "../../api/invoice";
 import FormStyled from "./Form.styled";
 import { RefContext } from "../../hooks/useRefContext";
 import { AbsoluteFormContainer } from "../AbsoluteFlexModel/AbsoluteFlexModel";
+import Total from "./Total";
+import TotalPerItem from "./TotalPerItem";
 
 type FormProps = {
   handleCloseForm: (event: React.MouseEvent<HTMLButtonElement>) => void;
   show: boolean;
 };
 type SenderAddress = {
-  billFromStreet?: string;
-  billFromCity?: string;
-  billFromPostCode?: string;
-  billFromCountry?: string;
+  street: string;
+  city: string;
+  postCode: string;
+  country: string;
 };
 
 type ClientAddress = {
-  billToStreet?: string;
-  billToCity?: string;
-  billToPostCode?: string;
-  billToCountry?: string;
+  street: string;
+  city: string;
+  postCode: string;
+  country: string;
 };
 type Item = {
-  itemName?: string;
-  itemQuantity?: string;
-  itemPrice?: string;
-  itemTotal?: string;
+  name: string;
+  quantity?: number;
+  price?: number;
+  total?: number;
 };
 
-type FormValue = {
-  paymentDue?: string;
-  description?: string;
-  paymentTerms?: string;
-  billToClientName?: string;
-  billToClientEmail?: string;
-  clientAddress?: ClientAddress;
-  senderAddress?: SenderAddress;
-  total?: string;
-  items?: Item[];
+export type FormValue = {
+  description: string;
+  clientAddress: ClientAddress;
+  senderAddress: SenderAddress;
+  paymentTerms: string;
+  id: string;
+  clientEmail: string;
+  total: number;
+  clientName: string;
+  items: Item[];
 };
 
-function Form({ handleCloseForm, show }: FormProps) {
+function Form({ handleCloseForm }: FormProps) {
+  const [total, setTotal] = useState(0);
+
   const [startDate, setStartDate] = useState(new Date());
-
+  const [status, setStatus] = useState<string>("");
   // Get the header ref from header component
   const { headerRef } = useContext(RefContext);
   //Ref the whole contain in side the form
   const containRef = useRef<any>(null);
-
   // Check if the client click outside or not
   useEffect(() => {
     const handleClose = (e: any) => {
@@ -133,7 +135,7 @@ function Form({ handleCloseForm, show }: FormProps) {
     .required();
 
   // Declare form default values
-  const formDefaultValue = {
+  const formDefaultValue: FormValue = {
     paymentTerms: "Net 30 days",
     description: "",
     id: `${useId()}`,
@@ -152,12 +154,12 @@ function Form({ handleCloseForm, show }: FormProps) {
       postCode: "",
       country: "",
     },
-    items: {
-      name: "",
-      quantity: 0,
-      price: 0,
-      number: 0,
-    },
+    items: [
+      {
+        name: "",
+        total: 0,
+      },
+    ],
   };
 
   //Declare react hook From with its props
@@ -168,7 +170,7 @@ function Form({ handleCloseForm, show }: FormProps) {
     reset,
     formState: { touchedFields, isValid },
     formState,
-  } = useForm<any>({
+  } = useForm<FormValue>({
     defaultValues: formDefaultValue,
   });
   const { fields, append, remove } = useFieldArray({
@@ -184,12 +186,21 @@ function Form({ handleCloseForm, show }: FormProps) {
     );
     data = {
       ...data,
+      items: data.items.map((item: any) => ({
+        ...item,
+        quantity: parseInt(item.quantity),
+        price: parseFloat(item.price),
+      })),
       createdAt: invoiceDate,
       paymentDue: paymentDue,
       paymentTerms: paymentTerms,
+      status: status,
+      total: total,
     };
     console.log(data);
   };
+
+  console.log(fields);
 
   return (
     <AbsoluteFormContainer>
@@ -361,10 +372,10 @@ function Form({ handleCloseForm, show }: FormProps) {
                 </div>
                 <div className="item-total">
                   <label htmlFor={ilItemTotal}>Total</label>
-                  <input
-                    {...register(`items.${index}.total` as const)}
-                    id={ilItemTotal}
-                    readOnly
+                  <TotalPerItem
+                    register={register}
+                    control={control}
+                    index={index}
                   />
                 </div>
                 <IoMdTrash
@@ -375,24 +386,36 @@ function Form({ handleCloseForm, show }: FormProps) {
             ))}
             <button
               type="button"
-              onClick={() =>
+              onClick={() => {
                 append({
                   name: "",
                   total: 0,
-                })
-              }
+                });
+              }}
             >
               + Add New Item
             </button>
           </div>
         </div>
+        <Total control={control} setTotal={setTotal} />
+
         <div className="bill-controller">
           <button className="discard" onClick={handleCloseForm}>
             Discard
           </button>
           <div className="right-side">
-            <button className="draft">Save as Draft</button>
-            <button className="save" type="submit">
+            <button
+              onClick={() => setStatus("draft")}
+              type="submit"
+              className="draft"
+            >
+              Save as Draft
+            </button>
+            <button
+              onClick={() => setStatus("pending")}
+              className="save"
+              type="submit"
+            >
               Save & Send
             </button>
           </div>
