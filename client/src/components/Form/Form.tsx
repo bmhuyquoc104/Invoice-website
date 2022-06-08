@@ -11,6 +11,7 @@ import { RefContext } from "../../hooks/useRefContext";
 import { AbsoluteFormContainer } from "../AbsoluteFlexModel/AbsoluteFlexModel";
 import Total from "./Total/Total";
 import TotalPerItem from "./TotalPerItem";
+import { useAddInvoice } from "../../hooks/useInvoice";
 
 type FormProps = {
   handleCloseForm: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -171,6 +172,8 @@ function Form({ handleCloseForm }: FormProps) {
     ],
   };
 
+  // Declare useMutation hook
+  const { mutate } = useAddInvoice();
   //Declare react hook From with its props
   const {
     register,
@@ -210,6 +213,7 @@ function Form({ handleCloseForm }: FormProps) {
       total: total,
     };
     console.log(data);
+    mutate(data);
     reset();
   };
 
