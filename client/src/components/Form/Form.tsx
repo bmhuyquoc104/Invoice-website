@@ -92,7 +92,6 @@ function Form({ handleCloseForm }: FormProps) {
   const ilItemTotal = useId();
   const ilItemQuantity = useId();
 
-
   // Declare schema for form fields
   const schema = yup
     .object()
@@ -180,13 +179,14 @@ function Form({ handleCloseForm }: FormProps) {
     register,
     handleSubmit,
     control,
+    getValues,
     reset,
     formState: { touchedFields, isValid, errors },
     formState,
   } = useForm<FormValue>({
     defaultValues: formDefaultValue,
     resolver: yupResolver(schema),
-    mode: "onTouched",
+    mode: "onSubmit",
     shouldFocusError: true,
   });
   const { fields, append, remove } = useFieldArray({
@@ -194,7 +194,7 @@ function Form({ handleCloseForm }: FormProps) {
     name: "items", // unique name for your Field Array
   });
   const onSubmit = (data: any) => {
-    const invoiceDate = format(startDate, "yyyy-MM-dd 'T'HH:mm:ss.SSSxxx");
+    const invoiceDate = format(startDate, "yyyy-MM-dd");
     console.log(invoiceDate);
     const paymentTerms = parseInt(data.paymentTerms.split(" ")[1]);
     const paymentDue = format(
@@ -214,9 +214,36 @@ function Form({ handleCloseForm }: FormProps) {
       status: status,
       total: total,
     };
-    console.log(data);
     mutate(data);
+    console.log(data);
+    // reset();
+  };
+
+  const saveAsDraft = () => {
+    setStatus("draft");
+    let currentValues: any = getValues();
+    const createdAt = format(startDate, "yyyy-MM-dd");
+    const paymentTerms = parseInt(currentValues.paymentTerms.split(" ")[1]);
+    const paymentDue = format(
+      addDays(new Date(startDate), paymentTerms),
+      "yyyy-MM-dd"
+    );
+    currentValues = {
+      ...currentValues,
+      status: status,
+      total: total,
+      paymentTerms: paymentTerms,
+      paymentDue: paymentDue,
+      createdAt: createdAt,
+      items: currentValues.items.map((item: any) => ({
+        ...item,
+        quantity: parseInt(item.quantity),
+        price: parseFloat(item.price),
+      })),
+    };
+    console.log(currentValues);
     reset();
+    mutate(currentValues);
   };
 
   return (
@@ -532,11 +559,7 @@ function Form({ handleCloseForm }: FormProps) {
             Discard
           </button>
           <div className="right-side">
-            <button
-              onClick={() => setStatus("draft")}
-              type="submit"
-              className="draft"
-            >
+            <button onClick={saveAsDraft} type="button" className="draft">
               Save as Draft
             </button>
             <button

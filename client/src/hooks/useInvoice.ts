@@ -34,13 +34,8 @@ const useGetInvoicesByStatus = (status: string) => {
 const useAddInvoice = () => {
   const queryClient = useQueryClient();
   return useMutation(addInvoice, {
-    onSuccess: (data) => {
-      queryClient.setQueriesData(["invoice"], (oldData: any) => {
-        return {
-          ...oldData,
-          data: [data.data, ...oldData.data],
-        };
-      });
+    onSuccess: () => {
+      queryClient.invalidateQueries("invoices")
     },
   });
 };
