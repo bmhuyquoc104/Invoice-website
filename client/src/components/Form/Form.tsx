@@ -317,7 +317,7 @@ function Form({ handleCloseForm, ids, formType, id }: FormProps) {
         ) : (
           <h2>
             Edit <span>#</span>
-            {data?.id}
+            {data?.data?.id}
           </h2>
         )}
         <div className="bill-body">
