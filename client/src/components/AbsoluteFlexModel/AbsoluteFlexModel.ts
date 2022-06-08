@@ -29,4 +29,17 @@ const AbsoluteFormContainer = styled.div`
   }
 `;
 
-export { AbsoluteFlexContainer, AbsoluteFormContainer };
+const AbsoluteFlexContainer2= styled.div`
+  position: fixed;
+  z-index: 1000;
+  top: 0px;
+  left: 0px;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+`;
+
+export { AbsoluteFlexContainer, AbsoluteFormContainer,AbsoluteFlexContainer2 };
