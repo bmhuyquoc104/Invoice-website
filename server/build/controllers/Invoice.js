@@ -35,10 +35,10 @@ const getInvoiceByStatus = (req, res) => __awaiter(void 0, void 0, void 0, funct
         let invoices;
         // If the status is not paid & pending & draft => get all
         if (status !== "paid" && status !== "pending" && status !== "draft") {
-            invoices = yield Invoice_1.Invoice.find();
+            invoices = yield Invoice_1.Invoice.find().sort({ createdAt: -1 });
         }
         else {
-            invoices = yield Invoice_1.Invoice.find().byStatus(status);
+            invoices = yield Invoice_1.Invoice.find().byStatus(status).sort({ createdAt: -1 });
         }
         if (invoices != null) {
             res.status(200).send(invoices);

@@ -23,9 +23,9 @@ const getInvoiceByStatus = async (req: Request, res: Response) => {
     let invoices: any;
     // If the status is not paid & pending & draft => get all
     if (status !== "paid" && status !== "pending" && status !== "draft") {
-      invoices = await Invoice.find();
+      invoices = await Invoice.find().sort({ createdAt: -1 });
     } else {
-      invoices = await Invoice.find().byStatus(status);
+      invoices = await Invoice.find().byStatus(status).sort({ createdAt: -1 });
     }
 
     if (invoices != null) {
