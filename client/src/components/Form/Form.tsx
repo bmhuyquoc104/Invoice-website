@@ -195,7 +195,7 @@ function Form({ handleCloseForm, ids }: FormProps) {
     control, // control props comes from useForm (optional: if you are using FormContext)
     name: "items", // unique name for your Field Array
   });
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: any, e: any) => {
     const invoiceDate = format(startDate, "yyyy-MM-dd");
     console.log(invoiceDate);
     const paymentTerms = parseInt(data.paymentTerms.split(" ")[1]);
@@ -220,10 +220,12 @@ function Form({ handleCloseForm, ids }: FormProps) {
     };
     mutate(data);
     console.log(data);
+    handleCloseForm(e);
+
     reset();
   };
 
-  const saveAsDraft = () => {
+  const saveAsDraft = (e: any) => {
     let id = generateUniqueId(ids);
     console.log(id);
     setStatus("draft");
@@ -251,6 +253,7 @@ function Form({ handleCloseForm, ids }: FormProps) {
     console.log(currentValues);
     reset();
     mutate(currentValues);
+    handleCloseForm(e);
   };
 
   return (
@@ -558,7 +561,9 @@ function Form({ handleCloseForm, ids }: FormProps) {
               + Add New Item
             </button>
           </div>
-          <Total control={control} setTotal={setTotal} />
+          <div className="bill-total">
+            <Total control={control} setTotal={setTotal} />
+          </div>
         </div>
 
         <div className="bill-controller">
@@ -577,6 +582,7 @@ function Form({ handleCloseForm, ids }: FormProps) {
             >
               Save & Send
             </button>
+            <p className="button-message">Please fill all the fields</p>
           </div>
         </div>
       </FormStyled>

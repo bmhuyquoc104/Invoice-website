@@ -5,7 +5,7 @@ const FormStyled = styled(motion.form)`
   background-color: ${({ theme }) => theme.form.backgroundColor};
   width: max(50%, 600px);
   border-radius: 0 50px 50px 0;
-  padding: 3em 4em 1em 4em;
+  padding: 3em 2em 5em 2em;
   display: flex;
   flex-direction: column;
   gap: 2em;
@@ -41,6 +41,7 @@ const FormStyled = styled(motion.form)`
     display: grid;
     gap: 1em;
     grid-template-columns: 1fr 1fr 1fr;
+    padding: 0 1.5em;
   }
   .bill-form {
     grid-template-areas:
@@ -113,6 +114,7 @@ const FormStyled = styled(motion.form)`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 1.5em;
   }
   .bill-date > * {
     width: 47%;
@@ -150,10 +152,13 @@ const FormStyled = styled(motion.form)`
     display: flex;
     flex-direction: column;
     gap: 0.5em;
+    padding: 0 1.5em;
   }
   .bill-items {
     display: flex;
     flex-direction: column;
+    padding: 0 1.5em;
+
     gap: 1.5em;
   }
   .bill-items > label {
@@ -161,6 +166,9 @@ const FormStyled = styled(motion.form)`
     font-size: 1.125rem;
     font-weight: bold;
     letter-spacing: 0.25px;
+  }
+  .bill-total {
+    padding: 0 1.5em;
   }
   .item {
     display: grid;
@@ -225,6 +233,8 @@ const FormStyled = styled(motion.form)`
     padding: 2em 0;
     align-items: center;
     justify-content: space-between;
+    padding: 0 1.5em;
+    padding-bottom:2em;
   }
   .discard {
     border-radius: 25px;
@@ -243,6 +253,7 @@ const FormStyled = styled(motion.form)`
     display: flex;
     gap: 0.5em;
     align-items: center;
+    position: relative;
   }
   .right-side button {
     font-size: 0.75rem;
@@ -260,6 +271,7 @@ const FormStyled = styled(motion.form)`
     }
   }
   .save {
+    position: relative;
     background-color: var(--clr_logo);
     color: #ffffff;
     :hover {
@@ -273,6 +285,19 @@ const FormStyled = styled(motion.form)`
       cursor: default;
       background-color: var(--clr_logo);
     }
+    :disabled:hover + .button-message {
+      display: flex;
+    }
+  }
+  .button-message {
+    position: absolute;
+    display: none;
+    background-color: transparent;
+    font-size: 0.75rem;
+    right: -10px;
+    top: -25px;
+    font-weight: bold;
+    color: rgb(236, 87, 87);
   }
   .bill-body {
     gap: 2em;
@@ -299,6 +324,18 @@ const FormStyled = styled(motion.form)`
   }
   @media (max-width: 600px) {
     border-radius: 0;
+    .bill-form,
+    .bill-to,
+    .description,
+    .bill-total,
+    .bill-date,
+    .bill-items {
+      padding: 0 0.25em;
+    }
+    .bill-controller {
+      padding: 0 0.25em 2em 0;
+    }
+
     .bill-form,
     .bill-to {
       gap: 1em;
@@ -337,6 +374,9 @@ const FormStyled = styled(motion.form)`
     padding: 2em 0.75em 5em 0.75em;
     .right-side {
       gap: 0.25em;
+    }
+    .button-message {
+      right: -5px;
     }
   }
 `;
