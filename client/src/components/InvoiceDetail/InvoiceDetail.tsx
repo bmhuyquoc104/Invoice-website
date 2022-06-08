@@ -1,16 +1,22 @@
-import React from "react";
+import { AnimatePresence } from "framer-motion";
+import React, { useState } from "react";
 import { useGetInvoiceById } from "../../hooks/useInvoice";
 import { imageResource } from "../../public/imageResources";
 import { Item } from "../../api/invoice";
 import { formatDate } from "../../helper/FormatDate";
 import { currency } from "../../helper/FormatCurrency";
 import InvoiceDetailStyled from "./InvoiceDetail.styled";
+import { useDeleteInvoice } from "../../hooks/useInvoice";
+import AlertDelete from "../AlertDelete/AlertDelete";
 import { useParams, useNavigate } from "react-router-dom";
 
 function InvoiceDetail() {
   const { id } = useParams();
+  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const navigate = useNavigate();
+  const { mutate: deleteMutate } = useDeleteInvoice();
   const { data: invoice, isLoading, isError, error } = useGetInvoiceById(id!);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -18,6 +24,12 @@ function InvoiceDetail() {
     return <div>{`Error: ${error}`}</div>;
   }
   console.log(invoice?.data);
+
+  // Function to delete the invoice
+  const handleDelete = () => {
+    setIsOpenDeleteModal(true);
+  };
+
   return (
     <InvoiceDetailStyled>
       <div>
@@ -41,7 +53,18 @@ function InvoiceDetail() {
         </div>
         <div className="controller">
           <button className="edit">Edit</button>
-          <button className="delete">Delete</button>
+          <button onClick={handleDelete} className="delete">
+            Delete
+          </button>
+          <AnimatePresence>
+            {isOpenDeleteModal && (
+              <AlertDelete
+                id={invoice?.data?.id!}
+                deletedId={id!}
+                setIsOpenDeleteModal={setIsOpenDeleteModal}
+              />
+            )}
+          </AnimatePresence>
           {invoice?.data.status === "pending" ||
           invoice?.data.status === "draft" ? (
             <button className="mark-as-paid">Mark As Paid</button>
@@ -126,7 +149,18 @@ function InvoiceDetail() {
       </div>
       <div className="bottom-controller">
         <button className="edit">Edit</button>
-        <button className="delete">Delete</button>
+        <button className="delete" onClick={handleDelete}>
+          Delete
+        </button>
+        <AnimatePresence>
+          {isOpenDeleteModal && (
+            <AlertDelete
+              id={invoice?.data?.id!}
+              deletedId={id!}
+              setIsOpenDeleteModal={setIsOpenDeleteModal}
+            />
+          )}
+        </AnimatePresence>
         {invoice?.data.status === "pending" ||
         invoice?.data.status === "draft" ? (
           <button className="mark-as-paid">Mark As Paid</button>

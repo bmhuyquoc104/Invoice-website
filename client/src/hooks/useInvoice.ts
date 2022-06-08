@@ -35,7 +35,17 @@ const useAddInvoice = () => {
   const queryClient = useQueryClient();
   return useMutation(addInvoice, {
     onSuccess: () => {
-      queryClient.invalidateQueries("invoices")
+      queryClient.invalidateQueries(["invoices"]);
+    },
+  });
+};
+
+// Hook to delete invoice
+const useDeleteInvoice = () => {
+  const queryClient = useQueryClient();
+  return useMutation(deleteInvoice, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["invoices"]);
     },
   });
 };
@@ -45,4 +55,5 @@ export {
   useGetInvoiceById,
   useGetInvoicesByStatus,
   useAddInvoice,
+  useDeleteInvoice,
 };
