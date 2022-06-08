@@ -6,6 +6,7 @@ import {
   updateInvoice,
   addInvoice,
   getInvoiceByStatus,
+  updateStatusField,
 } from "../controllers/Invoice";
 import { getInvoiceByID } from "../middleware/getInvoiceById";
 let router = express.Router();
@@ -17,4 +18,7 @@ router
   .get(getInvoiceByID, getInvoice)
   .delete(getInvoiceByID, deleteInvoice)
   .put(getInvoiceByID, updateInvoice);
+router
+  .route("/status/:id")
+  .patch(getInvoiceByID, updateStatusField);
 export default router;

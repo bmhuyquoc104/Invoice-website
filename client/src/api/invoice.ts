@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  // baseURL: "https://bmhuyquoc104-invoice-app.herokuapp.com/",
-  baseURL:"http://localhost:8080/"
+  baseURL: "https://bmhuyquoc104-invoice-app.herokuapp.com/",
+  // baseURL:"http://localhost:8080/"
 });
 
 export type SenderAddress = {

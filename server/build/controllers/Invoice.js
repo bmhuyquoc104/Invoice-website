@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getInvoiceByStatus = exports.updateInvoice = exports.addInvoice = exports.deleteInvoice = exports.getInvoice = exports.getAllInvoices = void 0;
+exports.updateStatusField = exports.getInvoiceByStatus = exports.updateInvoice = exports.addInvoice = exports.deleteInvoice = exports.getInvoice = exports.getAllInvoices = void 0;
 const Invoice_1 = require("../models/Invoice");
 // import {IInvoiceResponse} from "../middleware/getInvoiceById"
 // Function to get all invoices
@@ -117,3 +117,22 @@ const addInvoice = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.addInvoice = addInvoice;
+// Function to update status
+const updateStatusField = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const invoice = res.invoice;
+    const { status } = req.body;
+    if (status == null) {
+        res.status(404).send("Please enter type of status to update");
+    }
+    else {
+        invoice.status = status;
+    }
+    try {
+        const updateUser = yield invoice.save();
+        res.status(200).send(updateUser);
+    }
+    catch (error) {
+        res.status(500).send("Internal server");
+    }
+});
+exports.updateStatusField = updateStatusField;

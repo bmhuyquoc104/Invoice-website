@@ -97,6 +97,24 @@ const addInvoice = async (req: Request, res: Response) => {
     res.status(500).send("Internal server");
   }
 };
+
+// Function to update status
+const updateStatusField = async (req: Request, res: Response) => {
+  const invoice = res.invoice;
+  const { status } = req.body;
+  if (status == null) {
+    res.status(404).send("Please enter type of status to update");
+  } else {
+    invoice.status = status;
+  }
+  try {
+    const updateUser = await invoice.save();
+    res.status(200).send(updateUser);
+  } catch (error) {
+    res.status(500).send("Internal server");
+  }
+};
+
 export {
   getAllInvoices,
   getInvoice,
@@ -104,4 +122,5 @@ export {
   addInvoice,
   updateInvoice,
   getInvoiceByStatus,
+  updateStatusField,
 };

@@ -15,4 +15,7 @@ router
     .get(getInvoiceById_1.getInvoiceByID, Invoice_1.getInvoice)
     .delete(getInvoiceById_1.getInvoiceByID, Invoice_1.deleteInvoice)
     .put(getInvoiceById_1.getInvoiceByID, Invoice_1.updateInvoice);
+router
+    .route("/status/:id")
+    .patch(getInvoiceById_1.getInvoiceByID, Invoice_1.updateStatusField);
 exports.default = router;
