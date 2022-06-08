@@ -199,6 +199,9 @@ function Main() {
       <AnimatePresence>
         {isToggleForm && (
           <Form
+            ids={invoicesByStatus?.data.map(
+              (invoice: InvoiceType) => invoice.id
+            )}
             show={isToggleForm}
             handleCloseForm={(e) => {
               e.preventDefault();

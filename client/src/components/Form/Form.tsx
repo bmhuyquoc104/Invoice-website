@@ -12,10 +12,12 @@ import { AbsoluteFormContainer } from "../AbsoluteFlexModel/AbsoluteFlexModel";
 import Total from "./Total/Total";
 import TotalPerItem from "./TotalPerItem";
 import { useAddInvoice } from "../../hooks/useInvoice";
+import { generateUniqueId } from "../../helper/GenerateId";
 
 type FormProps = {
   handleCloseForm: (event: React.MouseEvent<HTMLButtonElement>) => void;
   show: boolean;
+  ids: string[];
 };
 type SenderAddress = {
   street: string;
@@ -49,7 +51,7 @@ export type FormValue = {
   items: Item[];
 };
 
-function Form({ handleCloseForm }: FormProps) {
+function Form({ handleCloseForm, ids }: FormProps) {
   const [total, setTotal] = useState(0);
 
   const [startDate, setStartDate] = useState(new Date());
@@ -186,7 +188,7 @@ function Form({ handleCloseForm }: FormProps) {
   } = useForm<FormValue>({
     defaultValues: formDefaultValue,
     resolver: yupResolver(schema),
-    mode: "onSubmit",
+    mode: "onTouched",
     shouldFocusError: true,
   });
   const { fields, append, remove } = useFieldArray({
@@ -201,6 +203,7 @@ function Form({ handleCloseForm }: FormProps) {
       addDays(new Date(startDate), paymentTerms),
       "yyyy-MM-dd"
     );
+    let id = generateUniqueId(ids);
     data = {
       ...data,
       items: data.items.map((item: any) => ({
@@ -213,13 +216,16 @@ function Form({ handleCloseForm }: FormProps) {
       paymentTerms: paymentTerms,
       status: status,
       total: total,
+      id: id,
     };
     mutate(data);
     console.log(data);
-    // reset();
+    reset();
   };
 
   const saveAsDraft = () => {
+    let id = generateUniqueId(ids);
+    console.log(id);
     setStatus("draft");
     let currentValues: any = getValues();
     const createdAt = format(startDate, "yyyy-MM-dd");
@@ -240,6 +246,7 @@ function Form({ handleCloseForm }: FormProps) {
         quantity: parseInt(item.quantity),
         price: parseFloat(item.price),
       })),
+      id: id,
     };
     console.log(currentValues);
     reset();
