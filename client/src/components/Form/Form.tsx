@@ -55,7 +55,6 @@ function Form({ handleCloseForm, ids }: FormProps) {
   const [total, setTotal] = useState(0);
 
   const [startDate, setStartDate] = useState(new Date());
-  const [status, setStatus] = useState<string>("");
   // Get the header ref from header component
   const { headerRef } = useContext(RefContext);
   //Ref the whole contain in side the form
@@ -195,6 +194,8 @@ function Form({ handleCloseForm, ids }: FormProps) {
     control, // control props comes from useForm (optional: if you are using FormContext)
     name: "items", // unique name for your Field Array
   });
+
+  // Function when click save to submit the form
   const onSubmit = (data: any, e: any) => {
     const invoiceDate = format(startDate, "yyyy-MM-dd");
     console.log(invoiceDate);
@@ -214,21 +215,19 @@ function Form({ handleCloseForm, ids }: FormProps) {
       createdAt: invoiceDate,
       paymentDue: paymentDue,
       paymentTerms: paymentTerms,
-      status: status,
+      status: "pending",
       total: total,
       id: id,
     };
     mutate(data);
     console.log(data);
     handleCloseForm(e);
-
     reset();
   };
 
   const saveAsDraft = (e: any) => {
     let id = generateUniqueId(ids);
     console.log(id);
-    setStatus("draft");
     let currentValues: any = getValues();
     const createdAt = format(startDate, "yyyy-MM-dd");
     const paymentTerms = parseInt(currentValues.paymentTerms.split(" ")[1]);
@@ -238,7 +237,7 @@ function Form({ handleCloseForm, ids }: FormProps) {
     );
     currentValues = {
       ...currentValues,
-      status: status,
+      status: "draft",
       total: total,
       paymentTerms: paymentTerms,
       paymentDue: paymentDue,
@@ -574,12 +573,7 @@ function Form({ handleCloseForm, ids }: FormProps) {
             <button onClick={saveAsDraft} type="button" className="draft">
               Save as Draft
             </button>
-            <button
-              onClick={() => setStatus("pending")}
-              className="save"
-              type="submit"
-              disabled={!isValid}
-            >
+            <button className="save" type="submit" disabled={!isValid}>
               Save & Send
             </button>
             <p className="button-message">Please fill all the fields</p>
