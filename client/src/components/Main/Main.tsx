@@ -202,6 +202,7 @@ function Main() {
             ids={invoicesByStatus?.data.map(
               (invoice: InvoiceType) => invoice.id
             )}
+            formType="add"
             show={isToggleForm}
             handleCloseForm={(e) => {
               e.preventDefault();

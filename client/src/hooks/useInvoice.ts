@@ -61,6 +61,16 @@ const useUpdateStatusInvoice = () => {
   });
 };
 
+// Hook to update invoice
+const useEditInvoice = () => {
+  const queryClient = useQueryClient();
+  return useMutation(editInvoice, {
+    onSuccess: (data, variables) => {
+      queryClient.setQueryData(["invoice", variables.id], data);
+    },
+  });
+};
+
 export {
   useGetAllInvoices,
   useGetInvoiceById,
@@ -68,4 +78,5 @@ export {
   useAddInvoice,
   useDeleteInvoice,
   useUpdateStatusInvoice,
+  useEditInvoice,
 };

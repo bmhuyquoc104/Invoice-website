@@ -1,4 +1,5 @@
 import { AnimatePresence } from "framer-motion";
+import { useParams, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { useGetInvoiceById } from "../../hooks/useInvoice";
 import { imageResource } from "../../public/imageResources";
@@ -8,9 +9,11 @@ import { currency } from "../../helper/FormatCurrency";
 import InvoiceDetailStyled from "./InvoiceDetail.styled";
 import { useUpdateStatusInvoice } from "../../hooks/useInvoice";
 import AlertDelete from "../AlertDelete/AlertDelete";
-import { useParams, useNavigate } from "react-router-dom";
+import Form from "../Form/Form";
 
 function InvoiceDetail() {
+  // State to manage the open or close of model or dropdown
+  const [isToggleForm, setIsToggleForm] = useState(false);
   const { id } = useParams();
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const navigate = useNavigate();
@@ -59,7 +62,9 @@ function InvoiceDetail() {
           )}
         </div>
         <div className="controller">
-          <button className="edit">Edit</button>
+          <button className="edit" onClick={() => setIsToggleForm(true)}>
+            Edit
+          </button>
           <button onClick={handleDelete} className="delete">
             Delete
           </button>
@@ -177,6 +182,19 @@ function InvoiceDetail() {
           <></>
         )}
       </div>
+      <AnimatePresence>
+        {isToggleForm && (
+          <Form
+            id={id}
+            show={isToggleForm}
+            formType="edit"
+            handleCloseForm={(e) => {
+              e.preventDefault();
+              setIsToggleForm(false);
+            }}
+          />
+        )}
+      </AnimatePresence>
     </InvoiceDetailStyled>
   );
 }

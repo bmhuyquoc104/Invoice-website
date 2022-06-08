@@ -2,7 +2,7 @@ import axios from "axios";
 
 const api = axios.create({
   // baseURL: "https://bmhuyquoc104-invoice-app.herokuapp.com/",
-  baseURL:"http://localhost:8080/"
+  baseURL: "http://localhost:8080/",
 });
 
 export type SenderAddress = {
@@ -67,8 +67,12 @@ const getInvoice = (id: string) => api.get(`/invoice/${id}`);
 const addInvoice = (newInvoice: Invoice) => api.post(`/invoice`, newInvoice);
 
 // Function to edit invoice
-const editInvoice = (id: string, newInvoice: Invoice) =>
-  api.put(`/invoice/${id}`, newInvoice);
+type EditInvoiceProps = {
+  id: string;
+  invoice: Invoice;
+};
+const editInvoice = ({ id, invoice }: EditInvoiceProps) =>
+  api.put(`/invoice/${id}`, invoice);
 
 // Function to delete invoice
 const deleteInvoice = (id: string) => api.delete(`/invoice/${id}`);
@@ -78,8 +82,8 @@ type Status = {
 };
 
 type UpdateInvoiceStatusProps = {
-  status: any;
-  id: any ;
+  status: Status;
+  id?: string;
 };
 // Function to update invoice's status
 const updateInvoiceStatus = ({ status, id }: UpdateInvoiceStatusProps) =>

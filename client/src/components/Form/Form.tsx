@@ -1,6 +1,7 @@
 import { IoMdTrash } from "react-icons/io";
 import { format, addDays } from "date-fns";
 import DatePicker from "react-datepicker";
+import { useQueryClient } from "react-query";
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm, useFieldArray } from "react-hook-form";
 import * as yup from "yup";
@@ -13,11 +14,14 @@ import Total from "./Total/Total";
 import TotalPerItem from "./TotalPerItem";
 import { useAddInvoice } from "../../hooks/useInvoice";
 import { generateUniqueId } from "../../helper/GenerateId";
+import { Invoice } from "../../api/invoice";
 
 type FormProps = {
   handleCloseForm: (event: React.MouseEvent<HTMLButtonElement>) => void;
   show: boolean;
-  ids: string[];
+  ids?: string[];
+  id?: string;
+  formType: string;
 };
 type SenderAddress = {
   street: string;
@@ -51,7 +55,7 @@ export type FormValue = {
   items: Item[];
 };
 
-function Form({ handleCloseForm, ids }: FormProps) {
+function Form({ handleCloseForm, ids, formType, id }: FormProps) {
   const [total, setTotal] = useState(0);
 
   const [startDate, setStartDate] = useState(new Date());
@@ -59,6 +63,10 @@ function Form({ handleCloseForm, ids }: FormProps) {
   const { headerRef } = useContext(RefContext);
   //Ref the whole contain in side the form
   const containRef = useRef<any>(null);
+
+  const queryClient = useQueryClient();
+  const data: any = queryClient.getQueryData(["invoice", id]);
+  console.log(data.data);
   // Check if the client click outside or not
   useEffect(() => {
     const handleClose = (e: any) => {
@@ -146,32 +154,59 @@ function Form({ handleCloseForm, ids }: FormProps) {
     .required();
 
   // Declare form default values
-  const formDefaultValue: FormValue = {
-    paymentTerms: "Net 30 days",
-    description: "",
-    id: `${useId()}`,
-    clientEmail: "",
-    total: 0,
-    clientName: "",
-    clientAddress: {
-      street: "",
-      city: "",
-      postCode: "",
-      country: "",
-    },
-    senderAddress: {
-      street: "",
-      city: "",
-      postCode: "",
-      country: "",
-    },
-    items: [
-      {
-        name: "",
+  const formDefaultValue: FormValue = !id
+    ? {
+        paymentTerms: "Net 30 days",
+        description: "",
+        id: `${useId()}`,
+        clientEmail: "",
         total: 0,
-      },
-    ],
-  };
+        clientName: "",
+        clientAddress: {
+          street: "",
+          city: "",
+          postCode: "",
+          country: "",
+        },
+        senderAddress: {
+          street: "",
+          city: "",
+          postCode: "",
+          country: "",
+        },
+        items: [
+          {
+            name: "",
+            total: 0,
+          },
+        ],
+      }
+    : {
+        paymentTerms: data?.data?.paymentTerms,
+        description: data?.data?.description,
+        id: data?.data?.id,
+        clientEmail: data?.data?.clientEmail,
+        total: data?.data?.total,
+        clientName: data?.data?.clientName,
+        clientAddress: {
+          street: data?.data?.clientAddress.street,
+          city: data?.data?.clientAddress.city,
+          postCode: data?.data?.clientAddress.postCode,
+          country: data?.data?.clientAddress.country,
+        },
+        senderAddress: {
+          street: data?.data?.senderAddress.street,
+          city: data?.data?.senderAddress.city,
+          postCode: data?.data?.senderAddress.postCode,
+          country: data?.data?.senderAddress.country,
+        },
+        items: data?.data?.items?.map((item: any) => ({
+          name: item?.name,
+          quantity: item?.quantity,
+          total: item?.total,
+          price: item?.price,
+        })),
+      };
 
   // Declare useMutation hook
   const { mutate } = useAddInvoice();
@@ -225,6 +260,7 @@ function Form({ handleCloseForm, ids }: FormProps) {
     reset();
   };
 
+  //  Function to save the invoice to draft
   const saveAsDraft = (e: any) => {
     let id = generateUniqueId(ids);
     console.log(id);
@@ -276,7 +312,14 @@ function Form({ handleCloseForm, ids }: FormProps) {
           },
         }}
       >
-        <h2>Create Invoice</h2>
+        {formType === "add" ? (
+          <h2>Create Invoice</h2>
+        ) : (
+          <h2>
+            Edit <span>#</span>
+            {data?.id}
+          </h2>
+        )}
         <div className="bill-body">
           <div className="bill-form">
             <h3>Bill Form</h3>
@@ -564,21 +607,35 @@ function Form({ handleCloseForm, ids }: FormProps) {
             <Total control={control} setTotal={setTotal} />
           </div>
         </div>
-
-        <div className="bill-controller">
-          <button className="discard" onClick={handleCloseForm}>
-            Discard
-          </button>
-          <div className="right-side">
-            <button onClick={saveAsDraft} type="button" className="draft">
-              Save as Draft
+        {formType === "add" && (
+          <div className="bill-controller">
+            <button className="discard" onClick={handleCloseForm}>
+              Discard
             </button>
-            <button className="save" type="submit" disabled={!isValid}>
-              Save & Send
-            </button>
-            <p className="button-message">Please fill all the fields</p>
+            <div className="right-side">
+              <button onClick={saveAsDraft} type="button" className="draft">
+                Save as Draft
+              </button>
+              <button className="save" type="submit" disabled={!isValid}>
+                Save & Send
+              </button>
+              <p className="button-message">Please fill all the fields</p>
+            </div>
           </div>
-        </div>
+        )}
+        {formType === "edit" && (
+          <div className="bill-controller">
+            <div className="right-side">
+              <button onClick={saveAsDraft} type="button" className="draft">
+                Cancel
+              </button>
+              <button className="save" type="submit" disabled={!isValid}>
+                Save changes
+              </button>
+              <p className="button-message">Please fill all the fields</p>
+            </div>
+          </div>
+        )}
       </FormStyled>
     </AbsoluteFormContainer>
   );

@@ -14,6 +14,10 @@ const FormStyled = styled(motion.form)`
     font-size: 1.5rem;
     color: ${({ theme }) => theme.text.color};
     font-weight: bold;
+    padding: 0 1.5em;
+  }
+  h2 > span {
+    color: rgb(136, 142, 176);
   }
   h3 {
     font-size: 0.75rem;
@@ -234,7 +238,7 @@ const FormStyled = styled(motion.form)`
     align-items: center;
     justify-content: space-between;
     padding: 0 1.5em;
-    padding-bottom:2em;
+    padding-bottom: 2em;
   }
   .discard {
     border-radius: 25px;
