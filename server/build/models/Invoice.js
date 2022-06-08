@@ -6,7 +6,7 @@ const mongoose_1 = require("mongoose");
 const invoiceSchema = new mongoose_1.Schema({
     id: String,
     createdAt: {
-        type: String,
+        type: Date,
         required: true,
     },
     paymentDue: {

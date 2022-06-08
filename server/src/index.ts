@@ -6,7 +6,7 @@ import invoice from "./routers/Invoice"
 
 // Declare app and variables
 const app: Express = express();
-const PORT =  process.env.PORT || 8000;
+const PORT =  process.env.PORT || 8080;
 const HOSTNAME = process.env.HOSTNAME || "localhost";
 const MONGO_URI = process.env.MONGO_URI !;
 

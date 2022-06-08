@@ -24,7 +24,7 @@ type Item = {
 // 1. Create an interface representing the document interface
 interface IInvoice {
   id: string;
-  createdAt: string;
+  createdAt: Date;
   paymentDue: string;
   description: string;
   paymentTerms: number;
@@ -63,7 +63,7 @@ const invoiceSchema = new Schema<
 >({
   id: String,
   createdAt: {
-    type: String,
+    type: Date,
     required: true,
   },
   paymentDue: {

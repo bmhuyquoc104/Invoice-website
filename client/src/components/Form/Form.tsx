@@ -92,6 +92,7 @@ function Form({ handleCloseForm }: FormProps) {
   const ilItemTotal = useId();
   const ilItemQuantity = useId();
 
+
   // Declare schema for form fields
   const schema = yup
     .object()
@@ -193,7 +194,8 @@ function Form({ handleCloseForm }: FormProps) {
     name: "items", // unique name for your Field Array
   });
   const onSubmit = (data: any) => {
-    const invoiceDate = format(startDate, "yyyy-MM-dd");
+    const invoiceDate = format(startDate, "yyyy-MM-dd 'T'HH:mm:ss.SSSxxx");
+    console.log(invoiceDate);
     const paymentTerms = parseInt(data.paymentTerms.split(" ")[1]);
     const paymentDue = format(
       addDays(new Date(startDate), paymentTerms),
