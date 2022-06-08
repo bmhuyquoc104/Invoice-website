@@ -6,7 +6,7 @@ import { Item } from "../../api/invoice";
 import { formatDate } from "../../helper/FormatDate";
 import { currency } from "../../helper/FormatCurrency";
 import InvoiceDetailStyled from "./InvoiceDetail.styled";
-import { useDeleteInvoice } from "../../hooks/useInvoice";
+import { useUpdateStatusInvoice } from "../../hooks/useInvoice";
 import AlertDelete from "../AlertDelete/AlertDelete";
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -14,7 +14,7 @@ function InvoiceDetail() {
   const { id } = useParams();
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const navigate = useNavigate();
-  const { mutate: deleteMutate } = useDeleteInvoice();
+  const { mutate: updateStatusToPaid } = useUpdateStatusInvoice();
   const { data: invoice, isLoading, isError, error } = useGetInvoiceById(id!);
 
   if (isLoading) {
@@ -23,11 +23,18 @@ function InvoiceDetail() {
   if (isError) {
     return <div>{`Error: ${error}`}</div>;
   }
-  console.log(invoice?.data);
 
   // Function to delete the invoice
   const handleDelete = () => {
     setIsOpenDeleteModal(true);
+  };
+
+  // Function to update status to paid
+  const markAsPaid = () => {
+    const status = {
+      status: "paid",
+    };
+    updateStatusToPaid({ id, status });
   };
 
   return (
@@ -67,7 +74,9 @@ function InvoiceDetail() {
           </AnimatePresence>
           {invoice?.data.status === "pending" ||
           invoice?.data.status === "draft" ? (
-            <button className="mark-as-paid">Mark As Paid</button>
+            <button onClick={markAsPaid} className="mark-as-paid">
+              Mark As Paid
+            </button>
           ) : (
             <></>
           )}

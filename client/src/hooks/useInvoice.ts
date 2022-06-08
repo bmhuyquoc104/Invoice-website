@@ -4,6 +4,7 @@ import {
   addInvoice,
   editInvoice,
   deleteInvoice,
+  updateInvoiceStatus,
   getInvoicesByStatus,
 } from "../api/invoice";
 
@@ -50,10 +51,21 @@ const useDeleteInvoice = () => {
   });
 };
 
+// Hook to update status
+const useUpdateStatusInvoice = () => {
+  const queryClient = useQueryClient();
+  return useMutation(updateInvoiceStatus, {
+    onSuccess: (data, variables) => {
+      queryClient.setQueryData(["invoice", variables.id], data);
+    },
+  });
+};
+
 export {
   useGetAllInvoices,
   useGetInvoiceById,
   useGetInvoicesByStatus,
   useAddInvoice,
   useDeleteInvoice,
+  useUpdateStatusInvoice,
 };

@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://bmhuyquoc104-invoice-app.herokuapp.com/",
-  // baseURL:"http://localhost:8080/"
+  // baseURL: "https://bmhuyquoc104-invoice-app.herokuapp.com/",
+  baseURL:"http://localhost:8080/"
 });
 
 export type SenderAddress = {
@@ -73,6 +73,18 @@ const editInvoice = (id: string, newInvoice: Invoice) =>
 // Function to delete invoice
 const deleteInvoice = (id: string) => api.delete(`/invoice/${id}`);
 
+type Status = {
+  status: string;
+};
+
+type UpdateInvoiceStatusProps = {
+  status: any;
+  id: any ;
+};
+// Function to update invoice's status
+const updateInvoiceStatus = ({ status, id }: UpdateInvoiceStatusProps) =>
+  api.patch(`/invoice/status/${id}`, status);
+
 // Export functions
 export {
   getAllInvoices,
@@ -81,4 +93,5 @@ export {
   editInvoice,
   deleteInvoice,
   getInvoicesByStatus,
+  updateInvoiceStatus,
 };
