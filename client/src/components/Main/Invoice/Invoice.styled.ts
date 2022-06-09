@@ -10,6 +10,7 @@ const InvoiceStyled = styled(motion.div)`
   grid-template-areas: "id paymentDue clientName total status img";
   padding: 1em 1.5em;
   border-radius: 7px;
+  border: 1px solid transparent;
   :hover {
     border: 1px solid ${({ theme }) => theme.logo.backgroundColor};
   }

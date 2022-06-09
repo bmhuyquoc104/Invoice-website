@@ -3,6 +3,10 @@ import { motion } from "framer-motion";
 function Home() {
   return (
     <motion.div
+      style={{
+        marginTop: "auto",
+        marginBottom: "auto",
+      }}
       exit={{
         x: -200,
         opacity: 0,

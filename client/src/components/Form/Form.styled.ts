@@ -324,6 +324,9 @@ const FormStyled = styled(motion.form)`
   }
   .bill-controller.edit{
     background-color:transparent;
+    :hover{
+      background-color:transparent;
+    }
   }
   .bill-controller.edit .right-side{
       margin-left: auto;

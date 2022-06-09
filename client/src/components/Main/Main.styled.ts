@@ -34,6 +34,9 @@ const MainStyled = styled.main`
     flex-direction: row;
     gap: 3em;
   }
+  .filter{
+    cursor: pointer;
+  }
   .filter,
   .filter-top {
     display: flex;
@@ -131,6 +134,9 @@ const MainStyled = styled.main`
     display: flex;
     gap: 1em;
     flex-direction: column;
+    :hover{
+      cursor: pointer;
+    }
   }
 
   @media (max-width: 900px) {

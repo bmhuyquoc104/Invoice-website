@@ -4,6 +4,10 @@ import { motion } from "framer-motion";
 function InvoiceDetailPage() {
   return (
     <motion.div
+      style = {{
+        marginTop:"auto",
+        marginBottom:"auto",
+      }}
       initial={{ opacity: 0 }}
       animate={{
         opacity: 1,

@@ -24,6 +24,7 @@ const InvoiceDetailStyled = styled.div`
     :hover {
       cursor: pointer;
       color: var(--clr_logo2);
+
     }
   }
 
@@ -104,6 +105,10 @@ const InvoiceDetailStyled = styled.div`
     border: none;
     font-weight: bold;
     background-color: ${({ theme }) => theme.button.edit.backgroundColor};
+    :hover{
+      cursor: pointer;
+      background-color: ${({ theme }) => theme.hover.discard.backgroundColor}
+    }
   }
   .delete {
     color: #ffffff;
@@ -112,6 +117,10 @@ const InvoiceDetailStyled = styled.div`
     border: none;
     font-weight: bold;
     background-color: rgb(236, 87, 87);
+    :hover{
+      opacity: 0.7;
+      cursor: pointer;
+    }
   }
   .mark-as-paid {
     background-color: ${({ theme }) => theme.logo.backgroundColor};
@@ -120,6 +129,10 @@ const InvoiceDetailStyled = styled.div`
     border: none;
     font-weight: bold;
     padding: 1em 1.5em;
+    :hover{
+      cursor: pointer;
+      background-color:var(--clr_logo2);
+    }
   }
 
   .main-detail {
