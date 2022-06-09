@@ -7,6 +7,7 @@ import MainStyled from "./Main.styled";
 import { Invoice as InvoiceType } from "../../api/invoice";
 import Invoice from "./Invoice/Invoice";
 import Form from "../Form/Form";
+import Pagination from "../Pagination/Pagination"
 
 function Main() {
   // Use to router to another page
@@ -24,6 +25,10 @@ function Main() {
   const [isToggleForm, setIsToggleForm] = useState(false);
   const [isToggleDropDown, setIsToggleDropDown] = useState(false);
 
+  // State to manage the page number
+  const [page, setPage] = useState(1);
+
+  // Function to handle close when user click out side the model
   useEffect(() => {
     const handleClose = (e: any) => {
       if (dropDownRef.current && !dropDownRef.current.contains(e.target)) {
@@ -69,6 +74,12 @@ function Main() {
     }
   };
 
+  // Get info for the page to display
+  const invoicePerPage = 7;
+  const totalPages = Math.ceil(invoicesByStatus?.data.length / invoicePerPage);
+  const lastIndexOfPage = page * invoicePerPage;
+  const firstIndexOfPage = lastIndexOfPage - invoicePerPage;
+
   // Parent animation
   const ulVariant = {
     hidden: {
@@ -105,7 +116,10 @@ function Main() {
       >
         <div className="header-title">
           <h1>Invoices</h1>
-          <h2>{`There are ${invoicesByStatus?.data.length} total invoices`}</h2>
+          <h2>{`There are ${
+            invoicesByStatus?.data.slice(firstIndexOfPage, lastIndexOfPage)
+              .length
+          } total invoices`}</h2>
         </div>
         <div className="header-control">
           {!isToggleDropDown ? (
@@ -183,18 +197,20 @@ function Main() {
         animate="visible"
         initial="hidden"
       >
-        {invoicesByStatus?.data.map((invoice: InvoiceType) => (
-          <Invoice
-            key={invoice._id}
-            id={invoice.id}
-            status={invoice.status}
-            paymentDue={invoice.paymentDue}
-            total={invoice.total}
-            clientName={invoice.clientName}
-            liVariant={liVariant}
-            handleClick={() => navigate(`/${invoice._id}`)}
-          ></Invoice>
-        ))}
+        {invoicesByStatus?.data
+          .slice(firstIndexOfPage, lastIndexOfPage)
+          .map((invoice: InvoiceType) => (
+            <Invoice
+              key={invoice._id}
+              id={invoice.id}
+              status={invoice.status}
+              paymentDue={invoice.paymentDue}
+              total={invoice.total}
+              clientName={invoice.clientName}
+              liVariant={liVariant}
+              handleClick={() => navigate(`/${invoice._id}`)}
+            ></Invoice>
+          ))}
       </motion.div>
       <AnimatePresence>
         {isToggleForm && (
@@ -211,6 +227,7 @@ function Main() {
           />
         )}
       </AnimatePresence>
+      <Pagination totalPages={totalPages} currentPage = {page} setPage = {setPage}/>
     </MainStyled>
   );
 }

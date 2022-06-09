@@ -14,15 +14,21 @@ import Form from "../Form/Form";
 function InvoiceDetail() {
   // State to manage the open or close of model or dropdown
   const [isToggleForm, setIsToggleForm] = useState(false);
+  // Get the id pass from other page
   const { id } = useParams();
+  // State to mange the delete modal
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
+  // Declare navigate to navigate between pages
   const navigate = useNavigate();
+  // Get updateStatusToPaid from the custom hook
   const { mutate: updateStatusToPaid } = useUpdateStatusInvoice();
+  //  Get all the detail of data from the custom hook
   const { data: invoice, isLoading, isError, error } = useGetInvoiceById(id!);
-
+  // Render when the data is loading
   if (isLoading) {
     return <div>Loading...</div>;
   }
+  // Render when the data is error
   if (isError) {
     return <div>{`Error: ${error}`}</div>;
   }
@@ -162,7 +168,9 @@ function InvoiceDetail() {
         </div>
       </div>
       <div className="bottom-controller">
-        <button className="edit">Edit</button>
+        <button className="edit" onClick={() => setIsToggleForm(true)}>
+          Edit
+        </button>
         <button className="delete" onClick={handleDelete}>
           Delete
         </button>
@@ -177,24 +185,28 @@ function InvoiceDetail() {
         </AnimatePresence>
         {invoice?.data.status === "pending" ||
         invoice?.data.status === "draft" ? (
-          <button className="mark-as-paid">Mark As Paid</button>
+          <button onClick={markAsPaid} className="mark-as-paid">
+            Mark As Paid
+          </button>
         ) : (
           <></>
         )}
       </div>
-      <AnimatePresence>
-        {isToggleForm && (
-          <Form
-            id={id}
-            show={isToggleForm}
-            formType="edit"
-            handleCloseForm={(e) => {
-              e.preventDefault();
-              setIsToggleForm(false);
-            }}
-          />
-        )}
-      </AnimatePresence>
+      <div>
+        <AnimatePresence>
+          {isToggleForm && (
+            <Form
+              id={id}
+              show={isToggleForm}
+              formType="edit"
+              handleCloseForm={(e) => {
+                e.preventDefault();
+                setIsToggleForm(false);
+              }}
+            />
+          )}
+        </AnimatePresence>
+      </div>
     </InvoiceDetailStyled>
   );
 }

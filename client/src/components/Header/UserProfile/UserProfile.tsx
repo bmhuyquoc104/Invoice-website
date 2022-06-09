@@ -11,8 +11,11 @@ type UserProfileProps = {
 };
 
 function UserProfile(props: UserProfileProps) {
+  // Ref the whole content of this component
   const ref = useRef<any>(null);
+  // Get the props from other component
   const { onClickOutside } = props;
+  // Function to close modal when user click outside the content of this component
   useEffect(() => {
     const handleClickOutside = (event: any) => {
       if (ref.current && !ref.current.contains(event.target)) {

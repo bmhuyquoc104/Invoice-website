@@ -9,8 +9,11 @@ type AlertDeleteProps = {
 };
 
 function AlertDelete({ id, setIsOpenDeleteModal, deletedId }: AlertDeleteProps) {
+  // Get the mutate props from the delete custom hooks
   const { mutate } = useDeleteInvoice();
+  // Declare navigate for route between pages
   const navigate = useNavigate();
+  // Function to delete the invoice
   const handleDelete = () => {
     mutate(deletedId);
     navigate("/", { replace: true });

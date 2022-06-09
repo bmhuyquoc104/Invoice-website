@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { imageResource } from "../../public/imageResources";
 const FormStyled = styled(motion.form)`
   background-color: ${({ theme }) => theme.form.backgroundColor};
-  width: max(50%, 600px);
+  width: max(600px,50%);
   border-radius: 0 50px 50px 0;
   padding: 3em 2em 5em 2em;
   display: flex;
@@ -337,6 +337,7 @@ const FormStyled = styled(motion.form)`
     border-radius: 0px 25px 25px 0px;
   }
   @media (max-width: 600px) {
+    width: 100%;
     border-radius: 0;
     .bill-form,
     .bill-to,

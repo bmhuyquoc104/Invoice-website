@@ -16,6 +16,7 @@ import { useAddInvoice, useEditInvoice } from "../../hooks/useInvoice";
 import { generateUniqueId } from "../../helper/GenerateId";
 import { Invoice } from "../../api/invoice";
 
+// Props
 type FormProps = {
   handleCloseForm: (event: React.MouseEvent<HTMLButtonElement>) => void;
   show: boolean;
@@ -56,17 +57,18 @@ export type FormValue = {
 };
 
 function Form({ handleCloseForm, ids, formType, id }: FormProps) {
+  // State to mange the total 
   const [total, setTotal] = useState(0);
-
+  //  State to manage the date
   const [startDate, setStartDate] = useState(new Date());
   // Get the header ref from header component
   const { headerRef } = useContext(RefContext);
   //Ref the whole contain in side the form
   const containRef = useRef<any>(null);
-
+  // Declare query client for using in react query hooks
   const queryClient = useQueryClient();
   const editInvoice: any = queryClient.getQueryData(["invoice", id]);
-
+  // Get the edit from the custom edit hook
   const { mutate: edit } = useEditInvoice();
 
   // Check if the client click outside or not
@@ -245,7 +247,7 @@ function Form({ handleCloseForm, ids, formType, id }: FormProps) {
       addDays(new Date(startDate), paymentTerms),
       "yyyy-MM-dd"
     );
-
+    // Generate unique id
     let id = generateUniqueId(ids);
     data = {
       ...data,
