@@ -261,10 +261,8 @@ function Form({ handleCloseForm, ids, formType, id }: FormProps) {
       total: total,
       id: id,
     };
-
-    mutate(data);
-
     handleCloseForm(e);
+    mutate(data);
     reset();
   };
 

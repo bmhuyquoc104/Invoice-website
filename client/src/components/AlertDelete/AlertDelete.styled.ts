@@ -30,6 +30,10 @@ const AlertDeleteStyled = styled(motion.div)`
     padding: 1em 1.5em;
     border-radius: 10rem;
     border: none;
+    :hover{
+      cursor: pointer;
+      background-color: ${({ theme }) => theme.hover.discard.backgroundColor}
+    }
     font-weight: bold;
     background-color: ${({ theme }) => theme.button.edit.backgroundColor};
   }
