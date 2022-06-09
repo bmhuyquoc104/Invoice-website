@@ -246,49 +246,31 @@ function Form({ handleCloseForm, ids, formType, id }: FormProps) {
       "yyyy-MM-dd"
     );
 
-    let id = formType === "add" ? generateUniqueId(ids) : editInvoice?.data?.id;
-    data =
-      formType === "add"
-        ? {
-            ...data,
-            items: data.items.map((item: any) => ({
-              ...item,
-              quantity: parseInt(item.quantity),
-              price: parseFloat(item.price),
-            })),
-            createdAt: invoiceDate,
-            paymentDue: paymentDue,
-            paymentTerms: paymentTerms,
-            status: "pending",
-            total: total,
-            id: id,
-          }
-        : {
-            ...data,
-            items: data.items.map((item: any) => ({
-              ...item,
-              quantity: parseInt(item.quantity),
-              price: parseFloat(item.price),
-            })),
-            createdAt: invoiceDate,
-            paymentDue: paymentDue,
-            paymentTerms: paymentTerms,
-            status: editInvoice?.data?.status,
-            total: total,
-            _id: editInvoice?.data?._id,
-          };
-    const updateId = editInvoice?.data?._id;
-    console.log(updateId);
-    formType === "add" ? mutate(data) : edit({ updateId, ...data });
+    let id = generateUniqueId(ids);
+    data = {
+      ...data,
+      items: data.items.map((item: any) => ({
+        ...item,
+        quantity: parseInt(item.quantity),
+        price: parseFloat(item.price),
+      })),
+      createdAt: invoiceDate,
+      paymentDue: paymentDue,
+      paymentTerms: paymentTerms,
+      status: "pending",
+      total: total,
+      id: id,
+    };
 
-    console.log(data);
+    mutate(data);
+
     handleCloseForm(e);
-    formType === "add"  && reset();
+    reset();
   };
 
   //  Function to save the invoice to draft
   const saveAsDraft = (e: any) => {
-    let id = generateUniqueId(ids);
+    let id = formType === "add" ? generateUniqueId(ids) : editInvoice?.data?.id;
     console.log(id);
     let currentValues: any = getValues();
     const createdAt = format(startDate, "yyyy-MM-dd");
@@ -297,23 +279,43 @@ function Form({ handleCloseForm, ids, formType, id }: FormProps) {
       addDays(new Date(startDate), paymentTerms),
       "yyyy-MM-dd"
     );
-    currentValues = {
-      ...currentValues,
-      status: "draft",
-      total: total,
-      paymentTerms: paymentTerms,
-      paymentDue: paymentDue,
-      createdAt: createdAt,
-      items: currentValues.items.map((item: any) => ({
-        ...item,
-        quantity: parseInt(item.quantity),
-        price: parseFloat(item.price),
-      })),
-      id: id,
-    };
-    console.log(currentValues);
-    reset();
-    mutate(currentValues);
+    currentValues =
+      formType === "add"
+        ? {
+            ...currentValues,
+            status: "draft",
+            total: total,
+            paymentTerms: paymentTerms,
+            paymentDue: paymentDue,
+            createdAt: createdAt,
+            items: currentValues.items.map((item: any) => ({
+              ...item,
+              quantity: parseInt(item.quantity),
+              price: parseFloat(item.price),
+            })),
+            id: id,
+          }
+        : {
+            ...currentValues,
+            items: currentValues.items.map((item: any) => ({
+              ...item,
+              quantity: parseInt(item.quantity),
+              price: parseFloat(item.price),
+            })),
+            createdAt: createdAt,
+            paymentDue: paymentDue,
+            paymentTerms: paymentTerms,
+            status: editInvoice?.data?.status,
+            total: total,
+            _id: editInvoice?.data?._id,
+          };
+    const updateId = editInvoice?.data?._id;
+
+    formType === "add" && reset();
+    formType === "add"
+      ? mutate(currentValues)
+      : edit({ updateId, ...currentValues });
+
     handleCloseForm(e);
   };
 
@@ -655,7 +657,7 @@ function Form({ handleCloseForm, ids, formType, id }: FormProps) {
               <button onClick={handleCloseForm} type="button" className="draft">
                 Cancel
               </button>
-              <button className="save" type="submit" disabled={!isValid}>
+              <button className="save" type="button" onClick={saveAsDraft}>
                 Save changes
               </button>
               <p className="button-message">Please fill all the fields</p>
