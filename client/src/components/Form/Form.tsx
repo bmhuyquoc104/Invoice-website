@@ -12,7 +12,7 @@ import { RefContext } from "../../hooks/useRefContext";
 import { AbsoluteFormContainer } from "../AbsoluteFlexModel/AbsoluteFlexModel";
 import Total from "./Total/Total";
 import TotalPerItem from "./TotalPerItem";
-import { useAddInvoice } from "../../hooks/useInvoice";
+import { useAddInvoice, useEditInvoice } from "../../hooks/useInvoice";
 import { generateUniqueId } from "../../helper/GenerateId";
 import { Invoice } from "../../api/invoice";
 
@@ -65,8 +65,10 @@ function Form({ handleCloseForm, ids, formType, id }: FormProps) {
   const containRef = useRef<any>(null);
 
   const queryClient = useQueryClient();
-  const data: any = queryClient.getQueryData(["invoice", id]);
-  console.log(data.data);
+  const editInvoice: any = queryClient.getQueryData(["invoice", id]);
+
+  const { mutate: edit } = useEditInvoice();
+
   // Check if the client click outside or not
   useEffect(() => {
     const handleClose = (e: any) => {
@@ -182,25 +184,29 @@ function Form({ handleCloseForm, ids, formType, id }: FormProps) {
         ],
       }
     : {
-        paymentTerms: data?.data?.paymentTerms,
-        description: data?.data?.description,
-        id: data?.data?.id,
-        clientEmail: data?.data?.clientEmail,
-        total: data?.data?.total,
-        clientName: data?.data?.clientName,
+        paymentTerms:
+          editInvoice?.data?.paymentTerms > 1
+            ? `Net ${editInvoice?.data?.paymentTerms} days`
+            : `Net ${editInvoice?.data?.paymentTerms} day`,
+
+        description: editInvoice?.data?.description,
+        id: editInvoice?.data?.id,
+        clientEmail: editInvoice?.data?.clientEmail,
+        total: editInvoice?.data?.total,
+        clientName: editInvoice?.data?.clientName,
         clientAddress: {
-          street: data?.data?.clientAddress.street,
-          city: data?.data?.clientAddress.city,
-          postCode: data?.data?.clientAddress.postCode,
-          country: data?.data?.clientAddress.country,
+          street: editInvoice?.data?.clientAddress.street,
+          city: editInvoice?.data?.clientAddress.city,
+          postCode: editInvoice?.data?.clientAddress.postCode,
+          country: editInvoice?.data?.clientAddress.country,
         },
         senderAddress: {
-          street: data?.data?.senderAddress.street,
-          city: data?.data?.senderAddress.city,
-          postCode: data?.data?.senderAddress.postCode,
-          country: data?.data?.senderAddress.country,
+          street: editInvoice?.data?.senderAddress.street,
+          city: editInvoice?.data?.senderAddress.city,
+          postCode: editInvoice?.data?.senderAddress.postCode,
+          country: editInvoice?.data?.senderAddress.country,
         },
-        items: data?.data?.items?.map((item: any) => ({
+        items: editInvoice?.data?.items?.map((item: any) => ({
           name: item?.name,
           quantity: item?.quantity,
           total: item?.total,
@@ -239,25 +245,45 @@ function Form({ handleCloseForm, ids, formType, id }: FormProps) {
       addDays(new Date(startDate), paymentTerms),
       "yyyy-MM-dd"
     );
-    let id = generateUniqueId(ids);
-    data = {
-      ...data,
-      items: data.items.map((item: any) => ({
-        ...item,
-        quantity: parseInt(item.quantity),
-        price: parseFloat(item.price),
-      })),
-      createdAt: invoiceDate,
-      paymentDue: paymentDue,
-      paymentTerms: paymentTerms,
-      status: "pending",
-      total: total,
-      id: id,
-    };
-    mutate(data);
+
+    let id = formType === "add" ? generateUniqueId(ids) : editInvoice?.data?.id;
+    data =
+      formType === "add"
+        ? {
+            ...data,
+            items: data.items.map((item: any) => ({
+              ...item,
+              quantity: parseInt(item.quantity),
+              price: parseFloat(item.price),
+            })),
+            createdAt: invoiceDate,
+            paymentDue: paymentDue,
+            paymentTerms: paymentTerms,
+            status: "pending",
+            total: total,
+            id: id,
+          }
+        : {
+            ...data,
+            items: data.items.map((item: any) => ({
+              ...item,
+              quantity: parseInt(item.quantity),
+              price: parseFloat(item.price),
+            })),
+            createdAt: invoiceDate,
+            paymentDue: paymentDue,
+            paymentTerms: paymentTerms,
+            status: editInvoice?.data?.status,
+            total: total,
+            _id: editInvoice?.data?._id,
+          };
+    const updateId = editInvoice?.data?._id;
+    console.log(updateId);
+    formType === "add" ? mutate(data) : edit({ updateId, ...data });
+
     console.log(data);
     handleCloseForm(e);
-    reset();
+    formType === "add"  && reset();
   };
 
   //  Function to save the invoice to draft
@@ -317,7 +343,7 @@ function Form({ handleCloseForm, ids, formType, id }: FormProps) {
         ) : (
           <h2>
             Edit <span>#</span>
-            {data?.data?.id}
+            {editInvoice?.data?.id}
           </h2>
         )}
         <div className="bill-body">
@@ -624,9 +650,9 @@ function Form({ handleCloseForm, ids, formType, id }: FormProps) {
           </div>
         )}
         {formType === "edit" && (
-          <div className="bill-controller">
+          <div className="bill-controller edit">
             <div className="right-side">
-              <button onClick={saveAsDraft} type="button" className="draft">
+              <button onClick={handleCloseForm} type="button" className="draft">
                 Cancel
               </button>
               <button className="save" type="submit" disabled={!isValid}>

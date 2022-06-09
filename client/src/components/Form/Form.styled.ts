@@ -265,6 +265,7 @@ const FormStyled = styled(motion.form)`
     font-weight: bold;
     border: none;
     border-radius: 25px;
+
   }
   .draft {
     background-color: var(--clr_button_draft_bg);
@@ -320,6 +321,12 @@ const FormStyled = styled(motion.form)`
   .success input {
     outline: none;
     border: 1px solid ${({ theme }) => theme.input.border};
+  }
+  .bill-controller.edit{
+    background-color:transparent;
+  }
+  .bill-controller.edit .right-side{
+      margin-left: auto;
   }
 
   @media (max-width: 900px) {

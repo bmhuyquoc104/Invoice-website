@@ -66,7 +66,7 @@ const useEditInvoice = () => {
   const queryClient = useQueryClient();
   return useMutation(editInvoice, {
     onSuccess: (data, variables) => {
-      queryClient.setQueryData(["invoice", variables.id], data);
+      queryClient.setQueryData(["invoice", variables._id], data);
     },
   });
 };

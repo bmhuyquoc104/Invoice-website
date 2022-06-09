@@ -68,11 +68,11 @@ const addInvoice = (newInvoice: Invoice) => api.post(`/invoice`, newInvoice);
 
 // Function to edit invoice
 type EditInvoiceProps = {
-  id: string;
+  _id: string;
   invoice: Invoice;
 };
-const editInvoice = ({ id, invoice }: EditInvoiceProps) =>
-  api.put(`/invoice/${id}`, invoice);
+const editInvoice = ({ _id, ...invoice }: EditInvoiceProps) =>
+  api.put(`/invoice/${_id}`, invoice);
 
 // Function to delete invoice
 const deleteInvoice = (id: string) => api.delete(`/invoice/${id}`);
