@@ -37,20 +37,56 @@ A gorgeous and expertly website that supports the business to track the current 
 <div style="display:flex;flex-direction:row;flex-wrap: wrap; gap:4em">
   <div>
     <p>Desktop website</p>
-    <img style = "object-fit:contain" src = "https://i.imgur.com/TEcC6hP.png" width="800" height="400"/>
+    <img style = "object-fit:contain" src = "https://i.imgur.com/RlnGT52.png" width="800" height="400"/>
+  </div>
+   <div>
+    <p>Desktop website in dark mode</p>
+    <img style = "object-fit:contain" src = "https://i.imgur.com/eCHluzM.png" width="800" height="400"/>
+  </div>
+   <div>
+    <p>Desktop invoices filter by pending</p>
+    <img style = "object-fit:contain" src = "https://i.imgur.com/jOlyGDs.png" width="800" height="400"/>
+  </div>
+   <div>
+    <p>Desktop invoices filter by paid</p>
+    <img style = "object-fit:contain" src = "https://i.imgur.com/KSLhGc5.png" width="800" height="400"/>
+  </div>
+   <div>
+    <p>Desktop invoice detail</p>
+    <img style = "object-fit:contain" src = "https://i.imgur.com/1XiS7R1.png" width="800" height="400"/>
+  </div>
+   <div>
+    <p>Desktop edit invoice</p>
+    <img style = "object-fit:contain" src = "https://i.imgur.com/nx285Z5.png" width="800" height="400"/>
   </div>
   <div>
-    <p>Desktop dropdown section</p>
-    <img style = "object-fit:contain" src = "https://i.imgur.com/rxMzNVB.png" width="800" height="400"/>
+    <p>Desktop create invoice</p>
+    <img style = "object-fit:contain" src = "  https://i.imgur.com/S8ZCJhc.png
+" width="800" height="400"/>
+  </div>
+  <div>
+    <p>Desktop confirm message</p>
+    <img style = "object-fit:contain" src = "https://i.imgur.com/CUR4Q2K.png" width="800" height="400"/>
   </div>
   <div>
     <p>Mobile website</p>
-    <img style = "object-fit:contain" src = "https://i.imgur.com/T5Rf7lW.png" width="500" height="700"/>
+    <img style = "object-fit:contain" src = "https://i.imgur.com/iDQZFa2.png" width="500" height="700"/>
+  </div>
+
+  <div>
+    <p>Mobile invoice detail</p>
+    <img style = "object-fit:contain" src = "https://i.imgur.com/CnyPf8O.png" width="500" height="700"/>
+  </div>
+   <div>
+    <p>Mobile edit invoice</p>
+    <img style = "object-fit:contain" src = "https://i.imgur.com/lKaNMak.png" width="500" height="700"/>
   </div>
   <div>
-    <p>Mobile dropdown navbar</p>
-    <img style = "object-fit:contain" src = "https://i.imgur.com/hZxSlgp.png" width="500" height="700"/>
+    <p>Mobile create invoice</p>
+    <img style = "object-fit:contain" src = "  https://i.imgur.com/SlHDEWE.png
+" width="500" height="700"/>
   </div>
+  
 
 </div>
 
