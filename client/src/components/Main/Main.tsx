@@ -49,7 +49,7 @@ function Main() {
 
   // Display when data is loading
   if (isStatusLoading) {
-    return <div>loading</div>;
+    return <div style = {{textAlign: "center"}}>Loading...</div>;
   }
   // Display when data is error
   if (isStatusError) {

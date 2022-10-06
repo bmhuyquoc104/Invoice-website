@@ -26,7 +26,7 @@ function InvoiceDetail() {
   const { data: invoice, isLoading, isError, error } = useGetInvoiceById(id!);
   // Render when the data is loading
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div style = {{textAlign: "center"}}>Loading...</div>;
   }
   // Render when the data is error
   if (isError) {
