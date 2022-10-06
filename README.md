@@ -61,8 +61,7 @@ A gorgeous and expertly website that supports the business to track the current 
   </div>
   <div>
     <p>Desktop create invoice</p>
-    <img style = "object-fit:contain" src = "  https://i.imgur.com/S8ZCJhc.png
-" width="800" height="400"/>
+    <img style = "object-fit:contain" src = "https://i.imgur.com/S8ZCJhc.png" width="800" height="400"/>
   </div>
   <div>
     <p>Desktop confirm message</p>
@@ -83,8 +82,7 @@ A gorgeous and expertly website that supports the business to track the current 
   </div>
   <div>
     <p>Mobile create invoice</p>
-    <img style = "object-fit:contain" src = "  https://i.imgur.com/SlHDEWE.png
-" width="500" height="700"/>
+    <img style = "object-fit:contain" src = "https://i.imgur.com/SlHDEWE.png" width="500" height="700"/>
   </div>
   
 
