@@ -98,7 +98,10 @@ A gorgeous and expertly website that supports the business to track the current 
   ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
   ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
   ![Redux](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)
+  ![React Query](https://img.shields.io/badge/-React%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white)
+  ![React Hook Form](https://img.shields.io/badge/React%20Hook%20Form-%23EC5990.svg?style=for-the-badge&logo=reacthookform&logoColor=white)
   ![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
+  ![Framer](https://img.shields.io/badge/Framer-black?style=for-the-badge&logo=framer&logoColor=blue)
 </details>
 
 <details>
@@ -159,13 +162,7 @@ A gorgeous and expertly website that supports the business to track the current 
 - Clone the project
 
 ```bash
-  git clone https://github.com/bmhuyquoc104/shoppingify
-```
-
-- Go to the project directory
-
-```bash
-  cd shoppingify
+  git clone https://github.com/bmhuyquoc104/Invoice-website
 ```
 
 - Install dependencies for client
